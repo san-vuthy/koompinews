@@ -1,0 +1,542 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400&display=swap');
+
+body h1 {
+  font-family: 'Roboto', sans-serif;
+  font: bold;
+}
+.container {
+  margin-right: auto !important;
+  margin-left: auto !important;
+  width: 60%;
+
+  /* margin: auto; */
+}
+.banner-homepage {
+  /* background-image: linear-gradient(
+    rgba(0, 0, 0, 0.8),
+    rgba(0, 0, 0, 0.8),
+    url('/img/bannerHome.jpg')
+  ) !important;
+  background-size: cover; */
+  background-image: linear-gradient(rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.8)),
+    url('/img/bannerHome.jpg');
+  background-size: cover;
+  height: 85vh;
+}
+.text-banner-container {
+  overflow: hidden;
+  max-width: 50%;
+  margin-left: auto;
+  margin-right: auto;
+}
+.text-banner-container h1 {
+  color: #fff;
+  font-size: 3rem;
+  margin-top: 18rem;
+  text-align: center;
+}
+.text-banner-container h4 {
+  color: #96979d;
+  font-size: 1.35rem;
+  margin-top: 0rem;
+  text-align: center;
+}
+.login-banner {
+  justify-content: center;
+}
+.main-nav-active {
+  color: #1890ff !important;
+}
+.main-nav-actiove:hover {
+  color: blue !important;
+}
+.ant-menu-horizontal > .ant-menu-item a {
+  color: rgb(39, 81, 120);
+}
+
+.ant-menu-horizontal > .ant-menu-item-selected {
+  color: black;
+  border: none;
+}
+.submenu-style-color {
+  color: rgb(39, 81, 120) !important;
+}
+.mobile-navbar-menu {
+  padding-left: 20%;
+  padding-right: 20%;
+}
+.mobile-navbar-color p a {
+  color: rgb(39, 81, 120) !important;
+}
+.mobile-navbar-color p {
+  color: rgb(39, 81, 120) !important;
+}
+.Card {
+  /* position: absolute; */
+  /* max-width: 420px; */
+  /* height: 310px; */
+  /* left: 327px;
+  top: 536px; */
+  /* margin: auto; */
+
+  background: #ffffff;
+  /* border: 0.5px solid #c8c5c5; */
+  box-sizing: border-box;
+  box-shadow: 2px 2px 26px rgba(0, 0, 0, 0.25);
+  border-radius: 15px;
+  /* padding-left: -15px; */
+  padding-top: 20px;
+}
+.Card-internal-syle {
+  display: flex;
+}
+.card-title {
+  /* font-family: Roboto Condensed; */
+  font-style: normal;
+  font-weight: bold;
+  /* font-size: 15px; */
+  color: #000000;
+  line-height: 18px;
+}
+.paragraph-card {
+  /* font-family: Reem Kufi; */
+  margin-top: 18px;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 15px;
+  line-height: 22px;
+
+  color: #797878;
+}
+.margin-home-page {
+  margin-top: 150px;
+}
+.paragraph1-of-card {
+  font-style: normal;
+  font-weight: normal;
+  font-size: 15px;
+  line-height: 22px;
+
+  color: #797878;
+}
+.popular {
+  display: flex;
+  margin-top: 45px;
+}
+.image-popular {
+  width: 350px;
+  left: 301px;
+  top: 2560px;
+}
+.popular-title {
+  padding-left: 30px;
+  line-height: 32px;
+}
+.popular-text {
+  padding-left: 30px;
+  font-size: 16px;
+}
+.avatar-popular {
+  height: 20px;
+  border-radius: 20px;
+  margin-left: 30px;
+}
+.hr {
+  border: 1px solid rgba(196, 196, 196, 0.5);
+  margin-top: 130px;
+}
+.popular-main-title {
+  margin-top: 50px;
+}
+.popular-user-date {
+  display: flex;
+}
+.footer {
+  background-color: rgb(39, 81, 120);
+  margin-top: 50px;
+  height: 200px;
+}
+.footer-container {
+  margin-left: auto !important;
+  margin-right: auto !important;
+  width: 66%;
+  overflow: hidden;
+  /* padding: 30px; */
+}
+/* .input-footer {
+  width: 650px;
+} */
+
+/* NewsPage */
+.subscribe-box {
+  width: auto !important;
+}
+.padding-calender {
+  padding: 0% !important;
+}
+
+.Card-news-article {
+  box-shadow: 0 2px 5px 1px rgba(0, 0, 0, 0.05) !important;
+  background-color: #fff !important;
+}
+.des-news-article {
+  font-size: 21px;
+}
+.title-news-article {
+  font-size: 33px;
+}
+.image-news-style {
+  max-width: 100%;
+  /* height: 194px; */
+  /* height: 46% !important; */
+}
+.newsPage-container {
+  margin-left: auto !important;
+  margin-right: auto !important;
+  width: 58%;
+  margin-bottom: 40px;
+  margin-top: 40px;
+  /* padding-left: 0;
+  padding-right: 30px; */
+}
+.title-news {
+  line-height: 20px;
+  font-size: 15px;
+  margin-top: 12px;
+}
+.container-popular-news {
+  margin-left: auto;
+  margin-right: auto;
+  max-width: 60%;
+}
+.padding-menu-news {
+  width: 58%;
+  margin-left: auto !important;
+  margin-right: auto !important;
+}
+.news-col {
+  box-shadow: 0 2px 5px 1px rgba(0, 0, 0, 0.2) !important;
+  background-color: #f5f5f5;
+}
+.rigth-site-padding {
+  padding-left: 32px;
+}
+/* 
+News Aticle */
+.container-news-article {
+  margin-top: 60px 0 !important;
+  width: 58%;
+  margin-right: auto !important;
+  margin-left: auto !important;
+}
+.tag-time-news-article {
+  font-size: 18px;
+  padding: 4px;
+  width: 173px;
+  text-align: center;
+}
+
+.title-news-article h1 {
+  color: black !important;
+}
+
+/* jobs home */
+.describe-opunity-job span {
+  color: #797878 !important;
+}
+.container-home-job {
+  width: 58%;
+  margin-left: auto !important;
+  margin-right: auto !important;
+  background-color: white !important;
+}
+.site-badge-count-4 .ant-badge-count {
+  background-color: #fff;
+  color: #999;
+  box-shadow: 0 0 0 1px #d9d9d9 inset;
+}
+.site-calendar-demo-card {
+  margin-top: 30px;
+  /* background-color: white;s */
+}
+.site-layout-background {
+  background-color: white;
+}
+.Card-jobs {
+  padding: 4px !important;
+}
+.job-detail-padding {
+  padding-left: 180px;
+}
+.content-job {
+  margin-top: -34px;
+  border-bottom: 1px solid rgba(4, 47, 130, 0.3);
+}
+.content-job h1 {
+  color: #042f82;
+}
+.container-job-detial {
+  width: 58%;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 40px;
+}
+.rigth-site-job {
+  padding-left: 400px;
+}
+.display-rigth-site-job {
+  display: flex;
+}
+
+/* Company page */
+/* .describe-opunity-company {
+  color: #797878 !important;
+  font-size: 16px;
+} */
+.righ-site-company-style {
+  padding-left: 12px;
+  display: flex;
+}
+
+.container-company {
+  width: 58%;
+  margin-left: auto;
+  margin-right: auto;
+}
+.banner-company img {
+  background-image: url('/img/company.jpg');
+  background-size: cover;
+  max-width: 100%;
+  height: 90vh;
+  overflow: hidden;
+}
+.position-work-company {
+  margin-top: -300px;
+}
+.display-company-home {
+  margin-top: 60px;
+  display: flex;
+}
+
+/* Event Page */
+.container-event {
+  width: 58%;
+  margin-left: auto;
+  margin-right: auto;
+}
+.background-banner-event {
+  background-color: #f0f4f5;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+}
+.middle-describe-event {
+  background-color: #2a4267;
+  /* margin-top: 40px; */
+  overflow: hidden;
+  /* width: 781px; */
+  height: 500px;
+  padding: 13em 0px;
+}
+.middle-describe-event h4 {
+  color: #fafafa;
+  text-align: center;
+  font-size: 18px;
+}
+.middle-describe-event h1 {
+  top: 519px !important;
+  /* margin-top: 100px; */
+  color: #fafafa;
+  text-align: center;
+  font-size: 66px;
+}
+
+/* Responsive webpage */
+@media only screen and (max-width: 431px) {
+  .job-rigth-site {
+    padding: 0px !important;
+  }
+}
+
+@media only screen and (max-width: 440px) {
+  .middle-describe-event h1 {
+    font-size: 44px;
+  }
+}
+
+@media only screen and (max-width: 479px) {
+  .Card-internal-syle {
+    display: block;
+  }
+}
+@media only screen and (max-width: 988px) {
+  /* .padding-menu-news {
+    padding-right: 0 !important;
+  } */
+  .padding-menu-news {
+    width: 60% !important;
+  }
+}
+@media only screen and (max-width: 767px) {
+  .column-reverse {
+    flex-direction: column-reverse;
+  }
+  .right-site-news {
+    display: none;
+  }
+  .rigth-site-padding {
+    padding-left: 0 !important;
+  }
+}
+@media only screen and (max-width: 768px) {
+  .middle-describe-event {
+    padding: 8em 0px;
+  }
+  .right-site-job-detail {
+    display: none;
+  }
+  .padding-menu-news {
+    width: 98% !important;
+    justify-content: center;
+  }
+  .container-news-article {
+    width: 90% !important;
+  }
+  .footer-container {
+    width: 90% !important;
+  }
+  /* .mobile-navbar-menu {
+    padding-left: 10px !important;
+  } */
+  .righ-site-company-style {
+    padding-left: 0px;
+    /* display: flex; */
+  }
+  .container-company {
+    width: 90%;
+  }
+  .display-company-home {
+    display: block;
+  }
+  .display-company-home-img {
+    width: 100% !important;
+    /* height: 100% !important; */
+  }
+  /* .avartar-company {
+    height: 0 !important;
+  } */
+  .container-job-detial {
+    width: 90%;
+  }
+  .job-detail-padding {
+    padding-left: 10px;
+  }
+  .container-home-job {
+    width: 90%;
+  }
+  .margin-home-page {
+    margin-top: 30px;
+  }
+  .hr {
+    margin-top: 30px;
+  }
+  .banner-news {
+    display: none;
+  }
+  .news-col {
+    padding: 0 !important;
+    margin-top: 20px;
+  }
+  .popular {
+    display: block !important;
+  }
+  .image-popular {
+    width: 100%;
+  }
+  .popular-title {
+    padding-left: 0;
+  }
+  .popular-text {
+    padding-left: 0;
+  }
+  .popular-user-date {
+    margin-left: -31px;
+  }
+}
+@media only screen and (max-width: 431px) {
+  .display-rigth-site-job {
+    display: block !important;
+  }
+  .hr-job {
+    width: 380px;
+  }
+  /* .rigth-site-job {
+    padding-left: 104px !important;
+  } */
+}
+
+@media only screen and (max-width: 576px) {
+  /* .news-col {
+    padding: 0 !important;
+  } */
+  .container {
+    max-width: none !important;
+  }
+  .container-popular-news {
+    max-width: 90%;
+  }
+}
+@media only screen and (max-width: 660px) {
+  /* .rigth-site-job {
+    padding-left: 100px !important;
+  } */
+}
+@media only screen and (max-width: 991px) {
+  .rigth-site-job {
+    padding-left: 148px !important;
+  }
+}
+@media only screen and (min-width: 995px) and (max-width: 1300px) {
+  .Card-internal-syle {
+    display: block !important;
+  }
+}
+@media only screen and (max-width: 1024px) {
+  .container-event {
+    width: 90%;
+  }
+  .container-company {
+    width: 90% !important;
+  }
+  .rigth-site-job {
+    padding-left: 283px;
+  }
+  .container-home-job {
+    width: 90%;
+  }
+  .container-job-detial {
+    width: 90%;
+  }
+  .newsPage-container {
+    width: 90%;
+  }
+  .padding-menu-news {
+    width: 90% !important;
+  }
+  .navbar {
+    display: none;
+  }
+  .container {
+    width: 100%;
+  }
+  .container-popular-news {
+    max-width: 90% !important;
+  }
+
+  .subNavbar {
+    display: none;
+  }
+}
+@media only screen and (min-width: 1025px) {
+  .mobile-navbar {
+    display: none;
+  }
+}
