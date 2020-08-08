@@ -1,0 +1,11 @@
+version: '3'
+services:
+  demo-client:
+    image: node
+    container_name: news-client
+    volumes:
+      - ./:/usr/app/client/
+    working_dir: /usr/app/client/
+    command: './run'
+    ports:
+      - '7000:5000'

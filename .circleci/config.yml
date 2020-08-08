@@ -7,11 +7,12 @@ jobs:
       - run:
           name: 'Deploy news'
           command: |
-            git clone https://github.com/Densovan/news.git
-            cd rithy.org && hugo -D
-            cd .. && touch run-build
-            echo $build > run-build
-            chmod +x run-build && ./run-build
+            git clone https://github.com/koompi/koompinews.git
+            cd koompinews/client
+            npm install -g serve
+            npm run build
+            echo $develop > build-client
+            chmod +x build-client && ./build-client
 workflows:
   workflow:
     jobs:
