@@ -5,13 +5,17 @@ jobs:
       - image: pionux/build-deploy:0.1
     steps:
       - run:
-          name: 'Deploy news'
+          name: 'Build To Production'
           command: |
             git clone https://github.com/koompi/koompinews.git
             cd koompinews/client
             npm install
             npm install -g serve
-            npm run build
+            CI=false npm run build
+      - run:
+          name: 'Deploy To Production'
+          command: |
+            cd koompinews/client
             echo $develop > build-client
             chmod +x build-client && ./build-client
 workflows:
