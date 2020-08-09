@@ -3,7 +3,9 @@ import NewsData from '../data/NewsData';
 import Navbar from '../Layouts/Navbar';
 import SubNavbar from '../Layouts/Subnavbar';
 import Footer from '../Layouts/Footer';
-import { Card, Tag } from 'antd';
+import { Card, Tag, Divider, Row, Col, Avatar } from 'antd';
+import { Link } from 'react-router-dom';
+import Data from '../data/NewsData';
 
 const { Meta } = Card;
 const NewsAticle = (props) => {
@@ -36,9 +38,40 @@ const NewsAticle = (props) => {
             <h1 className="title-news-article">{newss.titile}</h1>
             <span className="des-news-article">{newss.des}</span>
           </Card>
+          <Divider style={{ marginTop: '40px' }}>
+            <h1>Similar Stories</h1>
+          </Divider>
+          <div>
+            <Row gutter={(32, 16)}>
+              {Data.news.map((res, index) => {
+                return (
+                  <Col lg={8}>
+                    <div className="news-col">
+                      <Link to={'/news/' + res._id}>
+                        <img
+                          className="image-news-style"
+                          src={res.img}
+                          alt="news image"
+                        />
+                        <div style={{ padding: '12px' }}>
+                          <h1 className="title-news">{res.titile}</h1>
+                          <div style={{ display: 'flex' }}>
+                            <Avatar size="small" src={res.avatar} />
+                            <span style={{ paddingLeft: '15px' }}>
+                              {res.date}
+                            </span>
+                          </div>
+                        </div>
+                      </Link>
+                    </div>
+                  </Col>
+                );
+              })}
+            </Row>
+          </div>
         </div>
       </div>
-      {/* <Footer /> */}
+      <Footer />
     </React.Fragment>
   );
 };

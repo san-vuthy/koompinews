@@ -76,7 +76,22 @@ const Navbar = () => {
                 activeClassName="main-nav-active "
                 style={{ float: 'left' }}
               >
-                <NavLink to="/event">ABOUT</NavLink>
+                <NavLink activeClassName="main-nav-active " to="/about">
+                  ABOUT
+                </NavLink>
+              </Menu.Item>
+              <Menu.Item style={{ float: 'left' }}>
+                <NavLink activeClassName="main-nav-active " to="/knowledge">
+                  KNOWLEDGE
+                </NavLink>
+              </Menu.Item>
+              <Menu.Item
+                activeClassName="main-nav-active "
+                style={{ float: 'left' }}
+              >
+                <NavLink activeClassName="main-nav-active " to="/event">
+                  ADVERTICE
+                </NavLink>
               </Menu.Item>
               <Menu.Item
                 style={{
@@ -148,7 +163,22 @@ const Navbar = () => {
                 EVENT
               </NavLink>
             </p>
-            <p>ABOUT</p>
+            <p>
+              <NavLink activeClassName="main-nav-active " to="/about">
+                ABOUT
+              </NavLink>
+            </p>
+            <p>
+              {' '}
+              <NavLink activeClassName="main-nav-active " to="/knowledge">
+                KNOWLEDGE
+              </NavLink>
+            </p>
+            <p>
+              <NavLink activeClassName="main-nav-active " to="/event">
+                ADVERTICE
+              </NavLink>
+            </p>
           </div>
         </Drawer>
       </Affix>

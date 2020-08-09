@@ -1,18 +1,62 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import Navbar from '../Layouts/Navbar';
 import SubNavbar from '../Layouts/Subnavbar';
 import JobData from '../data/JobData';
-import { Row, Col, Avatar, Tag, Card } from 'antd';
+import Footer from '../Layouts/Footer';
+
+import {
+  Row,
+  Col,
+  Avatar,
+  Tag,
+  Card,
+  Button,
+  Modal,
+  Form,
+  Input,
+  Upload,
+} from 'antd';
 import {
   DollarCircleTwoTone,
   DollarOutlined,
   CalendarOutlined,
   AimOutlined,
+  DoubleRightOutlined,
+  UploadOutlined,
 } from '@ant-design/icons';
 
 const JobDetail = (props) => {
+  const [state, setState] = useState({
+    loaing: false,
+    visible: false,
+  });
+  const showModal = () => {
+    setState({
+      visible: true,
+    });
+  };
+  const handleOk = () => {
+    setState({ loaing: true });
+    setTimeout(() => {
+      setState({ loaing: false, visible: false });
+    }, 3000);
+  };
+  const handleCancel = () => {
+    setState({ visible: false });
+  };
+
+  const onFinish = (value) => {
+    console.log('suceess', value);
+  };
+  const fileList = [];
+  const propss = {
+    action: 'https://www.mocky.io/v2/5cc8019d300000980a055e76',
+    listType: 'picture',
+    defaultFileList: [...fileList],
+  };
   console.log(props.match.params.id);
   let jobs = JobData.job.find((x) => x._id == props.match.params.id);
+
   return (
     <React.Fragment>
       <Navbar />
@@ -51,9 +95,150 @@ const JobDetail = (props) => {
                   <br></br>
                   <br></br>
                   <span>{jobs.date}</span>
+                  <br></br>
+                  <Button
+                    onClick={showModal}
+                    style={{
+                      marginTop: '30px',
+                      borderRadius: '22px',
+                      background: '#042F82',
+                      color: '#fff',
+                    }}
+                  >
+                    Apply Now
+                    <DoubleRightOutlined />
+                  </Button>
+                  <Modal
+                    // style={{ width: 700 }}
+                    width={1115}
+                    visible={state.visible}
+                    onOk={handleOk}
+                    onCancel={handleCancel}
+                    footer={[
+                      // <Button key="back" onClick={handleCancel}>
+                      //   Return
+                      // </Button>,
+                      <Button
+                        key="submit"
+                        // type="primary"
+                        type="default"
+                        danger
+                        loading={state.loading}
+                        onClick={handleOk}
+                      >
+                        Close
+                      </Button>,
+                    ]}
+                  >
+                    <div className="cv-banner">
+                      <center>
+                        <div style={{ marginTop: '19px' }}>
+                          <h1 style={{ color: '#fff' }}>CV SUBMISSION</h1>
+                          <h3 style={{ color: '#fff' }}>
+                            Do you want to work with us? Please fill in your
+                            details below
+                          </h3>
+                        </div>
+                      </center>
+                    </div>
+                    <div style={{ marginTop: '30px' }}>
+                      <Form onFinish={onFinish}>
+                        <center>
+                          <Form.Item
+                            label="First Name"
+                            name="firstName"
+                            rules={[
+                              {
+                                required: true,
+                                message: 'Please input your First Name',
+                              },
+                            ]}
+                          >
+                            <Input />
+                          </Form.Item>
+                          <Form.Item
+                            label="Last Name"
+                            name="lastName"
+                            rules={[
+                              {
+                                required: true,
+                                message: 'Please input your Last Name',
+                              },
+                            ]}
+                          >
+                            <Input />
+                          </Form.Item>
+                          <Form.Item
+                            label="Email Address"
+                            name="EmailAddress"
+                            rules={[
+                              {
+                                required: true,
+                                message: 'Please input your Email Address',
+                              },
+                            ]}
+                          >
+                            <Input />
+                          </Form.Item>
+                          <Form.Item
+                            label="Position Apply For"
+                            name="Position"
+                            rules={[
+                              {
+                                required: true,
+                                message: 'Please input your Position',
+                              },
+                            ]}
+                          >
+                            <Input />
+                          </Form.Item>
+                          <Form.Item
+                            label="Additional Information"
+                            name="additional information"
+                            rules={[
+                              {
+                                required: true,
+                                message:
+                                  'Please input your Additional information',
+                              },
+                            ]}
+                          >
+                            <Input />
+                          </Form.Item>
+                          <Form.Item
+                            rules={[
+                              {
+                                required: true,
+                                message: 'Please Uplaod your CV!',
+                              },
+                            ]}
+                            label="Upload Image"
+                            name="image"
+                          >
+                            <Upload {...propss}>
+                              <Button
+                                className="button-upload"
+                                style={{ marginLeft: '-476px' }}
+                              >
+                                <UploadOutlined /> Select File
+                              </Button>
+                            </Upload>
+                          </Form.Item>
+                          <Button
+                            style={{ width: '190px' }}
+                            type="primary"
+                            htmlType="submit"
+                          >
+                            Submit
+                          </Button>
+                        </center>
+                      </Form>
+                    </div>
+                  </Modal>
                 </div>
               </div>
             </div>
+
             <div>
               <Card
                 bordered={false}
@@ -122,6 +307,7 @@ const JobDetail = (props) => {
           </Col>
         </Row>
       </div>
+      <Footer />
     </React.Fragment>
   );
 };

@@ -54,13 +54,13 @@ const HomeJobs = () => {
           <Breadcrumb.Item>Gategory</Breadcrumb.Item>
           <Breadcrumb.Item>Jobs</Breadcrumb.Item>
         </Breadcrumb>
-        <Row gutter={[32, 16]}>
-          <Col className="padding-calender" sm={24} md={10} lg={8}>
+        <Row gutter={[0, 16]}>
+          <Col className="padding-calender" sm={24} md={10} lg={7}>
             <div className="site-card-border-less-wrapper ">
               <Card
                 title="Job Category"
                 style={{
-                  //   width: 300,
+                  width: '300px',
                   border: '1px solid rgba(4, 47, 130, 0.3)',
                 }}
               >
@@ -88,6 +88,7 @@ const HomeJobs = () => {
               <div
                 className="site-calendar-customize-header-wrapper "
                 style={{
+                  width: '300px',
                   border: '1px solid rgba(4, 47, 130, 0.3)',
                   //   width: 100,
                   // width: 159,
@@ -179,7 +180,7 @@ const HomeJobs = () => {
               </div>
             </div>
           </Col>
-          <Col sm={24} md={14} lg={16}>
+          <Col sm={24} md={14} lg={17}>
             <RightSiteJob />
           </Col>
         </Row>

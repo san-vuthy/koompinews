@@ -154,8 +154,22 @@ body h1 {
 .footer {
   background-color: rgb(39, 81, 120);
   margin-top: 50px;
-  height: 200px;
+  height: 330px;
 }
+.header-footer {
+  display: flex;
+  margin-right: auto;
+  margin-left: auto;
+  justify-content: center;
+  margin-top: 20px;
+}
+.header-footer p {
+  color: #fff;
+  cursor: pointer;
+}
+/* .header-footer:hover p {
+  color: blue;
+} */
 .footer-container {
   margin-left: auto !important;
   margin-right: auto !important;
@@ -325,7 +339,7 @@ News Aticle */
   margin-right: auto;
 }
 .background-banner-event {
-  background-color: #f0f4f5;
+  background-color: #13272c;
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
 }
 .middle-describe-event {
@@ -347,6 +361,42 @@ News Aticle */
   color: #fafafa;
   text-align: center;
   font-size: 66px;
+}
+
+/* Knowledge page */
+.container-Knowledge {
+  width: 60%;
+  margin-left: auto;
+  margin-right: auto;
+}
+.banner-knowledge {
+  background-color: #2a4267;
+  /* margin-top: 40px; */
+  overflow: hidden;
+  /* width: 781px; */
+  height: 500px;
+  padding: 13em 0px;
+}
+.card-knowledge {
+  background: #ffffff;
+  border: 0.5px solid #c8c5c5;
+  box-sizing: border-box;
+  box-shadow: 0px 2px 13px rgba(0, 0, 0, 0.25);
+  border-radius: 15px;
+}
+
+/* CV Style */
+.cv-banner {
+  background-color: #2a4267;
+  margin-top: 32px;
+  height: 144px;
+  overflow: hidden;
+}
+/* About us  */
+.about-container {
+  width: 58%;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 /* Responsive webpage */
@@ -376,6 +426,9 @@ News Aticle */
   }
 }
 @media only screen and (max-width: 767px) {
+  .button-upload {
+    margin: auto !important;
+  }
   .column-reverse {
     flex-direction: column-reverse;
   }
@@ -500,6 +553,9 @@ News Aticle */
   }
 }
 @media only screen and (max-width: 1024px) {
+  .container-Knowledge {
+    width: 90%;
+  }
   .container-event {
     width: 90%;
   }

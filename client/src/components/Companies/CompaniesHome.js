@@ -18,6 +18,10 @@ const CompaniesHome = () => {
     <React.Fragment>
       <Navbar />
       <SubNavbar />
+      <div className="middle-describe-event">
+        <h1>Banner of Company</h1>
+        {/* <h4>Sub Describtion</h4> */}
+      </div>
       <div className="container-company">
         <Breadcrumb style={{ margin: '16px 0' }}>
           <Breadcrumb.Item>Home</Breadcrumb.Item>
@@ -91,7 +95,7 @@ const CompaniesHome = () => {
           })}
         </div>
       </div>
-      {/* <Footer /> */}
+      <Footer />
     </React.Fragment>
   );
 };

@@ -22,16 +22,16 @@ const Newspage = () => {
       <div className="newsPage-container ">
         <Carousel autoplay>
           <div>
-            <h3 style={contentStyle}>1</h3>
+            <h3 style={contentStyle}>Banner News 1</h3>
           </div>
           <div>
-            <h3 style={contentStyle}>2</h3>
+            <h3 style={contentStyle}> Banner News 2</h3>
           </div>
           <div>
-            <h3 style={contentStyle}>3</h3>
+            <h3 style={contentStyle}>Banner News 3</h3>
           </div>
           <div>
-            <h3 style={contentStyle}>4</h3>
+            <h3 style={contentStyle}>Banner News 4</h3>
           </div>
         </Carousel>
       </div>
@@ -71,7 +71,7 @@ const Newspage = () => {
           <RightSiteNewspage />
         </Col>
       </Row>
-      {/* <Footer /> */}
+      <Footer />
     </React.Fragment>
   );
 };

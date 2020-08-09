@@ -185,7 +185,7 @@ const Home = () => {
         }
       })}
       <RecentPopularStories />
-      {/* <Footer /> */}
+      <Footer />
     </React.Fragment>
   );
 };

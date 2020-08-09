@@ -67,7 +67,7 @@ const EventHome = () => {
           </Row>
         </div>
       </div>
-      {/* <Footer /> */}
+      <Footer />
     </React.Fragment>
   );
 };

@@ -17,7 +17,7 @@ const Navbar = () => {
             defaultSelectedKeys={['2']}
           >
             <Menu.Item style={{ float: 'left' }}>
-              <Link to="/home">
+              <Link to="/">
                 <img style={{ height: '40px' }} src="/img/Koompi-Black.png" />
                 {/* logo */}
               </Link>
