@@ -34,6 +34,9 @@ const Navbar = () => {
       <p>
         <NavLink to="/news">Science</NavLink>
       </p>
+      <p>
+        <NavLink to="/news">Technology</NavLink>
+      </p>
     </div>
   );
   return (
