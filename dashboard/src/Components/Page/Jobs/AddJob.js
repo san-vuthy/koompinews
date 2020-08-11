@@ -8,7 +8,17 @@ import { UploadOutlined } from '@ant-design/icons';
 const { Content } = Layout;
 const { TextArea } = Input;
 const { Option } = Select;
-const AddNewspage = () => {
+
+const AddJob = () => {
+  const fileList = [];
+  const props = {
+    action: 'https://www.mocky.io/v2/5cc8019d300000980a055e76',
+    listType: 'picture',
+    defaultFileList: [...fileList],
+  };
+  function handleChange(value) {
+    console.log(`selected ${value}`);
+  }
   const onFinishFailed = (errorInfo) => {
     console.log('Failed:', errorInfo);
   };
@@ -18,16 +28,6 @@ const AddNewspage = () => {
   const onChange = (e) => {
     console.log(e);
   };
-  function handleChange(value) {
-    console.log(`selected ${value}`);
-  }
-  const fileList = [];
-  const props = {
-    action: 'https://www.mocky.io/v2/5cc8019d300000980a055e76',
-    listType: 'picture',
-    defaultFileList: [...fileList],
-  };
-
   return (
     <React.Fragment>
       <Layout style={{ minHeight: '100vh' }}>
@@ -39,8 +39,7 @@ const AddNewspage = () => {
               className="site-layout-background"
               style={{ minHeight: 360, padding: 70 }}
             >
-              {/* <div className="background-content-dashboard"> */}
-              <h1 className="title-top">Add News</h1>
+              <h1 className="title-top">Add Jobs</h1>
               <Form
                 layout="vertical"
                 onFinish={onFinish}
@@ -49,45 +48,122 @@ const AddNewspage = () => {
                 <Row gutter={[32, 0]}>
                   <Col span={16}>
                     <Form.Item
-                      label="Title"
-                      name="title"
+                      label="Position"
+                      name="position"
                       rules={[
                         {
                           required: true,
-                          message: 'Please input Title!',
+                          message: 'Please input Position!',
                         },
                       ]}
                     >
                       <Input />
                     </Form.Item>
-                    <Form.Item>
-                      <Form.Item
-                        label="Describtion"
-                        name="Describtion"
-                        rules={[
-                          {
-                            required: true,
-                            message: 'Describtion is required',
-                          },
-                        ]}
-                      >
-                        <TextEditor />
-                      </Form.Item>
-                    </Form.Item>
+
+                    <Row gutter={16}>
+                      <Col span={8}>
+                        <Form.Item
+                          label="Location"
+                          name="location"
+                          rules={[
+                            {
+                              required: true,
+                              message: 'Please input Location!',
+                            },
+                          ]}
+                        >
+                          <Input />
+                        </Form.Item>
+                      </Col>
+                      <Col span={8}>
+                        <Form.Item
+                          label="Salary"
+                          name="salary"
+                          rules={[
+                            {
+                              required: true,
+                              message: 'Please input Salary!',
+                            },
+                          ]}
+                        >
+                          <Input />
+                        </Form.Item>
+                      </Col>
+                      <Col span={8}>
+                        <Form.Item
+                          rules={[
+                            { required: true, message: 'Province is required' },
+                          ]}
+                          label="Time for work"
+                          name="time"
+                        >
+                          <Select
+                            className="event-select"
+                            showSearch
+                            style={{ width: 200 }}
+                            placeholder="Select a Category"
+                            optionFilterProp="children"
+                            onChange={onChange}
+                            //   onFocus={onFocus}
+                            //   onBlur={onBlur}
+                            //   onSearch={onSearch}
+                            filterOption={(input, option) =>
+                              option.children
+                                .toLowerCase()
+                                .indexOf(input.toLowerCase()) >= 0
+                            }
+                          >
+                            <Option value="Fulltime">FullTime</Option>
+                            <Option value="Parttime">PartTime</Option>
+                          </Select>
+                        </Form.Item>
+                      </Col>
+                    </Row>
+                    <Row gutter={16}>
+                      <Col span={12}>
+                        <Form.Item
+                          label="Job description & requirements"
+                          name="Job describtion"
+                          rules={[
+                            {
+                              required: true,
+                              message: 'job & requirement is required',
+                            },
+                          ]}
+                        >
+                          <TextEditor />
+                        </Form.Item>
+                      </Col>
+                      <Col span={12}>
+                        <Form.Item
+                          label="Required Skills"
+                          name="skills"
+                          rules={[
+                            {
+                              required: true,
+                              message: 'Skill is required',
+                            },
+                          ]}
+                        >
+                          <TextEditor />
+                        </Form.Item>
+                      </Col>
+                    </Row>
                   </Col>
+
                   <Col span={8}>
                     <Form.Item
                       rules={[
-                        { required: true, message: 'Province is required' },
+                        { required: true, message: 'input Job Categories' },
                       ]}
-                      label="Categories"
-                      name="categories"
+                      label="Job Categories"
+                      name="job"
                     >
                       <Select
                         className="event-select"
                         showSearch
                         style={{ width: 200 }}
-                        placeholder="Select a Category"
+                        placeholder="Select a Job Category"
                         optionFilterProp="children"
                         onChange={onChange}
                         //   onFocus={onFocus}
@@ -99,41 +175,10 @@ const AddNewspage = () => {
                             .indexOf(input.toLowerCase()) >= 0
                         }
                       >
-                        <Option value="Newspage">Newspage</Option>
-                        <Option value="RePopularNews">
-                          Recent Popular News
+                        <Option value="Computer Scient">
+                          Computer Science
                         </Option>
-                        <Option value="MostPopular">Most Popular News</Option>
-                        <Option value="Relate News"> Relate News</Option>
-                      </Select>
-                    </Form.Item>
-                    <Form.Item
-                      rules={[
-                        { required: true, message: 'Province is required' },
-                      ]}
-                      label="Types"
-                      name="types"
-                    >
-                      <Select
-                        className="event-select"
-                        showSearch
-                        style={{ width: 200 }}
-                        placeholder="Select a Types"
-                        optionFilterProp="children"
-                        onChange={onChange}
-                        //   onFocus={onFocus}
-                        //   onBlur={onBlur}
-                        //   onSearch={onSearch}
-                        filterOption={(input, option) =>
-                          option.children
-                            .toLowerCase()
-                            .indexOf(input.toLowerCase()) >= 0
-                        }
-                      >
-                        <Option value="Newspage">Sport</Option>
-                        <Option value="RePopularNews">Social</Option>
-                        <Option value="MostPopular">Technology</Option>
-                        <Option value="Relate News"> life style</Option>
+                        <Option value="Office">Office</Option>
                       </Select>
                     </Form.Item>
                     <Form.Item
@@ -189,12 +234,12 @@ const AddNewspage = () => {
                   className="button-submit"
                   type="primary"
                   htmlType="submit"
+                  style={{ marginTop: '70px' }}
                 >
                   Submit
                 </Button>
               </Form>
             </div>
-            {/* </div> */}
           </Content>
         </Layout>
       </Layout>
@@ -202,4 +247,4 @@ const AddNewspage = () => {
   );
 };
 
-export default AddNewspage;
+export default AddJob;

@@ -54,7 +54,7 @@ const HomeJobs = () => {
           <Breadcrumb.Item>Gategory</Breadcrumb.Item>
           <Breadcrumb.Item>Jobs</Breadcrumb.Item>
         </Breadcrumb>
-        <Row gutter={[0, 16]}>
+        <Row gutter={[32, 16]}>
           <Col className="padding-calender" sm={24} md={10} lg={7}>
             <div className="site-card-border-less-wrapper ">
               <Card

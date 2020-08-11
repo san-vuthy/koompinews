@@ -23,7 +23,7 @@ const LeftNavbar = () => {
           <img style={{ height: '60px' }} src="/img/Koompi-White.png" />
         </div>
         <Menu theme="dark" defaultSelectedKeys={['1']} mode="inline">
-          <SubMenu key="1" icon={<PieChartOutlined />} title="Home Page">
+          {/* <SubMenu key="1" icon={<PieChartOutlined />} title="Home Page">
             <Menu.Item>
               <NavLink to="/admin/newpage">All News</NavLink>
             </Menu.Item>
@@ -38,16 +38,25 @@ const LeftNavbar = () => {
             <Menu.Item>
               <NavLink to="/admin/addpopularnews">Add Popular News</NavLink>
             </Menu.Item>
-          </SubMenu>
+          </SubMenu> */}
           <SubMenu key="3" icon={<PieChartOutlined />} title="News Page">
-            <Menu.Item>All News</Menu.Item>
+            <Menu.Item>
+              <NavLink to="/admin/allnews">All News</NavLink>
+            </Menu.Item>
             <Menu.Item>
               <NavLink to="/admin/addnewspage">Add News</NavLink>
             </Menu.Item>
           </SubMenu>
           <SubMenu key="4" icon={<PieChartOutlined />} title="Jobs Page">
-            <Menu.Item>All Jobs</Menu.Item>
-            <Menu.Item>Add Jobs</Menu.Item>
+            <Menu.Item>
+              <NavLink to="/admin/alljobs">All Jobs</NavLink>
+            </Menu.Item>
+            <Menu.Item>
+              <NavLink to="/admin/addjobs">Add Jobs</NavLink>
+            </Menu.Item>
+            <Menu.Item>
+              <NavLink to="/admin/jobcategories">Job Categories</NavLink>
+            </Menu.Item>
           </SubMenu>
           <SubMenu key="sub1" icon={<UserOutlined />} title="User">
             <Menu.Item key="3">Tom</Menu.Item>

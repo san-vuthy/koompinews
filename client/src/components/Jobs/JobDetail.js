@@ -110,7 +110,7 @@ const JobDetail = (props) => {
                   </Button>
                   <Modal
                     // style={{ width: 700 }}
-                    width={1115}
+                    width={550}
                     visible={state.visible}
                     onOk={handleOk}
                     onCancel={handleCancel}
@@ -218,7 +218,7 @@ const JobDetail = (props) => {
                             <Upload {...propss}>
                               <Button
                                 className="button-upload"
-                                style={{ marginLeft: '-476px' }}
+                                // style={{ marginLeft: '-476px' }}
                               >
                                 <UploadOutlined /> Select File
                               </Button>

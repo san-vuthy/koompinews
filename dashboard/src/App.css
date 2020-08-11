@@ -38,8 +38,8 @@
 } */
 
 .background-content-dashboard {
-  background-color: #fff !important;
-  padding: 44px;
+  /* background-color: #fff !important; */
+  padding: 20px;
   margin: 60px;
   border-radius: 10px;
 }
@@ -56,6 +56,9 @@
 .title-top {
   font-size: 32px;
 }
+/* .ql-container.ql-snow {
+  height: 200px !important;
+} */
 /* .button-submit {
   background-image: linear-gradient(
     to right,

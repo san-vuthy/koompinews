@@ -9,6 +9,9 @@ import AllPopularNews from './Components/Page/PopularNews.js/AllPopularNews';
 import AddPopularNews from './Components/Page/PopularNews.js/AddPopularNews';
 import AddNewspage from './Components/Page/Newspage/AddNewspage';
 import AllNewspage from './Components/Page/Newspage/AllNewspage';
+import Alljobs from './Components/Page/Jobs/Alljobs';
+import AddJob from './Components/Page/Jobs/AddJob';
+import JobCategories from './Components/Page/Jobs/JobCategories';
 
 function App() {
   return (
@@ -29,8 +32,13 @@ function App() {
             path="/admin/addpopularnews"
             component={AddPopularNews}
           />
+
+          {/* //ok */}
           <Route exact path="/admin/addnewspage" component={AddNewspage} />
           <Route exact path="/admin/allnews" component={AllNewspage} />
+          <Route exact path="/admin/alljobs" component={Alljobs} />
+          <Route exact path="/admin/addjobs" component={AddJob} />
+          <Route exact path="/admin/jobcategories" component={JobCategories} />
         </Switch>
       </Router>
     </React.Fragment>

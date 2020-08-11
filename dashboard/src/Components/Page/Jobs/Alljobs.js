@@ -5,7 +5,7 @@ import Navbar from '../../Layout/Navbar';
 import { NavLink } from 'react-router-dom';
 const { Content } = Layout;
 
-const AllNewspage = () => {
+const Alljobs = () => {
   const columns = [
     {
       title: 'Image',
@@ -46,12 +46,12 @@ const AllNewspage = () => {
             </Tag>
           </div>
           {/* <Popconfirm
-              title="Are you sure to delete this book?"
-              onConfirm={() => confirm(data.id)}
-              onCancel={cancel}
-              okText="Yes"
-              cancelText="No"
-            > */}
+                  title="Are you sure to delete this book?"
+                  onConfirm={() => confirm(data.id)}
+                  onCancel={cancel}
+                  okText="Yes"
+                  cancelText="No"
+                > */}
           <Tag color="#f50">Delete</Tag>
           {/* </Popconfirm> */}
         </Space>
@@ -104,7 +104,7 @@ const AllNewspage = () => {
               className="site-layout-background"
               style={{ padding: 70, minHeight: 360 }}
             >
-              <h1 className="title-top">All News</h1>
+              <h1 className="title-top">All Jobs</h1>
               <Table columns={columns} dataSource={data} />
             </div>
           </Content>
@@ -114,4 +114,4 @@ const AllNewspage = () => {
   );
 };
 
-export default AllNewspage;
+export default Alljobs;
