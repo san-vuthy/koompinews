@@ -2,12 +2,14 @@ export default {
   company: [
     {
       _id: 1,
+      rate: ['1.0', '2.0', '3.0', '4.0', '5.0'],
       img: '/img/jobsuche_blue.jpg',
       companyName: 'Koompi Company',
       banner: '/img/company.jpg',
       location: 'PhnomPenh',
       type: 'Technology',
       emp: '30 Employee',
+      rate: ['1.0', '2.0', '3.0', '4.0', '5.0'],
       des:
         "KOOMPI is a practical, affordable and effective entry-level notebook computer specifically designed for performing all daily tasks required for work and school.We've created a customized operating system of our own called KOOMPI OS based on the well-known open-source Linux software.",
     },
@@ -16,9 +18,10 @@ export default {
       img: '/img/jobsuche_blue.jpg',
       companyName: 'Koompi Company',
       banner: '/img/banner2.jpg',
-      location: 'PhnomPenh',
+      location: 'Battambang',
       type: 'Technology',
       emp: '30 Employee',
+      rate: ['1.0', '2.0', '3.0', '4.0', '5.0'],
       des:
         "KOOMPI is a practical, affordable and effective entry-level notebook computer specifically designed for performing all daily tasks required for work and school.We've created a customized operating system of our own called KOOMPI OS based on the well-known open-source Linux software.",
     },
@@ -30,6 +33,7 @@ export default {
       location: 'PhnomPenh',
       type: 'Technology',
       emp: '30 Employee',
+      rate: ['1.0', '2.0', '3.0', '4.0', '5.0'],
       des:
         "KOOMPI is a practical, affordable and effective entry-level notebook computer specifically designed for performing all daily tasks required for work and school.We've created a customized operating system of our own called KOOMPI OS based on the well-known open-source Linux software.",
     },
@@ -41,6 +45,7 @@ export default {
       location: 'PhnomPenh',
       type: 'Technology',
       emp: '30 Employee',
+      rate: ['1.0', '2.0', '3.0', '4.0', '5.0'],
       des:
         "KOOMPI is a practical, affordable and effective entry-level notebook computer specifically designed for performing all daily tasks required for work and school.We've created a customized operating system of our own called KOOMPI OS based on the well-known open-source Linux software.",
     },
@@ -52,6 +57,7 @@ export default {
       location: 'PhnomPenh',
       type: 'Technology',
       emp: '30 Employee',
+      rate: ['1.0', '2.0', '3.0', '4.0', '5.0'],
       des:
         "KOOMPI is a practical, affordable and effective entry-level notebook computer specifically designed for performing all daily tasks required for work and school.We've created a customized operating system of our own called KOOMPI OS based on the well-known open-source Linux software.",
     },
@@ -63,6 +69,7 @@ export default {
       location: 'PhnomPenh',
       type: 'Technology',
       emp: '30 Employee',
+      rate: ['1.0', '2.0', '3.0', '4.0', '5.0'],
       des:
         "KOOMPI is a practical, affordable and effective entry-level notebook computer specifically designed for performing all daily tasks required for work and school.We've created a customized operating system of our own called KOOMPI OS based on the well-known open-source Linux software.",
     },
@@ -74,6 +81,7 @@ export default {
       location: 'PhnomPenh',
       type: 'Technology',
       emp: '30 Employee',
+      rate: ['1.0', '2.0', '3.0', '4.0', '5.0'],
       des:
         "KOOMPI is a practical, affordable and effective entry-level notebook computer specifically designed for performing all daily tasks required for work and school.We've created a customized operating system of our own called KOOMPI OS based on the well-known open-source Linux software.",
     },
@@ -85,6 +93,7 @@ export default {
       location: 'PhnomPenh',
       type: 'Technology',
       emp: '30 Employee',
+      rate: ['1.0', '2.0', '3.0', '4.0', '5.0'],
       des:
         "KOOMPI is a practical, affordable and effective entry-level notebook computer specifically designed for performing all daily tasks required for work and school.We've created a customized operating system of our own called KOOMPI OS based on the well-known open-source Linux software.",
     },
@@ -96,6 +105,7 @@ export default {
       location: 'PhnomPenh',
       type: 'Technology',
       emp: '30 Employee',
+      rate: ['1.0', '2.0', '3.0', '4.0', '5.0'],
       des:
         "KOOMPI is a practical, affordable and effective entry-level notebook computer specifically designed for performing all daily tasks required for work and school.We've created a customized operating system of our own called KOOMPI OS based on the well-known open-source Linux software.",
     },

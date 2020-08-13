@@ -8,6 +8,9 @@ const userType = new GraphQLObjectType({
     name: { type: GraphQLString },
     email: { type: GraphQLString },
     password: { type: GraphQLString },
+    message: { type: GraphQLString },
+    token: { type: GraphQLString },
+    createAt: { type: GraphQLString },
   }),
 });
 module.exports = userType;

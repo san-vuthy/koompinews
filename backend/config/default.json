@@ -1,3 +1,4 @@
 {
-  "mongoURI": " mongodb+srv://den123:den123@newsproject.petn6.mongodb.net/news?retryWrites=true&w=majority"
+  "mongoURI": " mongodb+srv://den123:den123@newsproject.petn6.mongodb.net/news?retryWrites=true&w=majority",
+  "JwtSecret": "jwtsecretkeytokenusernevershowtooutside"
 }

@@ -12,9 +12,12 @@ const EventHome = () => {
     <React.Fragment>
       <Navbar />
       <SubNavbar />
-      <div className="middle-describe-event">
-        <h1>Your main Title Describtion</h1>
-        <h4>Sub Describtion</h4>
+      <div
+        style={{ backgroundImage: `url("/img/banner6.png")` }}
+        className="middle-describe-event"
+      >
+        {/* <h1>Your main Title Describtion</h1>
+        <h4>Sub Describtion</h4> */}
       </div>
       <div className="container-event">
         {/* <Breadcrumb style={{ margin: '16px 0' }}>
@@ -51,8 +54,9 @@ const EventHome = () => {
                       // hoverable
                       style={{
                         width: '100%',
-                        boxShadow: '0px 4px 4px rgba(0, 0, 0, 0.25)',
+                        // boxShadow: '0px 4px 4px rgba(0, 0, 0, 0.25)',
                       }}
+                      className="event-col"
                       cover={<img alt="example" src={res.img} />}
                     >
                       {/* <Meta title="Europe Street beat" description="www.instagram.com" /> */}

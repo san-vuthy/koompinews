@@ -41,8 +41,8 @@ const NewsAticle = (props) => {
           <Divider style={{ marginTop: '40px' }}>
             <h1>Similar Stories</h1>
           </Divider>
-          <div>
-            <Row gutter={(32, 16)}>
+          <div style={{ marginTop: '12px' }}>
+            <Row gutter={[32, 16]}>
               {Data.news.map((res, index) => {
                 return (
                   <Col lg={8}>

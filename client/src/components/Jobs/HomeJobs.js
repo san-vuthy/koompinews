@@ -185,6 +185,9 @@ const HomeJobs = () => {
           </Col>
         </Row>
       </div>
+      <center>
+        <img style={{ height: '60px' }} src="/img/Spinner-1s-200px.svg" />
+      </center>
       <Footer />
     </React.Fragment>
   );

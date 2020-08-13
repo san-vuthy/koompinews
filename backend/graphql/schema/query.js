@@ -1,40 +1,46 @@
 const graphql = require('graphql');
-const { GraphQLObjectType, GraphQLString, GraphQLID } = graphql;
+const { GraphQLObjectType, GraphQLString, GraphQLID, GraphQLList } = graphql;
+
+const User = require('../../model/User');
+const News = require('../../model/News');
 
 // =====================Type=================
-
-const userType = require('./Types/user');
+const UserType = require('./Types/user');
+const NewsType = require('./Types/news');
 const _ = require('lodash');
-
-let users = [
-  {
-    name: 'den',
-    email: 'sarimsovanden@gmail.com',
-    password: '1234',
-    id: '1',
-  },
-  {
-    name: 'den',
-    email: 'sarimsovanden@gmail.com',
-    password: '1234',
-    id: '2',
-  },
-  {
-    name: 'den',
-    email: 'sarimsovanden@gmail.com',
-    password: '1234',
-    id: '3',
-  },
-];
 
 const RootQuery = new GraphQLObjectType({
   name: 'RootQueryType',
   fields: {
+    //======Get User==========
     user: {
-      type: userType,
-      args: { id: { type: graphql.GraphQLID } },
+      type: UserType,
+      args: { id: { type: GraphQLID } },
       resolve(parent, args) {
-        return _.find(users, { id: args.id });
+        return User.findOne({ _id: args.id });
+      },
+    },
+    //======Get All User ======
+    users: {
+      type: new GraphQLList(UserType),
+      resolve(parent, args) {
+        return User.find();
+      },
+    },
+
+    //==========Get a News==========
+    aNews: {
+      type: NewsType,
+      args: { id: { type: GraphQLID } },
+      resolve(parent, args) {
+        return News.findOne({ _id: args.id });
+      },
+    },
+    //=========Get all News=========
+    allNews: {
+      type: new GraphQLList(NewsType),
+      resolve(parent, args) {
+        return News.find();
       },
     },
   },

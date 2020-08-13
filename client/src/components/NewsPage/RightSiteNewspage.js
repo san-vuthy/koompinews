@@ -60,7 +60,7 @@ const RightSiteNewspage = () => {
           {des.map((res, index) => {
             return (
               <div style={{ display: ' flex', marginTop: '19px' }}>
-                <Avatar size="small" shape="square" src={res.avatar} />
+                <Avatar size="large" shape="square" src={res.avatar} />
                 <span style={{ paddingLeft: '12px', color: '#010101' }}>
                   {res.des}
                 </span>
@@ -102,7 +102,12 @@ const RightSiteNewspage = () => {
               return (
                 <div style={{ display: 'flex' }}>
                   <div style={{ marginBottom: '12px' }}>
-                    <Avatar shape="square" size={64} src={res.img} />
+                    <Avatar
+                      style={{ borderRadius: '40px' }}
+                      shape="square"
+                      size={64}
+                      src={res.img}
+                    />
                   </div>
                   <div style={{ display: ' flex', paddingLeft: '12px' }}>
                     <div>

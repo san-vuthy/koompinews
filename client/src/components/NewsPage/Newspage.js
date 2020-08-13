@@ -21,17 +21,33 @@ const Newspage = () => {
       <Subnavbar />
       <div className="newsPage-container ">
         <Carousel autoplay>
-          <div>
-            <h3 style={contentStyle}>Banner News 1</h3>
+          <div style={{ width: '10000px' }}>
+            <img
+              className="img-banner-news"
+              style={contentStyle}
+              src="/img/banner1.jpg"
+            />
           </div>
           <div>
-            <h3 style={contentStyle}> Banner News 2</h3>
+            <img
+              className="img-banner-news"
+              style={contentStyle}
+              src="/img/banner4.jpg"
+            />
           </div>
           <div>
-            <h3 style={contentStyle}>Banner News 3</h3>
+            <img
+              className="img-banner-news"
+              style={contentStyle}
+              src="/img/banner5.jpg"
+            />
           </div>
           <div>
-            <h3 style={contentStyle}>Banner News 4</h3>
+            <img
+              className="img-banner-news"
+              style={contentStyle}
+              src="/img/banner6.png"
+            />
           </div>
         </Carousel>
       </div>
@@ -46,18 +62,20 @@ const Newspage = () => {
                 <Col className="padding-news" lg={12} md={12} key={index}>
                   <div className="news-col">
                     <Link to={'/news/' + res._id}>
-                      <img
+                      {/* <img
                         className="image-news-style"
                         src={res.img}
                         alt="news image"
-                      />
+                      /> */}
+                      <div
+                        style={{ backgroundImage: `url(${res.img})` }}
+                        className="image-news-style"
+                      ></div>
                       <div style={{ padding: '12px' }}>
                         <h1 className="title-news">{res.titile}</h1>
                         <div style={{ display: 'flex' }}>
                           <Avatar size="small" src={res.avatar} />
-                          <span style={{ paddingLeft: '15px' }}>
-                            {res.date}
-                          </span>
+                          <span className="indexNewsDate">{res.date}</span>
                         </div>
                       </div>
                     </Link>
@@ -71,6 +89,9 @@ const Newspage = () => {
           <RightSiteNewspage />
         </Col>
       </Row>
+      <center>
+        <img style={{ height: '60px' }} src="/img/Spinner-1s-200px.svg" />
+      </center>
       <Footer />
     </React.Fragment>
   );

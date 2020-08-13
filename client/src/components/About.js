@@ -10,8 +10,11 @@ const About = () => {
     <React.Fragment>
       <Navbar />
       <SubNavbar />
-      <div className="middle-describe-event">
-        <h1>Banner of Company</h1>
+      <div
+        style={{ backgroundImage: `url("/img/banner6.png")` }}
+        className="middle-describe-event"
+      >
+        {/* <h1>Banner of Company</h1> */}
         {/* <h4>Sub Describtion</h4> */}
       </div>
       <div className="about-container">

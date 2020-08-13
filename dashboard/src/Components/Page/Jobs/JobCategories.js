@@ -1,9 +1,26 @@
 import React from 'react';
-import { Col, Row, Layout, Form, Button, Input, Upload, Select } from 'antd';
+import {
+  Col,
+  Row,
+  Layout,
+  Form,
+  Button,
+  Input,
+  Upload,
+  Select,
+  Space,
+  Tag,
+  Table,
+} from 'antd';
 import LeftNavbar from '../../Layout/LeftNavbar';
 import Navbar from '../../Layout/Navbar';
 import TextEditor from '../../Help/TextEditor';
-import { UploadOutlined } from '@ant-design/icons';
+import {
+  UploadOutlined,
+  EditOutlined,
+  DeleteOutlined,
+} from '@ant-design/icons';
+import moment from 'moment';
 
 const { Content } = Layout;
 const { TextArea } = Input;
@@ -16,6 +33,48 @@ const JobCategories = () => {
   const onFinish = (value) => {
     console.log('success', value);
   };
+
+  const columns = [
+    {
+      title: 'Job Categories',
+      dataIndex: 'jobcategories',
+      key: 'jobcategories',
+    },
+    {
+      title: 'Create At',
+      dataIndex: 'create_at',
+      key: 'create_at',
+      render: (data) => {
+        return moment(parseInt(data)).format('dddd, Do MMMM  YYYY');
+      },
+    },
+    {
+      title: 'action',
+      dataIndex: 'action',
+      key: 'action',
+      render: (data) => {
+        return (
+          <Space>
+            <div>
+              <Tag icon={<EditOutlined />} color="#1778f2">
+                Edit
+              </Tag>
+              <Tag icon={<DeleteOutlined />} color="#f50">
+                Delete
+              </Tag>
+            </div>
+          </Space>
+        );
+      },
+    },
+  ];
+  const data = [
+    {
+      _id: 1,
+      jobcategories: 'job categories',
+      date: '20/29/20',
+    },
+  ];
   return (
     <React.Fragment>
       <Layout style={{ minHeight: '100vh' }}>
@@ -81,6 +140,7 @@ const JobCategories = () => {
               style={{ minHeight: 360, padding: 70 }}
             >
               <h1 className="title-top">Display JobCategories</h1>
+              <Table columns={columns} dataSource={data} />
             </div>
           </Content>
         </Layout>

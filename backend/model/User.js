@@ -1,4 +1,8 @@
 const mongoose = require('mongoose');
+const validateEmail = function (email) {
+  var isEmail = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
+  return isEmail.test(email);
+};
 
 const UserSchema = new mongoose.Schema({
   name: {
@@ -7,8 +11,11 @@ const UserSchema = new mongoose.Schema({
   },
   email: {
     type: String,
+    lowercase: true,
+    trim: true,
     required: [true, 'Please add an email'],
     unique: true,
+    validate: [validateEmail, 'Please fill a valid email address'],
   },
   // role: {
   //   type: String,
@@ -17,9 +24,12 @@ const UserSchema = new mongoose.Schema({
   // },
   password: {
     type: String,
-    required: [true, 'please add a password'],
+    required: true,
     minlength: 6,
-    select: false,
+  },
+  avatar: {
+    type: String,
+    default: 'Public/uploads/g9418.png',
   },
   resetPasswordToken: String,
   resetPasswordExpire: Date,
