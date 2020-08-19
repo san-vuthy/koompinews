@@ -12,6 +12,7 @@ const AllNewspage = () => {
       dataIndex: 'image',
       key: 'image',
       width: 170,
+      render: () => <img style={{ height: '40px' }} src="/img/news.webp" />,
     },
     {
       title: 'Title',

@@ -1,5 +1,15 @@
-import React from 'react';
-import { Col, Row, Layout, Form, Button, Input, Upload, Select } from 'antd';
+import React, { useState } from 'react';
+import {
+  Col,
+  Row,
+  Layout,
+  Form,
+  Button,
+  Input,
+  Upload,
+  Select,
+  Checkbox,
+} from 'antd';
 import LeftNavbar from '../../Layout/LeftNavbar';
 import Navbar from '../../Layout/Navbar';
 import TextEditor from '../../Help/TextEditor';
@@ -9,15 +19,22 @@ const { Content } = Layout;
 const { TextArea } = Input;
 const { Option } = Select;
 const AddNewspage = () => {
+  const [popular, setPopular] = useState(true);
+
   const onFinishFailed = (errorInfo) => {
     console.log('Failed:', errorInfo);
   };
   const onFinish = (value) => {
-    console.log('success', value);
+    console.log('success', ...value, popular);
   };
   const onChange = (e) => {
     console.log(e);
   };
+
+  function onChangePopular(value) {
+    setPopular(value.target.checked);
+    console.log(`checked = ${value.target.checked}`);
+  }
   function handleChange(value) {
     console.log(`selected ${value}`);
   }
@@ -78,41 +95,10 @@ const AddNewspage = () => {
                   <Col span={8}>
                     <Form.Item
                       rules={[
-                        { required: true, message: 'Province is required' },
+                        { required: true, message: 'Category is required' },
                       ]}
                       label="Categories"
-                      name="categories"
-                    >
-                      <Select
-                        className="event-select"
-                        showSearch
-                        style={{ width: 200 }}
-                        placeholder="Select a Category"
-                        optionFilterProp="children"
-                        onChange={onChange}
-                        //   onFocus={onFocus}
-                        //   onBlur={onBlur}
-                        //   onSearch={onSearch}
-                        filterOption={(input, option) =>
-                          option.children
-                            .toLowerCase()
-                            .indexOf(input.toLowerCase()) >= 0
-                        }
-                      >
-                        <Option value="Newspage">Newspage</Option>
-                        <Option value="RePopularNews">
-                          Recent Popular News
-                        </Option>
-                        <Option value="MostPopular">Most Popular News</Option>
-                        <Option value="Relate News"> Relate News</Option>
-                      </Select>
-                    </Form.Item>
-                    <Form.Item
-                      rules={[
-                        { required: true, message: 'Province is required' },
-                      ]}
-                      label="Types"
-                      name="types"
+                      name="Category"
                     >
                       <Select
                         className="event-select"
@@ -130,10 +116,37 @@ const AddNewspage = () => {
                             .indexOf(input.toLowerCase()) >= 0
                         }
                       >
-                        <Option value="Newspage">Sport</Option>
-                        <Option value="RePopularNews">Social</Option>
-                        <Option value="MostPopular">Technology</Option>
-                        <Option value="Relate News"> life style</Option>
+                        <Option value="sport">Sport</Option>
+                        <Option value="social">Social</Option>
+                        <Option value="technology">Technology</Option>
+                        <Option value="lifestyle"> life style</Option>
+                      </Select>
+                    </Form.Item>
+                    <Form.Item
+                      // rules={[
+                      //   { required: true, message: 'Type is required' },
+                      // ]}
+                      label="Type"
+                      name="type"
+                    >
+                      <Select
+                        className="event-select"
+                        showSearch
+                        style={{ width: 200 }}
+                        placeholder="Select a Types"
+                        optionFilterProp="children"
+                        onChange={onChange}
+                        //   onFocus={onFocus}
+                        //   onBlur={onBlur}
+                        //   onSearch={onSearch}
+                        filterOption={(input, option) =>
+                          option.children
+                            .toLowerCase()
+                            .indexOf(input.toLowerCase()) >= 0
+                        }
+                      >
+                        <Option value="Mostpopular">Most Popular</Option>
+                        <Option value="RecentPopular">Recent Popular</Option>
                       </Select>
                     </Form.Item>
                     <Form.Item

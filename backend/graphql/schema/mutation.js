@@ -8,11 +8,15 @@ const { GraphQLObjectType, GraphQLString, GraphQLNonNull, GraphQLID } = graphql;
 // ===============Type Section===============
 const UserType = require('../schema/Types/user');
 const NewsType = require('../schema/Types/news');
+const CategoriesType = require('../schema/Types/categories');
+const Jobtype = require('../schema/Types/jobs');
 
 // ================Model Section ==================
 
 const User = require('../../model/User');
 const News = require('../../model/News');
+const Categories = require('../../model/Categories');
+const Job = require('../../model/Job');
 
 const RootMutation = new GraphQLObjectType({
   name: 'RootMutationType',
@@ -21,9 +25,9 @@ const RootMutation = new GraphQLObjectType({
     register: {
       type: UserType,
       args: {
-        name: { type: GraphQLNonNull(GraphQLString) },
-        email: { type: GraphQLNonNull(GraphQLString) },
-        password: { type: GraphQLNonNull(GraphQLString) },
+        name: { type: new GraphQLNonNull(GraphQLString) },
+        email: { type: new GraphQLNonNull(GraphQLString) },
+        password: { type: new GraphQLNonNull(GraphQLString) },
       },
       resolve: async (parent, args) => {
         try {
@@ -51,8 +55,8 @@ const RootMutation = new GraphQLObjectType({
     login: {
       type: UserType,
       args: {
-        email: { type: GraphQLNonNull(GraphQLString) },
-        password: { type: GraphQLNonNull(GraphQLString) },
+        email: { type: new GraphQLNonNull(GraphQLString) },
+        password: { type: new GraphQLNonNull(GraphQLString) },
       },
       resolve: async (parent, args, context) => {
         try {
@@ -94,19 +98,137 @@ const RootMutation = new GraphQLObjectType({
     addNews: {
       type: NewsType,
       args: {
-        title: { type: GraphQLNonNull(GraphQLString) },
-        describtion: { type: GraphQLNonNull(GraphQLString) },
-        categoriesId: { type: GraphQLNonNull(GraphQLID) },
-        newsTypeId: { type: GraphQLNonNull(GraphQLID) },
-        userId: { type: GraphQLNonNull(GraphQLID) },
-        tag: { type: GraphQLNonNull(GraphQLString) },
-        image: { type: GraphQLNonNull(GraphQLString) },
+        title: { type: new GraphQLNonNull(GraphQLString) },
+        describtion: { type: new GraphQLNonNull(GraphQLString) },
+        categoriesId: { type: new GraphQLNonNull(GraphQLID) },
+        newsTypeId: { type: new GraphQLNonNull(GraphQLID) },
+        userId: { type: new GraphQLNonNull(GraphQLID) },
+        tag: { type: new GraphQLNonNull(GraphQLString) },
+        image: { type: new GraphQLNonNull(GraphQLString) },
       },
       resolve: async (parent, args) => {
         try {
           const news = new News({ ...args });
           await news.save();
           return { message: 'Create new news Successful' };
+        } catch (error) {
+          console.log(error);
+          throw error;
+        }
+      },
+    },
+
+    //=============Update News ==============
+
+    updateNews: {
+      type: NewsType,
+      args: {
+        id: { type: new GraphQLNonNull(GraphQLString) },
+        title: { type: new GraphQLNonNull(GraphQLString) },
+        describtion: { type: new GraphQLNonNull(GraphQLString) },
+        categoriesId: { type: new GraphQLNonNull(GraphQLID) },
+        newsTypeId: { type: new GraphQLNonNull(GraphQLID) },
+        userId: { type: new GraphQLNonNull(GraphQLID) },
+        tag: { type: new GraphQLNonNull(GraphQLString) },
+        image: { type: new GraphQLNonNull(GraphQLString) },
+      },
+      resolve: async (parent, args) => {
+        try {
+          await News.updateOne({ _id: args.id }, { ...args });
+          return { message: 'Update successful' };
+        } catch (error) {
+          console.log(error);
+          throw error;
+        }
+      },
+    },
+
+    //===============Delete News==================
+    deleteNews: {
+      type: NewsType,
+      args: {
+        id: { type: new GraphQLNonNull(GraphQLString) },
+      },
+      resolve: async (parent, args) => {
+        try {
+          await News.deleteOne({ _id: args.id }, { ...args });
+          return { message: 'Delete Successful' };
+        } catch (error) {
+          console.log(error);
+          throw error;
+        }
+      },
+    },
+    //============Add Categories===============
+    addCategories: {
+      type: CategoriesType,
+      args: {
+        name: { type: new GraphQLNonNull(GraphQLString) },
+        userId: { type: new GraphQLNonNull(GraphQLID) },
+      },
+      resolve: async (parent, args) => {
+        try {
+          const categ = new Categories({ ...args });
+          await categ.save();
+          return { message: 'Create new Categories', show: categ.name };
+        } catch (error) {
+          console.log(error);
+          throw error;
+        }
+      },
+    },
+
+    //===========Delete Categories=================
+    deleteCategoires: {
+      type: CategoriesType,
+      args: {
+        id: { type: new GraphQLNonNull(GraphQLID) },
+        userId: { type: new GraphQLNonNull(GraphQLID) },
+      },
+    },
+
+    //==========Update Categories=============
+    updateCategoies: {
+      type: CategoriesType,
+      args: {
+        id: { type: new GraphQLNonNull(GraphQLID) },
+        name: { type: new GraphQLNonNull(GraphQLString) },
+        userId: { type: new GraphQLNonNull(GraphQLID) },
+      },
+      resolve: async (parent, args) => {
+        try {
+          await Categories.updateOne({ _id: args.id }, { ...args });
+          return { message: ':Update Successfull', show: args.name };
+        } catch (error) {
+          console.log(error);
+          throw error;
+        }
+      },
+    },
+
+    //==========Add Jobs==============
+    addJob: {
+      type: Jobtype,
+      args: {
+        userId: { type: new GraphQLNonNull(GraphQLID) },
+        companyId: { type: new GraphQLNonNull(GraphQLID) },
+        jobCategId: { type: new GraphQLNonNull(GraphQLID) },
+        position: { type: new GraphQLNonNull(GraphQLString) },
+        location: { type: new GraphQLNonNull(GraphQLString) },
+        salary: { type: new GraphQLNonNull(GraphQLString) },
+        worktime: { type: new GraphQLNonNull(GraphQLString) },
+        des: { type: new GraphQLNonNull(GraphQLString) },
+        requireSkill: { type: new GraphQLNonNull(GraphQLString) },
+        image: { type: new GraphQLNonNull(GraphQLString) },
+      },
+      resolve: async (parent, args) => {
+        try {
+          const job = new Job({ ...args });
+          await job.save();
+          return {
+            message: 'Create new job',
+            show: job.userId,
+          };
         } catch (error) {
           console.log(error);
           throw error;

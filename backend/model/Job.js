@@ -1,27 +1,39 @@
 const mongoose = require('mongoose');
 
-const NewsSchema = new mongoose.Schema({
-  title: {
-    type: String,
-    required: true,
-  },
-  describtion: {
-    type: String,
-    required: true,
-  },
-  categoriesId: {
-    type: String,
-    required: true,
-  },
-  newsTypeId: {
-    type: String,
-    required: true,
-  },
+const JobSchema = new mongoose.Schema({
   userId: {
     type: String,
     required: true,
   },
-  tag: {
+  companyId: {
+    type: String,
+    required: true,
+  },
+  jobCategId: {
+    type: String,
+    required: true,
+  },
+  position: {
+    type: String,
+    required: true,
+  },
+  location: {
+    type: String,
+    required: true,
+  },
+  salary: {
+    type: String,
+    required: true,
+  },
+  worktime: {
+    type: String,
+    required: true,
+  },
+  des: {
+    type: String,
+    required: true,
+  },
+  requireSkill: {
     type: String,
     required: true,
   },
@@ -35,4 +47,4 @@ const NewsSchema = new mongoose.Schema({
   },
 });
 
-module.exports = mongoose.model('News', NewsSchema);
+module.exports = mongoose.model('job', JobSchema);

@@ -18,12 +18,19 @@ const Navbar = () => {
           >
             <Menu.Item style={{ float: 'left' }}>
               <Link to="/">
-                <img style={{ height: '40px' }} src="/img/Koompi-Black.png" />
+                <img
+                  style={{ height: '70px', marginLeft: '-32px' }}
+                  src="/img/transparent back-02.png"
+                />
                 {/* logo */}
               </Link>
             </Menu.Item>
-            <Menu.Item style={{ float: 'right' }}>Login</Menu.Item>
-            <Menu.Item style={{ float: 'right' }}>Sign Up</Menu.Item>
+            <Menu.Item style={{ float: 'right', marginTop: '12px' }}>
+              Login
+            </Menu.Item>
+            <Menu.Item style={{ float: 'right', marginTop: '12px' }}>
+              Sign Up
+            </Menu.Item>
           </Menu>
         </div>
       </div>
