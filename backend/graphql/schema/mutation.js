@@ -10,6 +10,7 @@ const UserType = require('../schema/Types/user');
 const NewsType = require('../schema/Types/news');
 const CategoriesType = require('../schema/Types/categories');
 const Jobtype = require('../schema/Types/jobs');
+const JobCatetoriesType = require('../schema/Types/jobCategories');
 
 // ================Model Section ==================
 
@@ -17,6 +18,7 @@ const User = require('../../model/User');
 const News = require('../../model/News');
 const Categories = require('../../model/Categories');
 const Job = require('../../model/Job');
+const JobCategories = require('../../model/JobCategories');
 
 const RootMutation = new GraphQLObjectType({
   name: 'RootMutationType',
@@ -44,7 +46,8 @@ const RootMutation = new GraphQLObjectType({
             email: args.email,
             password: hashPassword,
           });
-          return NewUser.save();
+          await NewUser.save();
+          return { message: 'Successful' };
         } catch (error) {
           console.log(error);
           throw error;
@@ -233,6 +236,106 @@ const RootMutation = new GraphQLObjectType({
           console.log(error);
           throw error;
         }
+      },
+    },
+    //=======Update job==========
+    updateJob: {
+      type: Jobtype,
+      args: {
+        id: { type: new GraphQLNonNull(GraphQLID) },
+        userId: { type: new GraphQLNonNull(GraphQLID) },
+        companyId: { type: new GraphQLNonNull(GraphQLID) },
+        jobCategId: { type: new GraphQLNonNull(GraphQLID) },
+        position: { type: new GraphQLNonNull(GraphQLString) },
+        location: { type: new GraphQLNonNull(GraphQLString) },
+        salary: { type: new GraphQLNonNull(GraphQLString) },
+        worktime: { type: new GraphQLNonNull(GraphQLString) },
+        des: { type: new GraphQLNonNull(GraphQLString) },
+        requireSkill: { type: new GraphQLNonNull(GraphQLString) },
+        image: { type: new GraphQLNonNull(GraphQLString) },
+      },
+      resolve: async (parent, args) => {
+        try {
+          await Job.updateOne({ _id: args.id }, { ...args });
+          return { message: 'Update Successful' };
+        } catch (error) {
+          console.log(error);
+          throw error;
+        }
+      },
+    },
+
+    //=========Delete job=========
+    deleteJob: {
+      type: Jobtype,
+      args: {
+        id: { type: new GraphQLNonNull(GraphQLID) },
+      },
+      resolve: async (parent, args) => {
+        try {
+          await Job.deleteOne({ _id: args.id });
+          return { message: 'Deleted Successful' };
+        } catch (error) {
+          console.log(error);
+          throw error;
+        }
+      },
+    },
+
+    //=======Add Categories of job==========
+
+    addJobCategory: {
+      type: JobCatetoriesType,
+      args: {
+        name: { type: new GraphQLNonNull(GraphQLString) },
+        userId: { type: new GraphQLNonNull(GraphQLID) },
+      },
+      resolve: async (parent, args) => {
+        try {
+          const isJobCateg = await JobCategories.findOne({ name: args.name });
+          if (isJobCateg) {
+            throw new Error('Name already Exist');
+          }
+          const jobCateg = new JobCategories({ ...args });
+          await jobCateg.save();
+          return {
+            message: 'Create JobCategory Successful',
+            name: jobCateg.name,
+          };
+        } catch (error) {
+          console.log(error);
+          throw error;
+        }
+      },
+    },
+
+    //=======Update Categories of job============
+    updateJobCategory: {
+      type: JobCatetoriesType,
+      args: {
+        id: { type: new GraphQLNonNull(GraphQLID) },
+        name: { type: new GraphQLNonNull(GraphQLString) },
+        userId: { type: new GraphQLNonNull(GraphQLID) },
+      },
+      resolve: async (parent, args) => {
+        try {
+          await JobCategories.updateOne({ _id: args.id }, { ...args });
+          return { message: 'Update Sucessful' };
+        } catch (error) {
+          console.log(error);
+          throw error;
+        }
+      },
+    },
+    //========Delete Categories of job===========
+    deleteJobCategory: {
+      type: JobCatetoriesType,
+      args: {
+        id: { type: new GraphQLNonNull(GraphQLID) },
+      },
+      resolve: async (parent, args) => {
+        await JobCategories.deleteOne({ _id: args.id });
+        return { message: 'Delete Successful' };
       },
     },
   },

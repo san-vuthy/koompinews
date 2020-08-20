@@ -4,20 +4,12 @@ const User = require('../../../model/User');
 
 const { GraphQLObjectType, GraphQLString, GraphQLID } = graphql;
 
-const jobsType = new GraphQLObjectType({
-  name: 'Jobs',
+const jobcategoriesType = new GraphQLObjectType({
+  name: 'JobCategories',
   fields: () => ({
     id: { type: GraphQLID },
+    name: { type: GraphQLString },
     userId: { type: GraphQLID },
-    companyId: { type: GraphQLID },
-    jobCategId: { type: GraphQLID },
-    position: { type: GraphQLString },
-    location: { type: GraphQLString },
-    salary: { type: GraphQLString },
-    worktime: { type: GraphQLString },
-    des: { type: GraphQLString },
-    requireSkill: { type: GraphQLString },
-    image: { type: GraphQLString },
     message: { type: GraphQLString },
     createAt: { type: GraphQLString },
     show: { type: GraphQLString },
@@ -29,4 +21,4 @@ const jobsType = new GraphQLObjectType({
     },
   }),
 });
-module.exports = jobsType;
+module.exports = jobcategoriesType;

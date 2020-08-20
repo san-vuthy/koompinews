@@ -21,10 +21,7 @@ const Footer = () => {
         <Row gutter={[50, 0]} className="footer-container">
           <Col xs={24} sm={24} md={12} lg={6}>
             {/* <h1 style={{ color: '#FFFFFF' }}> */}
-            <img
-              style={{ height: '90px', marginLeft: '-32px' }}
-              src="/img/transparent back-02.png"
-            />
+            <img style={{ height: '40px' }} src="/img/transparent back-0.png" />
             {/* </h1> */}
 
             <p style={{ marginTop: '20px', color: 'rgb(179, 174, 174)' }}>
