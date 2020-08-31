@@ -1,99 +1,152 @@
 import React from 'react';
-import { Layout, Space, Table, Tag } from 'antd';
+import moment from 'moment';
+import {
+  Layout,
+  Space,
+  Table,
+  Tag,
+  message,
+  Popconfirm,
+  Button,
+  Divider,
+} from 'antd';
+import parse from 'html-react-parser';
 import LeftNavbar from '../../Layout/LeftNavbar';
 import Navbar from '../../Layout/Navbar';
-import { NavLink } from 'react-router-dom';
+import { NavLink, Link } from 'react-router-dom';
+import { useQuery, useMutation } from '@apollo/client';
+import { GET_NEWS } from '../../../graphql/query';
+import { DELETE_NEWS } from '../../../graphql/mutation';
 const { Content } = Layout;
 
 const AllNewspage = () => {
+  const [deleteNews] = useMutation(DELETE_NEWS);
+  const { loading, error, data, refetch } = useQuery(GET_NEWS);
+
+  if (loading) return 'Loading...';
+  console.log(data);
+  if (error) return `Error! ${error.message}`;
+  // function confirm() {
+  //   message.info('Clicked on Yes.');
+  //   deleteNews({
+  //     variables: {
+  //       ...data,
+  //     },
+  //   });
+  // }
+
+  const text = 'Are you sure to delete that ?';
+
   const columns = [
     {
       title: 'Image',
       dataIndex: 'image',
       key: 'image',
       width: 170,
-      render: () => <img style={{ height: '40px' }} src="/img/news.webp" />,
+      render: (data) => {
+        return (
+          <img
+            src={'http://localhost:8080/' + data}
+            height="40px"
+            width="40px"
+          />
+        );
+      },
     },
     {
       title: 'Title',
       dataIndex: 'title',
       key: 'title',
       width: 300,
+      render: (data) => {
+        return data.length <= 25 ? data : data.substring(0, 25) + ' ...';
+      },
+    },
+
+    {
+      title: 'Des',
+      dataIndex: 'describtion',
+      key: 'des',
+      render: (data) => {
+        return parse(data.length <= 25 ? data : data.substring(0, 25) + ' ...');
+      },
+    },
+
+    {
+      title: 'Categories',
+      dataIndex: 'categoreyname',
+      key: 'categ',
+      render: (categoreyname) => {
+        return categoreyname.name;
+      },
+    },
+    {
+      title: 'Type',
+      dataIndex: 'type',
+      key: 'type',
+      render: (type) => {
+        return type.name;
+      },
     },
     {
       title: 'Author',
-      dataIndex: 'author',
-      key: 'author',
-    },
-    {
-      title: 'Des',
-      dataIndex: 'des',
-      key: 'des',
+      dataIndex: 'user',
+      key: 'create_by',
+      render: (user) => {
+        return user.name;
+      },
     },
 
     {
       title: 'Date',
-      dataIndex: 'date',
+      dataIndex: 'createAt',
       key: 'date',
+      render: (data) => {
+        return moment.unix(data / 1000).format('YYYY-MM-DD');
+      },
     },
     {
       title: 'Action',
+      dataIndex: 'action',
       key: 'action',
-      render: (text, record) => (
-        <Space>
+      render: (index, data) => {
+        const { id } = data;
+        console.log('id', id);
+        return (
           <div>
-            <Tag color="#1778f2">
-              <NavLink to="/homepage/addnews">Edit</NavLink>
-            </Tag>
-          </div>
-          {/* <Popconfirm
-              title="Are you sure to delete this book?"
-              onConfirm={() => confirm(data.id)}
-              onCancel={cancel}
+            <Link to={`/admin/editnews/${id}`}>
+              <Tag style={{ cursor: 'pointer' }} color="rgb(1, 100, 145)">
+                Edit
+              </Tag>
+            </Link>
+            <Divider type="vertical" />
+            <Popconfirm
+              placement="topRight"
+              title="Are you sure to delete this News?"
               okText="Yes"
               cancelText="No"
-            > */}
-          <Tag color="#f50">Delete</Tag>
-          {/* </Popconfirm> */}
-        </Space>
-      ),
+              onConfirm={() => {
+                deleteNews({ variables: { id: `${id}` } })
+                  .then(async (res) => {
+                    await message.success(res.data.deleteNews.message);
+                    await refetch();
+                  })
+                  .catch((error) => {
+                    console.log(error);
+                    return null;
+                  });
+              }}
+            >
+              <Tag color="rgb(255, 0, 0)" style={{ cursor: 'pointer' }}>
+                Delete
+              </Tag>
+            </Popconfirm>
+          </div>
+        );
+      },
     },
   ];
 
-  const data = [
-    {
-      _id: 1,
-      des: 'hello world hello everybody hello i love u',
-      image: '/img/news.webp',
-      title: 'Hello',
-      author: 'Den',
-      date: '20/20/20',
-    },
-    {
-      _id: 2,
-      des: 'hello world hello everybody hello i love u',
-      image: '/img/news.webp',
-      title: 'Hello',
-      author: 'Den',
-      date: '20/20/20',
-    },
-    {
-      _id: 3,
-      des: 'hello world hello everybody hello i love u',
-      image: '/img/news.webp',
-      title: 'Hello',
-      author: 'Den',
-      date: '20/20/20',
-    },
-    {
-      _id: 4,
-      des: 'hello world hello everybody hello i love u',
-      image: '/img/news.webp',
-      title: 'Hello',
-      author: 'Den',
-      date: '20/20/20',
-    },
-  ];
   return (
     <React.Fragment>
       <Layout style={{ minHeight: '100vh' }}>
@@ -106,7 +159,7 @@ const AllNewspage = () => {
               style={{ padding: 70, minHeight: 360 }}
             >
               <h1 className="title-top">All News</h1>
-              <Table columns={columns} dataSource={data} />
+              <Table columns={columns} dataSource={data.allNews} />
             </div>
           </Content>
         </Layout>

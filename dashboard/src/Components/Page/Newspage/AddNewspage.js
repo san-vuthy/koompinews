@@ -9,41 +9,137 @@ import {
   Upload,
   Select,
   Checkbox,
+  message,
 } from 'antd';
 import LeftNavbar from '../../Layout/LeftNavbar';
 import Navbar from '../../Layout/Navbar';
 import TextEditor from '../../Help/TextEditor';
-import { UploadOutlined } from '@ant-design/icons';
+import { GET_CATEGORIES, GET_TYPE_OF_NEWS } from '../../../graphql/query';
+import { ADD_NEWS } from '../../../graphql/mutation';
+import { useQuery, useMutation } from '@apollo/client';
 
 const { Content } = Layout;
-const { TextArea } = Input;
 const { Option } = Select;
 const AddNewspage = () => {
-  const [popular, setPopular] = useState(true);
+  const [loading, setLoading] = useState(false);
+  const [image, setImage] = useState('');
+  const [desc, setDesc] = useState('');
+  const [addNews, { data }] = useMutation(ADD_NEWS);
 
   const onFinishFailed = (errorInfo) => {
     console.log('Failed:', errorInfo);
   };
   const onFinish = (value) => {
-    console.log('success', ...value, popular);
+    addNews({
+      variables: {
+        ...value,
+        describtion: desc,
+        image: image,
+        userId: '5f324067aeef78b4df13ca54',
+      },
+    }).then(async (res) => {
+      setLoading(true);
+      setTimeout(() => {
+        setLoading(false);
+      }, 3000);
+      await message.success(res.data.addNews.message);
+    });
+    console.log('success', value, desc);
   };
   const onChange = (e) => {
     console.log(e);
   };
-
-  function onChangePopular(value) {
-    setPopular(value.target.checked);
-    console.log(`checked = ${value.target.checked}`);
-  }
+  const handleDescChange = (value) => {
+    console.log(value);
+    setDesc(value);
+  };
   function handleChange(value) {
     console.log(`selected ${value}`);
   }
-  const fileList = [];
-  const props = {
-    action: 'https://www.mocky.io/v2/5cc8019d300000980a055e76',
-    listType: 'picture',
-    defaultFileList: [...fileList],
+
+  const uploadImage = {
+    name: 'file',
+    multiple: false,
+    action: 'http://localhost:8080/upload',
+    // listType: 'picture',
+    defaultFileList: image,
+    onChange(info) {
+      const { status } = info.file;
+      if (status !== 'uploading') {
+        console.log(info.file, info.fileList);
+      }
+      if (status === 'done') {
+        setImage(info.file.name.replace(/\s+/g, '-').toLowerCase());
+        message.success(`${info.file.name} file uploaded successfully.`);
+      } else if (status === 'error') {
+        message.error(`${info.file.name} file upload failed.`);
+      }
+    },
   };
+  function DisplayNewType() {
+    const { loading, error, data } = useQuery(GET_TYPE_OF_NEWS);
+
+    if (loading) return 'Loading...';
+    console.log(data);
+    if (error) return `Error! ${error.message}`;
+
+    return (
+      <Form.Item
+        rules={[{ required: true, message: 'Type is required' }]}
+        label="Type"
+        name="newsTypeId"
+      >
+        <Select
+          className="event-select"
+          size="large"
+          showSearch
+          style={{ width: 200 }}
+          placeholder="Select a Category"
+          optionFilterProp="children"
+          onChange={onChange}
+          filterOption={(input, option) =>
+            option.children.toLowerCase().indexOf(input.toLowerCase()) >= 0
+          }
+        >
+          {data.allTypeOfNews.map((res) => {
+            return <Option value={res.id}>{res.name}</Option>;
+          })}
+        </Select>
+      </Form.Item>
+    );
+  }
+
+  function DisplayCategories() {
+    const { loading, error, data } = useQuery(GET_CATEGORIES);
+
+    if (loading) return 'Loading...';
+    console.log(data);
+    if (error) return `Error! ${error.message}`;
+    return (
+      <Form.Item
+        rules={[{ required: true, message: 'Category is required' }]}
+        label="Categories"
+        name="categoriesId"
+      >
+        <Select
+          size="large"
+          className="event-select"
+          showSearch
+          style={{ width: 200 }}
+          placeholder="Select a Type"
+          optionFilterProp="children"
+          onChange={onChange}
+          filterOption={(input, option) =>
+            option.children.toLowerCase().indexOf(input.toLowerCase()) >= 0
+          }
+        >
+          {data.allCategories.map((res) => {
+            return <Option value={res.id}>{res.name}</Option>;
+          })}
+        </Select>
+      </Form.Item>
+    );
+  }
 
   return (
     <React.Fragment>
@@ -67,6 +163,7 @@ const AddNewspage = () => {
                   <Col span={16}>
                     <Form.Item
                       label="Title"
+                      // style={{ fontSize: '30px' }}
                       name="title"
                       rules={[
                         {
@@ -75,136 +172,66 @@ const AddNewspage = () => {
                         },
                       ]}
                     >
-                      <Input />
+                      <Input size="large" />
                     </Form.Item>
-                    <Form.Item>
-                      <Form.Item
-                        label="Describtion"
-                        name="Describtion"
-                        rules={[
-                          {
-                            required: true,
-                            message: 'Describtion is required',
-                          },
-                        ]}
-                      >
-                        <TextEditor />
-                      </Form.Item>
+
+                    <Form.Item
+                      label="Describtion"
+                      name="describtion"
+                      style={{ marginBottom: '-90px' }}
+                    >
+                      <TextEditor
+                        handleDescChange={handleDescChange}
+                        defaultValue={desc}
+                      />
                     </Form.Item>
+                    <Button
+                      style={{ marginTop: '0px', width: '150px' }}
+                      size="large"
+                      // className="button button-submit"
+                      type="primary"
+                      htmlType="submit"
+                    >
+                      SUBMIT
+                    </Button>
                   </Col>
                   <Col span={8}>
-                    <Form.Item
-                      rules={[
-                        { required: true, message: 'Category is required' },
-                      ]}
-                      label="Categories"
-                      name="Category"
-                    >
-                      <Select
-                        className="event-select"
-                        showSearch
-                        style={{ width: 200 }}
-                        placeholder="Select a Types"
-                        optionFilterProp="children"
-                        onChange={onChange}
-                        //   onFocus={onFocus}
-                        //   onBlur={onBlur}
-                        //   onSearch={onSearch}
-                        filterOption={(input, option) =>
-                          option.children
-                            .toLowerCase()
-                            .indexOf(input.toLowerCase()) >= 0
-                        }
-                      >
-                        <Option value="sport">Sport</Option>
-                        <Option value="social">Social</Option>
-                        <Option value="technology">Technology</Option>
-                        <Option value="lifestyle"> life style</Option>
-                      </Select>
-                    </Form.Item>
-                    <Form.Item
-                      // rules={[
-                      //   { required: true, message: 'Type is required' },
-                      // ]}
-                      label="Type"
-                      name="type"
-                    >
-                      <Select
-                        className="event-select"
-                        showSearch
-                        style={{ width: 200 }}
-                        placeholder="Select a Types"
-                        optionFilterProp="children"
-                        onChange={onChange}
-                        //   onFocus={onFocus}
-                        //   onBlur={onBlur}
-                        //   onSearch={onSearch}
-                        filterOption={(input, option) =>
-                          option.children
-                            .toLowerCase()
-                            .indexOf(input.toLowerCase()) >= 0
-                        }
-                      >
-                        <Option value="Mostpopular">Most Popular</Option>
-                        <Option value="RecentPopular">Recent Popular</Option>
-                      </Select>
-                    </Form.Item>
-                    <Form.Item
+                    {/* DisplayCateogries */}
+                    <DisplayCategories />
+                    {/* Display NewsType */}
+                    <DisplayNewType />
+                    {/* <Form.Item
                       rules={[{ required: true, message: 'Tag is required' }]}
                       label="Tag"
                       name="tag"
                     >
-                      <Select
-                        mode="tags"
-                        style={{ width: '100%' }}
-                        onChange={handleChange}
-                      ></Select>
-                    </Form.Item>
-                    <Form.Item
-                      rules={[
-                        {
-                          required: true,
-                          message: 'SEO Keyword is required',
-                        },
-                      ]}
-                      label="SEO Keyword"
-                      name="keyword"
-                    >
-                      <Select
-                        mode="tags"
-                        style={{ width: '100%' }}
-                        onChange={handleChange}
-                      ></Select>
-                    </Form.Item>
-                    <Form.Item
-                      label="Meta Describtion"
-                      name="Meta Describtion"
-                      rules={[
-                        {
-                          required: true,
-                          message: 'Meta Describtion is required',
-                        },
-                      ]}
-                    >
-                      <TextArea rows={4} />
-                    </Form.Item>
-                    <Form.Item label="Upload Image" name="image">
-                      <Upload {...props}>
-                        <Button>
-                          <UploadOutlined /> Upload
-                        </Button>
-                      </Upload>
+                      <Input
+                        bordered={true}
+                        className="tags-addnews"
+                        size="large"
+                      />
+                    </Form.Item> */}
+
+                    <Form.Item label="Image">
+                      <Upload.Dragger {...uploadImage}>
+                        {image === '' ? (
+                          <img
+                            style={{ width: '270px' }}
+                            src="http://localhost:8080/undraw_upload_87y9.svg"
+                            alt="avatar"
+                          />
+                        ) : (
+                          <img
+                            style={{ width: '270px' }}
+                            src={`${'http://localhost:8080/' + image}`}
+                            // src="http://localhost:8080/Technology-Images-Wallpapers-027.jpg"
+                            alt="avatar"
+                          />
+                        )}
+                      </Upload.Dragger>
                     </Form.Item>
                   </Col>
                 </Row>
-                <Button
-                  size="large"
-                  className="button-submit"
-                  type="primary"
-                  htmlType="submit"
-                >
-                  Submit
-                </Button>
               </Form>
             </div>
             {/* </div> */}

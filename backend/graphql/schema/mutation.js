@@ -3,7 +3,14 @@ const bcrypt = require('bcryptjs');
 const graphql = require('graphql');
 const config = require('config');
 const jwtSecret = config.get('JwtSecret');
-const { GraphQLObjectType, GraphQLString, GraphQLNonNull, GraphQLID } = graphql;
+const {
+  GraphQLObjectType,
+  GraphQLString,
+  GraphQLNonNull,
+  GraphQLID,
+  GraphQLBoolean,
+} = graphql;
+const { GraphQLUpload } = require('graphql-upload');
 
 // ===============Type Section===============
 const UserType = require('../schema/Types/user');
@@ -11,6 +18,10 @@ const NewsType = require('../schema/Types/news');
 const CategoriesType = require('../schema/Types/categories');
 const Jobtype = require('../schema/Types/jobs');
 const JobCatetoriesType = require('../schema/Types/jobCategories');
+const TypeOfNewsType = require('../schema/Types/typeOfNews');
+const CompanyType = require('../schema/Types/company');
+const EventType = require('../schema/Types/event');
+const AboutType = require('../schema/Types/about');
 
 // ================Model Section ==================
 
@@ -19,6 +30,11 @@ const News = require('../../model/News');
 const Categories = require('../../model/Categories');
 const Job = require('../../model/Job');
 const JobCategories = require('../../model/JobCategories');
+const TypeOfNews = require('../../model/TypeOfNews');
+const Company = require('../../model/Company');
+const Event = require('../../model/Event');
+const About = require('../../model/About');
+const aboutType = require('../schema/Types/about');
 
 const RootMutation = new GraphQLObjectType({
   name: 'RootMutationType',
@@ -33,7 +49,8 @@ const RootMutation = new GraphQLObjectType({
       },
       resolve: async (parent, args) => {
         try {
-          const isEmail = await User.findOne({ email: args.email });
+          const email = args.email.trim().toLowerCase();
+          const isEmail = await User.findOne({ email });
           if (isEmail) {
             throw new Error('Email already Exist');
           }
@@ -103,17 +120,16 @@ const RootMutation = new GraphQLObjectType({
       args: {
         title: { type: new GraphQLNonNull(GraphQLString) },
         describtion: { type: new GraphQLNonNull(GraphQLString) },
-        categoriesId: { type: new GraphQLNonNull(GraphQLID) },
-        newsTypeId: { type: new GraphQLNonNull(GraphQLID) },
-        userId: { type: new GraphQLNonNull(GraphQLID) },
-        tag: { type: new GraphQLNonNull(GraphQLString) },
+        categoriesId: { type: new GraphQLNonNull(GraphQLString) },
+        newsTypeId: { type: new GraphQLNonNull(GraphQLString) },
+        userId: { type: new GraphQLNonNull(GraphQLString) },
         image: { type: new GraphQLNonNull(GraphQLString) },
       },
       resolve: async (parent, args) => {
         try {
           const news = new News({ ...args });
           await news.save();
-          return { message: 'Create new news Successful' };
+          return { message: 'Create news Successful' };
         } catch (error) {
           console.log(error);
           throw error;
@@ -129,10 +145,9 @@ const RootMutation = new GraphQLObjectType({
         id: { type: new GraphQLNonNull(GraphQLString) },
         title: { type: new GraphQLNonNull(GraphQLString) },
         describtion: { type: new GraphQLNonNull(GraphQLString) },
-        categoriesId: { type: new GraphQLNonNull(GraphQLID) },
-        newsTypeId: { type: new GraphQLNonNull(GraphQLID) },
-        userId: { type: new GraphQLNonNull(GraphQLID) },
-        tag: { type: new GraphQLNonNull(GraphQLString) },
+        categoriesId: { type: new GraphQLNonNull(GraphQLString) },
+        newsTypeId: { type: new GraphQLNonNull(GraphQLString) },
+        userId: { type: new GraphQLNonNull(GraphQLString) },
         image: { type: new GraphQLNonNull(GraphQLString) },
       },
       resolve: async (parent, args) => {
@@ -209,13 +224,58 @@ const RootMutation = new GraphQLObjectType({
       },
     },
 
+    //========Add TypeOfNews===========
+    addTypeOfNews: {
+      type: TypeOfNewsType,
+      args: {
+        name: { type: new GraphQLNonNull(GraphQLString) },
+        userId: { type: new GraphQLNonNull(GraphQLID) },
+      },
+      resolve: async (parent, args) => {
+        try {
+          const Typeofnews = new TypeOfNews({ ...args });
+          await Typeofnews.save();
+          return { message: 'Add Type of News Successful' };
+        } catch (error) {
+          console.log(error);
+          throw error;
+        }
+      },
+    },
+
+    //===========Update TypeofNews=======
+    updateTypeOfNews: {
+      type: TypeOfNewsType,
+      args: {
+        id: { type: new GraphQLNonNull(GraphQLID) },
+        name: { type: new GraphQLNonNull(GraphQLString) },
+        userId: { type: new GraphQLNonNull(GraphQLString) },
+      },
+      resolve: async (parent, args) => {
+        await TypeOfNews.updateOne({ _id: args.id }, { ...args });
+        return { message: 'Update Successful' };
+      },
+    },
+    //=========Delete TypeofNews==========
+
+    deleteTypeOfNews: {
+      type: TypeOfNewsType,
+      args: {
+        id: { type: new GraphQLNonNull(GraphQLString) },
+      },
+      resolve: async (parent, args) => {
+        await TypeOfNews.deleteOne({ _id: args.id });
+        return { message: 'Delete Successful' };
+      },
+    },
+
     //==========Add Jobs==============
     addJob: {
       type: Jobtype,
       args: {
-        userId: { type: new GraphQLNonNull(GraphQLID) },
-        companyId: { type: new GraphQLNonNull(GraphQLID) },
-        jobCategId: { type: new GraphQLNonNull(GraphQLID) },
+        userId: { type: new GraphQLNonNull(GraphQLString) },
+        company: { type: new GraphQLNonNull(GraphQLString) },
+        jobCategId: { type: new GraphQLNonNull(GraphQLString) },
         position: { type: new GraphQLNonNull(GraphQLString) },
         location: { type: new GraphQLNonNull(GraphQLString) },
         salary: { type: new GraphQLNonNull(GraphQLString) },
@@ -242,10 +302,10 @@ const RootMutation = new GraphQLObjectType({
     updateJob: {
       type: Jobtype,
       args: {
-        id: { type: new GraphQLNonNull(GraphQLID) },
-        userId: { type: new GraphQLNonNull(GraphQLID) },
-        companyId: { type: new GraphQLNonNull(GraphQLID) },
-        jobCategId: { type: new GraphQLNonNull(GraphQLID) },
+        id: { type: new GraphQLNonNull(GraphQLString) },
+        userId: { type: new GraphQLNonNull(GraphQLString) },
+        company: { type: new GraphQLNonNull(GraphQLString) },
+        jobCategId: { type: new GraphQLNonNull(GraphQLString) },
         position: { type: new GraphQLNonNull(GraphQLString) },
         location: { type: new GraphQLNonNull(GraphQLString) },
         salary: { type: new GraphQLNonNull(GraphQLString) },
@@ -269,7 +329,7 @@ const RootMutation = new GraphQLObjectType({
     deleteJob: {
       type: Jobtype,
       args: {
-        id: { type: new GraphQLNonNull(GraphQLID) },
+        id: { type: new GraphQLNonNull(GraphQLString) },
       },
       resolve: async (parent, args) => {
         try {
@@ -336,6 +396,195 @@ const RootMutation = new GraphQLObjectType({
       resolve: async (parent, args) => {
         await JobCategories.deleteOne({ _id: args.id });
         return { message: 'Delete Successful' };
+      },
+    },
+
+    //========Add Company==========
+    addCompany: {
+      type: CompanyType,
+      args: {
+        name: { type: new GraphQLNonNull(GraphQLString) },
+        location: { type: new GraphQLNonNull(GraphQLString) },
+        globalComapny: { type: new GraphQLNonNull(GraphQLString) },
+        industry: { type: new GraphQLNonNull(GraphQLString) },
+        des: { type: new GraphQLNonNull(GraphQLString) },
+        image: { type: new GraphQLNonNull(GraphQLString) },
+        userId: { type: new GraphQLNonNull(GraphQLID) },
+        website: { type: new GraphQLNonNull(GraphQLString) },
+        revenue: { type: new GraphQLNonNull(GraphQLString) },
+        type: { type: new GraphQLNonNull(GraphQLString) },
+      },
+      resolve: async (parent, args) => {
+        try {
+          const IsCompany = await Company.findOne({ name: args.name });
+          if (IsCompany) {
+            throw new Error('This Company was added');
+          }
+          const company = new Company({ ...args });
+          await company.save();
+          return { message: 'Add Company Successful' };
+        } catch (error) {
+          console.log(error);
+          throw error;
+        }
+      },
+    },
+
+    //==========Update Company===========
+    updateCompany: {
+      type: CompanyType,
+      args: {
+        id: { type: new GraphQLNonNull(GraphQLID) },
+        name: { type: new GraphQLNonNull(GraphQLString) },
+        location: { type: new GraphQLNonNull(GraphQLString) },
+        globalCompany: { type: new GraphQLNonNull(GraphQLString) },
+        industry: { type: new GraphQLNonNull(GraphQLString) },
+        des: { type: new GraphQLNonNull(GraphQLString) },
+        image: { type: new GraphQLNonNull(GraphQLString) },
+        userId: { type: new GraphQLNonNull(GraphQLID) },
+        website: { type: new GraphQLNonNull(GraphQLString) },
+        revenue: { type: new GraphQLNonNull(GraphQLString) },
+        type: { type: new GraphQLNonNull(GraphQLString) },
+      },
+      resolve: async (parent, args) => {
+        try {
+          const IsCompany = await Company.findOne({ name: args.name });
+          if (IsCompany) {
+            throw new Error('This Company was added');
+          }
+          await Company.updateOne({ _id: args.id }, { ...args });
+          return { message: 'Update Successful' };
+        } catch (error) {
+          console.log(error);
+          throw error;
+        }
+      },
+    },
+    //==========Delete Company============
+    deleteCompany: {
+      type: CompanyType,
+      args: {
+        id: { type: GraphQLNonNull(GraphQLID) },
+      },
+      resolve: async (parent, args) => {
+        await Company.deleteOne({ _id: args.id });
+        return { message: 'Delete Successful' };
+      },
+    },
+    //=========Add Event================
+    addEvent: {
+      type: EventType,
+      args: {
+        title: { type: new GraphQLNonNull(GraphQLString) },
+        image: { type: new GraphQLNonNull(GraphQLString) },
+        des: { type: new GraphQLNonNull(GraphQLString) },
+        banner: { type: new GraphQLNonNull(GraphQLString) },
+        userId: { type: new GraphQLNonNull(GraphQLID) },
+      },
+      resolve: async (parent, args) => {
+        try {
+          const event = new Event({ ...args });
+          await event.save();
+          return { message: 'Create Event Successful' };
+        } catch (error) {
+          console.log(error);
+          throw error;
+        }
+      },
+    },
+    //===========Update Event==============
+    updateEvent: {
+      type: EventType,
+      args: {
+        id: { type: new GraphQLNonNull(GraphQLID) },
+        title: { type: new GraphQLNonNull(GraphQLString) },
+        image: { type: new GraphQLNonNull(GraphQLString) },
+        des: { type: new GraphQLNonNull(GraphQLString) },
+        banner: { type: new GraphQLNonNull(GraphQLString) },
+        userId: { type: new GraphQLNonNull(GraphQLID) },
+      },
+      resolve: async (parent, args) => {
+        try {
+          await Event.updateOne({ _id: args.id }, { ...args });
+          return { message: 'Update Event Successful' };
+        } catch (error) {
+          console.log(error);
+          throw error;
+        }
+      },
+    },
+    //===========Delete Event=================
+    deleteEvent: {
+      type: EventType,
+      args: {
+        id: { type: new GraphQLNonNull(GraphQLID) },
+      },
+      resolve: async (parent, args) => {
+        try {
+          await Event.deleteOne({ _id: args.id });
+          return { message: 'Delete Event Successful' };
+        } catch (error) {
+          console.log(error);
+          throw error;
+        }
+      },
+    },
+    //==============Add About============
+    addAbout: {
+      type: aboutType,
+      args: {
+        title: { type: new GraphQLNonNull(GraphQLString) },
+        des: { type: new GraphQLNonNull(GraphQLString) },
+        banner: { type: new GraphQLNonNull(GraphQLString) },
+        avarta: { type: new GraphQLNonNull(GraphQLString) },
+        userId: { type: new GraphQLNonNull(GraphQLID) },
+      },
+      resolve: async (parent, args) => {
+        try {
+          const about = new About({ ...args });
+          await about.save();
+          return { message: 'Add about Successful' };
+        } catch (error) {
+          console.log(error);
+          throw error;
+        }
+      },
+    },
+    //==============Update About===========
+    updateAbout: {
+      type: aboutType,
+      args: {
+        id: { type: new GraphQLNonNull(GraphQLID) },
+        title: { type: new GraphQLNonNull(GraphQLString) },
+        des: { type: new GraphQLNonNull(GraphQLString) },
+        banner: { type: new GraphQLNonNull(GraphQLString) },
+        avarta: { type: new GraphQLNonNull(GraphQLString) },
+        userId: { type: new GraphQLNonNull(GraphQLID) },
+      },
+      resolve: async (parent, args) => {
+        try {
+          await About.updateOne({ _id: args.id }, { ...args });
+          return { message: 'Update Successful' };
+        } catch (error) {
+          console.log(error);
+          throw error;
+        }
+      },
+    },
+    //============Delete About============
+    deleteAbout: {
+      type: aboutType,
+      args: {
+        id: { type: new GraphQLNonNull(GraphQLID) },
+      },
+      resolve: async (parent, args) => {
+        try {
+          await About.deleteOne({ _id: args.id });
+          return { message: 'delete Successful' };
+        } catch (error) {
+          console.log(error);
+          throw error;
+        }
       },
     },
   },

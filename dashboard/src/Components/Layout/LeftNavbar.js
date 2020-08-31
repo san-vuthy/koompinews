@@ -20,7 +20,14 @@ const LeftNavbar = () => {
     <React.Fragment>
       <Sider collapsible collapsed={collapsed} onCollapse={onCollapse}>
         <div className="logo">
-          <img style={{ height: '60px' }} src="/img/Koompi-White.png" />
+          <img
+            style={{
+              height: '40px',
+              width: '70%',
+              paddingLeft: '40px',
+            }}
+            src="/img/logo.png"
+          />
         </div>
         <Menu theme="dark" defaultSelectedKeys={['1']} mode="inline">
           {/* <SubMenu key="1" icon={<PieChartOutlined />} title="Home Page">

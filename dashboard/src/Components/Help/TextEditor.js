@@ -1,12 +1,16 @@
 import React from 'react';
 import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
+import parse from 'html-react-parser';
 
 const TextEditor = (props) => {
   const modules = {
     toolbar: [
       [{ header: [1, 2, 3, 4, 5, 6, false] }],
       ['bold', 'italic', 'underline', 'strike', 'blockquote'],
+      ['image', 'code-block'],
+      ['link', 'blockquote'],
+      [{ list: 'ordered' }, { list: 'bullet' }],
       [
         { list: 'ordered' },
         { list: 'bullet' },

@@ -1,20 +1,59 @@
-import React from 'react';
-import { Col, Row, Layout, Form, Button, Input, Upload, Select } from 'antd';
+import React, { useState } from 'react';
+import {
+  Col,
+  Row,
+  Layout,
+  Form,
+  Button,
+  Input,
+  Upload,
+  Select,
+  message,
+} from 'antd';
 import LeftNavbar from '../../Layout/LeftNavbar';
 import Navbar from '../../Layout/Navbar';
 import TextEditor from '../../Help/TextEditor';
-import { UploadOutlined } from '@ant-design/icons';
+import { useQuery, useMutation } from '@apollo/client';
+import { ADD_JOBS } from '../../../graphql/mutation';
+import { GET_JOB_CATEGORY } from '../../../graphql/query';
 
 const { Content } = Layout;
-const { TextArea } = Input;
 const { Option } = Select;
 
 const AddJob = () => {
-  const fileList = [];
-  const props = {
-    action: 'https://www.mocky.io/v2/5cc8019d300000980a055e76',
-    listType: 'picture',
-    defaultFileList: [...fileList],
+  const [addJob] = useMutation(ADD_JOBS);
+
+  const [image, setImage] = useState('');
+  const [desc, setDesc] = useState('');
+  const [reqSkill, setReqSkill] = useState('');
+  const [loading, setLoading] = useState(false);
+
+  const uploadImage = {
+    name: 'file',
+    multiple: false,
+    action: 'http://localhost:8080/upload',
+    // listType: 'picture',
+    defaultFileList: image,
+    onChange(info) {
+      const { status } = info.file;
+      if (status !== 'uploading') {
+        console.log(info.file, info.fileList);
+      }
+      if (status === 'done') {
+        setImage(info.file.name.replace(/\s+/g, '-').toLowerCase());
+        message.success(`${info.file.name} file uploaded successfully.`);
+      } else if (status === 'error') {
+        message.error(`${info.file.name} file upload failed.`);
+      }
+    },
+  };
+  const handleDescChange = (value) => {
+    console.log(value);
+    setDesc(value);
+  };
+  const handleReqSkillChange = (value) => {
+    console.log(value);
+    setReqSkill(value);
   };
   function handleChange(value) {
     console.log(`selected ${value}`);
@@ -23,10 +62,62 @@ const AddJob = () => {
     console.log('Failed:', errorInfo);
   };
   const onFinish = (value) => {
+    addJob({
+      variables: {
+        ...value,
+        des: desc,
+        requireSkill: reqSkill,
+        image: image,
+        userId: '5f3e65128c70fe65b27d5c7f',
+      },
+    }).then(async (res) => {
+      setLoading(true);
+      setTimeout(() => {
+        setLoading(false);
+      }, 3000);
+      await message.success(res.data.addJob.message);
+    });
     console.log('success', value);
   };
   const onChange = (e) => {
     console.log(e);
+  };
+
+  ///====dispaly CategoryId======
+  const DisplayCategoryId = () => {
+    const { loading, error, data } = useQuery(GET_JOB_CATEGORY);
+
+    if (loading) return 'Loading...';
+    console.log(data);
+    if (error) return `Error! ${error.message}`;
+    return (
+      <Form.Item
+        rules={[{ required: true, message: 'input Job Categories' }]}
+        label="Job Categories"
+        name="jobCategId"
+      >
+        <Select
+          size="large"
+          className="event-select"
+          showSearch
+          style={{ width: 200 }}
+          placeholder="Select a Job Category"
+          optionFilterProp="children"
+          onChange={onChange}
+          filterOption={(input, option) =>
+            option.children.toLowerCase().indexOf(input.toLowerCase()) >= 0
+          }
+        >
+          {data.allJobCategories.map((res) => {
+            return (
+              <Option value={res.id} key={res.id}>
+                {res.name}
+              </Option>
+            );
+          })}
+        </Select>
+      </Form.Item>
+    );
   };
   return (
     <React.Fragment>
@@ -57,187 +148,133 @@ const AddJob = () => {
                         },
                       ]}
                     >
-                      <Input />
+                      <Input size="large" />
+                    </Form.Item>
+                    <Form.Item
+                      label="Company"
+                      name="company"
+                      rules={[
+                        {
+                          required: true,
+                          message: 'Please input Company!',
+                        },
+                      ]}
+                    >
+                      <Input size="large" />
                     </Form.Item>
 
                     <Row gutter={16}>
-                      <Col span={8}>
-                        <Form.Item
-                          label="Location"
-                          name="location"
-                          rules={[
-                            {
-                              required: true,
-                              message: 'Please input Location!',
-                            },
-                          ]}
-                        >
-                          <Input />
-                        </Form.Item>
-                      </Col>
-                      <Col span={8}>
-                        <Form.Item
-                          label="Salary"
-                          name="salary"
-                          rules={[
-                            {
-                              required: true,
-                              message: 'Please input Salary!',
-                            },
-                          ]}
-                        >
-                          <Input />
-                        </Form.Item>
-                      </Col>
-                      <Col span={8}>
-                        <Form.Item
-                          rules={[
-                            { required: true, message: 'Province is required' },
-                          ]}
-                          label="Time for work"
-                          name="time"
-                        >
-                          <Select
-                            className="event-select"
-                            showSearch
-                            style={{ width: 200 }}
-                            placeholder="Select a Category"
-                            optionFilterProp="children"
-                            onChange={onChange}
-                            //   onFocus={onFocus}
-                            //   onBlur={onBlur}
-                            //   onSearch={onSearch}
-                            filterOption={(input, option) =>
-                              option.children
-                                .toLowerCase()
-                                .indexOf(input.toLowerCase()) >= 0
-                            }
-                          >
-                            <Option value="Fulltime">FullTime</Option>
-                            <Option value="Parttime">PartTime</Option>
-                          </Select>
-                        </Form.Item>
-                      </Col>
-                    </Row>
-                    <Row gutter={16}>
                       <Col span={12}>
                         <Form.Item
+                          style={{ marginBottom: '-50px' }}
                           label="Job description & requirements"
-                          name="Job describtion"
-                          rules={[
-                            {
-                              required: true,
-                              message: 'job & requirement is required',
-                            },
-                          ]}
+                          name="des"
+                          // rules={[
+                          //   {
+                          //     required: true,
+                          //     message: 'job & requirement is required',
+                          //   },
+                          // ]}
                         >
-                          <TextEditor />
+                          <TextEditor
+                            handleDescChange={handleDescChange}
+                            defaultValue={desc}
+                          />
                         </Form.Item>
                       </Col>
                       <Col span={12}>
                         <Form.Item
+                          style={{ marginBottom: '-50px' }}
                           label="Required Skills"
-                          name="skills"
-                          rules={[
-                            {
-                              required: true,
-                              message: 'Skill is required',
-                            },
-                          ]}
+                          name="requireSkill"
+                          // rules={[
+                          //   {
+                          //     required: true,
+                          //     message: 'Skill is required',
+                          //   },
+                          // ]}
                         >
-                          <TextEditor />
+                          <TextEditor
+                            handleDescChange={handleReqSkillChange}
+                            defaultValue={reqSkill}
+                          />
                         </Form.Item>
                       </Col>
                     </Row>
+                    <Button
+                      style={{ marginTop: '0px', width: '150px' }}
+                      size="large"
+                      // className="button button-submit"
+                      type="primary"
+                      htmlType="submit"
+                    >
+                      SUBMIT
+                    </Button>
                   </Col>
-
                   <Col span={8}>
+                    {/* JOB Categories */}
+                    <DisplayCategoryId />
                     <Form.Item
-                      rules={[
-                        { required: true, message: 'input Job Categories' },
-                      ]}
-                      label="Job Categories"
-                      name="job"
-                    >
-                      <Select
-                        className="event-select"
-                        showSearch
-                        style={{ width: 200 }}
-                        placeholder="Select a Job Category"
-                        optionFilterProp="children"
-                        onChange={onChange}
-                        //   onFocus={onFocus}
-                        //   onBlur={onBlur}
-                        //   onSearch={onSearch}
-                        filterOption={(input, option) =>
-                          option.children
-                            .toLowerCase()
-                            .indexOf(input.toLowerCase()) >= 0
-                        }
-                      >
-                        <Option value="Computer Scient">
-                          Computer Science
-                        </Option>
-                        <Option value="Office">Office</Option>
-                      </Select>
-                    </Form.Item>
-                    <Form.Item
-                      rules={[{ required: true, message: 'Tag is required' }]}
-                      label="Tag"
-                      name="tag"
-                    >
-                      <Select
-                        mode="tags"
-                        style={{ width: '100%' }}
-                        onChange={handleChange}
-                      ></Select>
-                    </Form.Item>
-                    <Form.Item
+                      label="Location"
+                      name="location"
                       rules={[
                         {
                           required: true,
-                          message: 'SEO Keyword is required',
+                          message: 'Please input Location!',
                         },
                       ]}
-                      label="SEO Keyword"
-                      name="keyword"
                     >
-                      <Select
-                        mode="tags"
-                        style={{ width: '100%' }}
-                        onChange={handleChange}
-                      ></Select>
+                      <Input size="large" />
                     </Form.Item>
                     <Form.Item
-                      label="Meta Describtion"
-                      name="Meta Describtion"
+                      rules={[
+                        { required: true, message: 'Province is required' },
+                      ]}
+                      label="Time for work"
+                      name="worktime"
+                    >
+                      <Input size="large" />
+                    </Form.Item>
+                    <Form.Item
+                      label="Salary"
+                      name="salary"
                       rules={[
                         {
                           required: true,
-                          message: 'Meta Describtion is required',
+                          message: 'Please input Salary!',
                         },
                       ]}
                     >
-                      <TextArea rows={4} />
+                      <Input size="large" />
                     </Form.Item>
-                    <Form.Item label="Upload Image" name="image">
+
+                    {/* <Form.Item label="Upload Image" name="image">
                       <Upload {...props}>
                         <Button>
                           <UploadOutlined /> Upload
                         </Button>
                       </Upload>
+                    </Form.Item> */}
+                    <Form.Item label="Image">
+                      <Upload.Dragger {...uploadImage}>
+                        {image === '' ? (
+                          <img
+                            style={{ width: '270px' }}
+                            src="http://localhost:8080/undraw_upload_87y9.svg"
+                            alt="avatar"
+                          />
+                        ) : (
+                          <img
+                            style={{ width: '270px' }}
+                            src={`${'http://localhost:8080/' + image}`}
+                            // src="http://localhost:8080/Technology-Images-Wallpapers-027.jpg"
+                            alt="avatar"
+                          />
+                        )}
+                      </Upload.Dragger>
                     </Form.Item>
                   </Col>
                 </Row>
-                <Button
-                  size="large"
-                  className="button-submit"
-                  type="primary"
-                  htmlType="submit"
-                  style={{ marginTop: '70px' }}
-                >
-                  Submit
-                </Button>
               </Form>
             </div>
           </Content>
