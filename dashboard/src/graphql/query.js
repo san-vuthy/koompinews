@@ -100,6 +100,10 @@ const GET_JOB_CATEGORY = gql`
       name
       id
       userId
+      createAt
+      user {
+        name
+      }
     }
   }
 `;
@@ -107,8 +111,11 @@ const GET_A_JOB_CATEGORY = gql`
   query($id: String) {
     aJobCategory(id: $id) {
       name
-      id
       userId
+      createAt
+      user {
+        name
+      }
     }
   }
 `;
@@ -139,6 +146,48 @@ const GET_A_JOB = gql`
     }
   }
 `;
+const GET_COMPANIES = gql`
+  query {
+    allCompany {
+      name
+      id
+      user {
+        name
+        id
+      }
+      createAt
+      location
+      globalCompanySize
+      industry
+      des
+      image
+      website
+      type
+      revenue
+    }
+  }
+`;
+const GET_A_COMPANY = gql`
+  query($id: String!) {
+    aCompany(id: $id) {
+      name
+      id
+      user {
+        name
+        id
+      }
+      createAt
+      location
+      globalCompanySize
+      industry
+      des
+      image
+      website
+      type
+      revenue
+    }
+  }
+`;
 
 export {
   GET_NEWS,
@@ -150,4 +199,6 @@ export {
   GET_JOB_CATEGORY,
   GET_A_JOB_CATEGORY,
   GET_A_JOB,
+  GET_COMPANIES,
+  GET_A_COMPANY,
 };

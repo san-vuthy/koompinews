@@ -21,6 +21,7 @@ const { Content } = Layout;
 const { Option } = Select;
 
 const AddJob = () => {
+  const [form] = Form.useForm();
   const [addJob] = useMutation(ADD_JOBS);
 
   const [image, setImage] = useState('');
@@ -76,6 +77,7 @@ const AddJob = () => {
         setLoading(false);
       }, 3000);
       await message.success(res.data.addJob.message);
+      form.resetFields();
     });
     console.log('success', value);
   };
@@ -132,6 +134,7 @@ const AddJob = () => {
             >
               <h1 className="title-top">Add Jobs</h1>
               <Form
+                form={form}
                 layout="vertical"
                 onFinish={onFinish}
                 onFinishFailed={onFinishFailed}
@@ -204,7 +207,6 @@ const AddJob = () => {
                     <Button
                       style={{ marginTop: '0px', width: '150px' }}
                       size="large"
-                      // className="button button-submit"
                       type="primary"
                       htmlType="submit"
                     >

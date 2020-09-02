@@ -1,21 +1,22 @@
 import React from 'react';
-import { Layout, Space, Table, Tag, Divider, Popconfirm } from 'antd';
+import { Layout, Space, Table, Tag, Divider, Popconfirm, message } from 'antd';
 import LeftNavbar from '../../Layout/LeftNavbar';
 import Navbar from '../../Layout/Navbar';
-import { NavLink } from 'react-router-dom';
-import { useQuery } from '@apollo/client';
+import { useQuery, useMutation } from '@apollo/client';
 import { GET_JOBS } from '../../../graphql/query';
+import { DELETE_JOB } from '../../../graphql/mutation';
 import moment from 'moment';
-import parse from 'html-react-parser';
 import { Link } from 'react-router-dom';
 const { Content } = Layout;
 
 const Alljobs = () => {
+  const [deleteJob] = useMutation(DELETE_JOB);
   const { loading, error, data, refetch } = useQuery(GET_JOBS);
 
   if (loading) return 'Loading...';
   console.log(data);
   if (error) return `Error! ${error.message}`;
+
   const columns = [
     {
       title: 'Image',
@@ -42,11 +43,11 @@ const Alljobs = () => {
       dataIndex: 'company',
       key: 'company',
     },
-    {
-      title: 'Location',
-      dataIndex: 'location',
-      key: 'location',
-    },
+    // {
+    //   title: 'Location',
+    //   dataIndex: 'location',
+    //   key: 'location',
+    // },
     {
       title: 'Salary',
       dataIndex: 'salary',
@@ -65,20 +66,28 @@ const Alljobs = () => {
         return jobCateName.name;
       },
     },
+    // {
+    //   title: 'Describtion',
+    //   dataIndex: 'des',
+    //   key: 'des',
+    //   render: (data) => {
+    //     return parse(data.length <= 25 ? data : data.substring(0, 25) + ' ...');
+    //   },
+    // },
+    // {
+    //   title: 'Require Skill',
+    //   dataIndex: 'requireSkill',
+    //   key: 'des',
+    //   render: (data) => {
+    //     return parse(data.length <= 25 ? data : data.substring(0, 25) + ' ...');
+    //   },
+    // },
     {
-      title: 'Describtion',
-      dataIndex: 'des',
-      key: 'des',
-      render: (data) => {
-        return parse(data.length <= 25 ? data : data.substring(0, 25) + ' ...');
-      },
-    },
-    {
-      title: 'Require Skill',
-      dataIndex: 'requireSkill',
-      key: 'des',
-      render: (data) => {
-        return parse(data.length <= 25 ? data : data.substring(0, 25) + ' ...');
+      title: 'CreateBy',
+      dataIndex: 'user',
+      key: 'create_by',
+      render: (user) => {
+        return user.name;
       },
     },
 
@@ -97,7 +106,7 @@ const Alljobs = () => {
         const { id } = data;
         console.log('id', id);
         return (
-          <div>
+          <Space>
             <Link to={`/admin/editjob/${id}`}>
               <Tag style={{ cursor: 'pointer' }} color="rgb(1, 100, 145)">
                 Edit
@@ -109,23 +118,23 @@ const Alljobs = () => {
               title="Are you sure to delete this News?"
               okText="Yes"
               cancelText="No"
-              // onConfirm={() => {
-              //   deleteNews({ variables: { id: `${id}` } })
-              //     .then(async (res) => {
-              //       await message.success(res.data.deleteNews.message);
-              //       await refetch();
-              //     })
-              //     .catch((error) => {
-              //       console.log(error);
-              //       return null;
-              //     });
-              // }}
+              onConfirm={() => {
+                deleteJob({ variables: { id: `${id}` } })
+                  .then(async (res) => {
+                    await message.success(res.data.deleteJob.message);
+                    await refetch();
+                  })
+                  .catch((error) => {
+                    console.log(error);
+                    return null;
+                  });
+              }}
             >
               <Tag color="rgb(255, 0, 0)" style={{ cursor: 'pointer' }}>
                 Delete
               </Tag>
             </Popconfirm>
-          </div>
+          </Space>
         );
       },
     },

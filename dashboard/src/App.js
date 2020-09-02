@@ -16,6 +16,10 @@ import JobCategories from './Components/Page/Jobs/JobCategories';
 import Test from './Components/Test';
 import EditNews from './Components/Page/Newspage/EditNews';
 import EditJob from './Components/Page/Jobs/EditJob';
+import Show from './Components/Page/Jobs/JobCategory/Show';
+import AddCompany from './Components/Page/Company/AddCompany';
+import AllCompany from './Components/Page/Company/AllCompany';
+import EditCompany from './Components/Page/Company/EditCompany';
 
 function App() {
   return (
@@ -45,6 +49,10 @@ function App() {
           <Route exact path="/admin/jobcategories" component={JobCategories} />
           <Route exact path="/admin/editnews/:id" component={EditNews} />
           <Route exact path="/admin/editjob/:id" component={EditJob} />
+          <Route exact path="/admin/show" component={Show} />
+          <Route exact path="/admin/addcompany" component={AddCompany} />
+          <Route exact path="/admin/allcompanies" component={AllCompany} />
+          <Route exact path="/admin/editcompany/:id" component={EditCompany} />
 
           {/* Test */}
           <Route exact path="/test" component={Test} />

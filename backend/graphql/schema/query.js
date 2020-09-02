@@ -93,7 +93,7 @@ const RootQuery = new GraphQLObjectType({
     //=====Get a JobCategory=========
     aJobCategory: {
       type: JobCategoriesType,
-      args: { id: { type: GraphQLID } },
+      args: { id: { type: GraphQLString } },
       resolve(parent, args) {
         return JobCategories.findOne({ _id: args.id });
       },
@@ -117,7 +117,7 @@ const RootQuery = new GraphQLObjectType({
     aTypeofNews: {
       type: TypeOfNewType,
       args: {
-        id: { type: GraphQLID },
+        id: { type: GraphQLString },
       },
       resolve(parent, args) {
         return TypeOfNews.findOne({ _id: args.id });
@@ -131,10 +131,10 @@ const RootQuery = new GraphQLObjectType({
       },
     },
     //========Get a Company======
-    aComapny: {
+    aCompany: {
       type: CompanyType,
       args: {
-        id: { type: GraphQLID },
+        id: { type: GraphQLString },
       },
       resolve(parent, args) {
         return Company.findOne({ _id: args.id });

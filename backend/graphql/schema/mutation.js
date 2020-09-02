@@ -348,7 +348,7 @@ const RootMutation = new GraphQLObjectType({
       type: JobCatetoriesType,
       args: {
         name: { type: new GraphQLNonNull(GraphQLString) },
-        userId: { type: new GraphQLNonNull(GraphQLID) },
+        userId: { type: new GraphQLNonNull(GraphQLString) },
       },
       resolve: async (parent, args) => {
         try {
@@ -373,9 +373,9 @@ const RootMutation = new GraphQLObjectType({
     updateJobCategory: {
       type: JobCatetoriesType,
       args: {
-        id: { type: new GraphQLNonNull(GraphQLID) },
+        id: { type: new GraphQLNonNull(GraphQLString) },
         name: { type: new GraphQLNonNull(GraphQLString) },
-        userId: { type: new GraphQLNonNull(GraphQLID) },
+        userId: { type: new GraphQLNonNull(GraphQLString) },
       },
       resolve: async (parent, args) => {
         try {
@@ -391,7 +391,7 @@ const RootMutation = new GraphQLObjectType({
     deleteJobCategory: {
       type: JobCatetoriesType,
       args: {
-        id: { type: new GraphQLNonNull(GraphQLID) },
+        id: { type: new GraphQLNonNull(GraphQLString) },
       },
       resolve: async (parent, args) => {
         await JobCategories.deleteOne({ _id: args.id });
@@ -405,11 +405,11 @@ const RootMutation = new GraphQLObjectType({
       args: {
         name: { type: new GraphQLNonNull(GraphQLString) },
         location: { type: new GraphQLNonNull(GraphQLString) },
-        globalComapny: { type: new GraphQLNonNull(GraphQLString) },
+        globalCompany: { type: new GraphQLNonNull(GraphQLString) },
         industry: { type: new GraphQLNonNull(GraphQLString) },
         des: { type: new GraphQLNonNull(GraphQLString) },
         image: { type: new GraphQLNonNull(GraphQLString) },
-        userId: { type: new GraphQLNonNull(GraphQLID) },
+        userId: { type: new GraphQLNonNull(GraphQLString) },
         website: { type: new GraphQLNonNull(GraphQLString) },
         revenue: { type: new GraphQLNonNull(GraphQLString) },
         type: { type: new GraphQLNonNull(GraphQLString) },
@@ -434,14 +434,14 @@ const RootMutation = new GraphQLObjectType({
     updateCompany: {
       type: CompanyType,
       args: {
-        id: { type: new GraphQLNonNull(GraphQLID) },
+        id: { type: new GraphQLNonNull(GraphQLString) },
         name: { type: new GraphQLNonNull(GraphQLString) },
         location: { type: new GraphQLNonNull(GraphQLString) },
         globalCompany: { type: new GraphQLNonNull(GraphQLString) },
         industry: { type: new GraphQLNonNull(GraphQLString) },
         des: { type: new GraphQLNonNull(GraphQLString) },
         image: { type: new GraphQLNonNull(GraphQLString) },
-        userId: { type: new GraphQLNonNull(GraphQLID) },
+        userId: { type: new GraphQLNonNull(GraphQLString) },
         website: { type: new GraphQLNonNull(GraphQLString) },
         revenue: { type: new GraphQLNonNull(GraphQLString) },
         type: { type: new GraphQLNonNull(GraphQLString) },
@@ -464,13 +464,14 @@ const RootMutation = new GraphQLObjectType({
     deleteCompany: {
       type: CompanyType,
       args: {
-        id: { type: GraphQLNonNull(GraphQLID) },
+        id: { type: new GraphQLNonNull(GraphQLString) },
       },
       resolve: async (parent, args) => {
         await Company.deleteOne({ _id: args.id });
         return { message: 'Delete Successful' };
       },
     },
+
     //=========Add Event================
     addEvent: {
       type: EventType,

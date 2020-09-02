@@ -7,9 +7,9 @@ const { GraphQLObjectType, GraphQLString, GraphQLID } = graphql;
 const companyType = new GraphQLObjectType({
   name: 'companyType',
   fields: () => ({
-    id: { type: GraphQLID },
+    id: { type: GraphQLString },
     name: { type: GraphQLString },
-    userId: { type: GraphQLID },
+    userId: { type: GraphQLString },
     message: { type: GraphQLString },
     createAt: { type: GraphQLString },
     location: { type: GraphQLString },
