@@ -13,10 +13,6 @@ const EventSchema = new mogoose.Schema({
     type: String,
     required: true,
   },
-  banner: {
-    type: String,
-    required: true,
-  },
   createAt: {
     type: Date,
     default: Date.now(),

@@ -10,7 +10,7 @@ const TextEditor = (props) => {
       ['bold', 'italic', 'underline', 'strike', 'blockquote'],
       ['image', 'code-block'],
       ['link', 'blockquote'],
-      [{ list: 'ordered' }, { list: 'bullet' }],
+      [{ list: 'ordered' }],
       [
         { list: 'ordered' },
         { list: 'bullet' },

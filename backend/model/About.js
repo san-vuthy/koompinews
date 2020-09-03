@@ -9,10 +9,6 @@ const AboutSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
-  banner: {
-    type: String,
-    required: true,
-  },
   avarta: {
     type: String,
     required: true,

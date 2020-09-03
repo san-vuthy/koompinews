@@ -86,8 +86,9 @@ const JobCategories = () => {
       },
     }).then(async (res) => {
       await message.success(res.data.updateJobCategory.message);
-      // await refetch();
-      form.resetFields();
+      await refetch();
+      window.location.reload();
+      // form.resetFields();
     });
     console.log('success', value);
   };
@@ -249,16 +250,30 @@ const JobCategories = () => {
                         size="large"
                       />
                     </Form.Item>
-                    <Button
-                      size="large"
-                      className="button-submit"
-                      type="primary"
-                      htmlType="submit"
-                      //   style={{ marginTop: '70px' }}
-                    >
-                      Submit
-                    </Button>
-                    <Button onClick={() => setEdit(false)}>Cancel</Button>
+                    <div style={{ display: 'flex' }}>
+                      <Button
+                        size="large"
+                        className="button-submit"
+                        type="primary"
+                        htmlType="submit"
+                        // onClick={() => setEdit(false)}
+                        //   style={{ marginTop: '70px' }}
+                      >
+                        Submit
+                      </Button>
+                      <div style={{ paddingLeft: '10px' }}>
+                        <Button
+                          size="large"
+                          type="primary"
+                          danger
+                          onClick={() =>
+                            setEdit(false, window.location.reload())
+                          }
+                        >
+                          Cancel
+                        </Button>
+                      </div>
+                    </div>
                   </Form>
                 </div>
               )}

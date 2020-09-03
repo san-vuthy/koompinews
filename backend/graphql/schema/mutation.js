@@ -405,7 +405,7 @@ const RootMutation = new GraphQLObjectType({
       args: {
         name: { type: new GraphQLNonNull(GraphQLString) },
         location: { type: new GraphQLNonNull(GraphQLString) },
-        globalCompany: { type: new GraphQLNonNull(GraphQLString) },
+        globalCompanySize: { type: new GraphQLNonNull(GraphQLString) },
         industry: { type: new GraphQLNonNull(GraphQLString) },
         des: { type: new GraphQLNonNull(GraphQLString) },
         image: { type: new GraphQLNonNull(GraphQLString) },
@@ -437,7 +437,7 @@ const RootMutation = new GraphQLObjectType({
         id: { type: new GraphQLNonNull(GraphQLString) },
         name: { type: new GraphQLNonNull(GraphQLString) },
         location: { type: new GraphQLNonNull(GraphQLString) },
-        globalCompany: { type: new GraphQLNonNull(GraphQLString) },
+        globalCompanySize: { type: new GraphQLNonNull(GraphQLString) },
         industry: { type: new GraphQLNonNull(GraphQLString) },
         des: { type: new GraphQLNonNull(GraphQLString) },
         image: { type: new GraphQLNonNull(GraphQLString) },
@@ -479,8 +479,7 @@ const RootMutation = new GraphQLObjectType({
         title: { type: new GraphQLNonNull(GraphQLString) },
         image: { type: new GraphQLNonNull(GraphQLString) },
         des: { type: new GraphQLNonNull(GraphQLString) },
-        banner: { type: new GraphQLNonNull(GraphQLString) },
-        userId: { type: new GraphQLNonNull(GraphQLID) },
+        userId: { type: new GraphQLNonNull(GraphQLString) },
       },
       resolve: async (parent, args) => {
         try {
@@ -497,12 +496,11 @@ const RootMutation = new GraphQLObjectType({
     updateEvent: {
       type: EventType,
       args: {
-        id: { type: new GraphQLNonNull(GraphQLID) },
+        id: { type: new GraphQLNonNull(GraphQLString) },
         title: { type: new GraphQLNonNull(GraphQLString) },
         image: { type: new GraphQLNonNull(GraphQLString) },
         des: { type: new GraphQLNonNull(GraphQLString) },
-        banner: { type: new GraphQLNonNull(GraphQLString) },
-        userId: { type: new GraphQLNonNull(GraphQLID) },
+        userId: { type: new GraphQLNonNull(GraphQLString) },
       },
       resolve: async (parent, args) => {
         try {
@@ -518,7 +516,7 @@ const RootMutation = new GraphQLObjectType({
     deleteEvent: {
       type: EventType,
       args: {
-        id: { type: new GraphQLNonNull(GraphQLID) },
+        id: { type: new GraphQLNonNull(GraphQLString) },
       },
       resolve: async (parent, args) => {
         try {
@@ -536,9 +534,8 @@ const RootMutation = new GraphQLObjectType({
       args: {
         title: { type: new GraphQLNonNull(GraphQLString) },
         des: { type: new GraphQLNonNull(GraphQLString) },
-        banner: { type: new GraphQLNonNull(GraphQLString) },
         avarta: { type: new GraphQLNonNull(GraphQLString) },
-        userId: { type: new GraphQLNonNull(GraphQLID) },
+        userId: { type: new GraphQLNonNull(GraphQLString) },
       },
       resolve: async (parent, args) => {
         try {
@@ -555,12 +552,11 @@ const RootMutation = new GraphQLObjectType({
     updateAbout: {
       type: aboutType,
       args: {
-        id: { type: new GraphQLNonNull(GraphQLID) },
+        id: { type: new GraphQLNonNull(GraphQLString) },
         title: { type: new GraphQLNonNull(GraphQLString) },
         des: { type: new GraphQLNonNull(GraphQLString) },
-        banner: { type: new GraphQLNonNull(GraphQLString) },
         avarta: { type: new GraphQLNonNull(GraphQLString) },
-        userId: { type: new GraphQLNonNull(GraphQLID) },
+        userId: { type: new GraphQLNonNull(GraphQLString) },
       },
       resolve: async (parent, args) => {
         try {
@@ -576,7 +572,7 @@ const RootMutation = new GraphQLObjectType({
     deleteAbout: {
       type: aboutType,
       args: {
-        id: { type: new GraphQLNonNull(GraphQLID) },
+        id: { type: new GraphQLNonNull(GraphQLString) },
       },
       resolve: async (parent, args) => {
         try {

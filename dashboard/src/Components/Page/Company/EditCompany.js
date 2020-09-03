@@ -30,7 +30,7 @@ const EditCompany = (props) => {
   const [updateCompany] = useMutation(UPDATE_COMPANY);
   const [loading1, setLoading] = useState(false);
   const [desc, setDesc] = useState('');
-  const [image, setImage] = useState('');
+  const [image, setImage] = useState(null);
 
   const handleDescChange = (value) => {
     setDesc(value);
@@ -43,8 +43,8 @@ const EditCompany = (props) => {
       variables: {
         ...value,
         id: id,
-        des: desc,
-        image: image,
+        des: desc === '' ? data.aCompany.des : desc,
+        image: image === null ? data.aCompany.image : image,
         userId: '5f3e65128c70fe65b27d5c7f',
       },
     }).then(async (res) => {
@@ -123,6 +123,7 @@ const EditCompany = (props) => {
                     <Row gutter={[12, 0]}>
                       <Col span={8}>
                         <Form.Item
+                          initialValue={data.aCompany.website}
                           label="Website of Company"
                           name="website"
                           rules={[
@@ -137,6 +138,7 @@ const EditCompany = (props) => {
                       </Col>
                       <Col lg={8}>
                         <Form.Item
+                          initialValue={data.aCompany.industry}
                           label="Industry"
                           name="industry"
                           rules={[
@@ -151,6 +153,7 @@ const EditCompany = (props) => {
                       </Col>
                       <Col lg={8}>
                         <Form.Item
+                          initialValue={data.aCompany.revenue}
                           label="Revenue"
                           name="revenue"
                           rules={[
@@ -166,8 +169,9 @@ const EditCompany = (props) => {
                     </Row>
                     <Form.Item
                       style={{ marginBottom: '-50px' }}
+                      initialValue={data.aCompany.des}
                       label="Description"
-                      name="describtion"
+                      name="des"
                       // rules={[
                       //   {
                       //     required: true,
@@ -177,7 +181,7 @@ const EditCompany = (props) => {
                     >
                       <TextEditor
                         handleDescChange={handleDescChange}
-                        defaultValue={desc}
+                        defaultValue={data.aCompany.des}
                       />
                     </Form.Item>
 
@@ -192,18 +196,23 @@ const EditCompany = (props) => {
                   </Col>
                   <Col span={8}>
                     <Form.Item
+                      initialValue={data.aCompany.globalCompanySize}
                       label="Global Size of Company"
-                      name="globalCompany"
-                      rules={[
-                        {
-                          required: true,
-                          message: 'Please input Global size company!',
-                        },
-                      ]}
+                      name="globalCompanySize"
+                      // rules={[
+                      //   {
+                      //     required: true,
+                      //     message: 'Please input Global size company!',
+                      //   },
+                      // ]}
                     >
-                      <Input size="large" />
+                      <Input
+                        defaultValue={data.aCompany.globalCompanySize}
+                        size="large"
+                      />
                     </Form.Item>
                     <Form.Item
+                      initialValue={data.aCompany.location}
                       label="Location"
                       name="location"
                       rules={[
@@ -216,6 +225,7 @@ const EditCompany = (props) => {
                       <Input size="large" />
                     </Form.Item>
                     <Form.Item
+                      initialValue={data.aCompany.type}
                       label="Type of Company"
                       name="type"
                       rules={[
@@ -227,12 +237,15 @@ const EditCompany = (props) => {
                     >
                       <Input size="large" />
                     </Form.Item>
-                    <Form.Item label="Image">
+                    <Form.Item initialValue={data.aCompany.image} label="Image">
                       <Upload.Dragger {...uploadImage}>
-                        {image === '' ? (
+                        {image === null ? (
                           <img
                             style={{ width: '270px' }}
-                            src="http://localhost:8080/undraw_upload_87y9.svg"
+                            sr
+                            src={`${
+                              'http://localhost:8080/' + data.aCompany.image
+                            }`}
                             alt="avatar"
                           />
                         ) : (

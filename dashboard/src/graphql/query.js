@@ -188,6 +188,64 @@ const GET_A_COMPANY = gql`
     }
   }
 `;
+const GET_EVENT = gql`
+  query {
+    allEvent {
+      id
+      title
+      image
+      createAt
+      des
+      message
+      user {
+        name
+      }
+    }
+  }
+`;
+const GET_A_EVENT = gql`
+  query($id: String!) {
+    aEvent(id: $id) {
+      id
+      title
+      image
+      createAt
+      des
+      message
+      user {
+        name
+      }
+    }
+  }
+`;
+const GET_ABOUT = gql`
+  query {
+    allAbout {
+      id
+      title
+      des
+      user {
+        name
+      }
+      avarta
+      createAt
+    }
+  }
+`;
+const GET_A_ABOUT = gql`
+  query($id: String!) {
+    aAbout(id: $id) {
+      id
+      title
+      des
+      user {
+        name
+      }
+      avarta
+      createAt
+    }
+  }
+`;
 
 export {
   GET_NEWS,
@@ -201,4 +259,8 @@ export {
   GET_A_JOB,
   GET_COMPANIES,
   GET_A_COMPANY,
+  GET_A_EVENT,
+  GET_EVENT,
+  GET_ABOUT,
+  GET_A_ABOUT,
 };

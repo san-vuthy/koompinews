@@ -9,7 +9,7 @@ const CompanySchema = new mongoose.Schema({
     type: String,
     required: true,
   },
-  globalCompany: {
+  globalCompanySize: {
     type: String,
     required: true,
   },

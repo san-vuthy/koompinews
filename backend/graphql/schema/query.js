@@ -144,7 +144,7 @@ const RootQuery = new GraphQLObjectType({
     aEvent: {
       type: EventType,
       args: {
-        id: { type: GraphQLID },
+        id: { type: GraphQLString },
       },
       resolve(parent, args) {
         return Event.findOne({ _id: args.id });
@@ -168,7 +168,7 @@ const RootQuery = new GraphQLObjectType({
     aAbout: {
       type: AboutType,
       args: {
-        id: { type: GraphQLID },
+        id: { type: GraphQLString },
       },
       resolve(parent, args) {
         return About.findOne({ _id: args.id });

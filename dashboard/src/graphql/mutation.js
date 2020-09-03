@@ -159,7 +159,7 @@ const UPDATE_COMPANY = gql`
     $id: String!
     $name: String!
     $location: String!
-    $globalCompany: String!
+    $globalCompanySize: String!
     $industry: String!
     $des: String!
     $image: String!
@@ -172,7 +172,7 @@ const UPDATE_COMPANY = gql`
       id: $id
       name: $name
       location: $location
-      globalCompany: $globalCompany
+      globalCompanySize: $globalCompanySize
       industry: $industry
       des: $des
       image: $image
@@ -189,7 +189,7 @@ const ADD_COMPANY = gql`
   mutation(
     $name: String!
     $location: String!
-    $globalCompany: String!
+    $globalCompanySize: String!
     $industry: String!
     $des: String!
     $image: String!
@@ -201,7 +201,7 @@ const ADD_COMPANY = gql`
     addCompany(
       name: $name
       location: $location
-      globalCompany: $globalCompany
+      globalCompanySize: $globalCompanySize
       industry: $industry
       des: $des
       image: $image
@@ -210,6 +210,74 @@ const ADD_COMPANY = gql`
       revenue: $revenue
       type: $type
     ) {
+      message
+    }
+  }
+`;
+
+const ADD_EVENT = gql`
+  mutation($title: String!, $image: String!, $des: String!, $userId: String!) {
+    addEvent(title: $title, image: $image, des: $des, userId: $userId) {
+      message
+    }
+  }
+`;
+const UPDATE_EVENT = gql`
+  mutation(
+    $id: String!
+    $title: String!
+    $image: String!
+    $des: String!
+    $userId: String!
+  ) {
+    updateEvent(
+      id: $id
+      title: $title
+      image: $image
+      des: $des
+      userId: $userId
+    ) {
+      message
+    }
+  }
+`;
+const DELETE_EVENT = gql`
+  mutation($id: String!) {
+    deleteEvent(id: $id) {
+      message
+    }
+  }
+`;
+
+const ADD_ABOUT = gql`
+  mutation($title: String!, $avarta: String!, $des: String!, $userId: String!) {
+    addAbout(title: $title, avarta: $avarta, des: $des, userId: $userId) {
+      message
+    }
+  }
+`;
+const UPDATE_ABOUT = gql`
+  mutation(
+    $id: String!
+    $title: String!
+    $avarta: String!
+    $des: String!
+    $userId: String!
+  ) {
+    updateAbout(
+      id: $id
+      title: $title
+      avarta: $avarta
+      des: $des
+      userId: $userId
+    ) {
+      message
+    }
+  }
+`;
+const DELETE_ABOUT = gql`
+  mutation($id: String!) {
+    deleteAbout(id: $id) {
       message
     }
   }
@@ -228,4 +296,10 @@ export {
   DELETE_COMPANY,
   UPDATE_COMPANY,
   ADD_COMPANY,
+  ADD_EVENT,
+  UPDATE_EVENT,
+  DELETE_EVENT,
+  ADD_ABOUT,
+  DELETE_ABOUT,
+  UPDATE_ABOUT,
 };

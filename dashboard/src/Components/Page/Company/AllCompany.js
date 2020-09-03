@@ -1,5 +1,10 @@
 import React from 'react';
 import { Layout, Space, Table, Tag, Divider, Popconfirm, message } from 'antd';
+import {
+  EditOutlined,
+  DeleteOutlined,
+  ArrowLeftOutlined,
+} from '@ant-design/icons';
 import LeftNavbar from '../../Layout/LeftNavbar';
 import Navbar from '../../Layout/Navbar';
 import { useQuery, useMutation } from '@apollo/client';
@@ -75,7 +80,7 @@ const AllCompany = () => {
           <Space>
             <Link to={`/admin/editcompany/${id}`}>
               <Tag style={{ cursor: 'pointer' }} color="rgb(1, 100, 145)">
-                Edit
+                <EditOutlined /> Edit
               </Tag>
             </Link>
             <Divider type="vertical" />
@@ -97,7 +102,7 @@ const AllCompany = () => {
               }}
             >
               <Tag color="rgb(255, 0, 0)" style={{ cursor: 'pointer' }}>
-                Delete
+                <DeleteOutlined /> Delete
               </Tag>
             </Popconfirm>
           </Space>
@@ -113,11 +118,23 @@ const AllCompany = () => {
         <Layout className="site-layout">
           <Navbar />
           <Content style={{ margin: '16px 16px', backgroundColor: '#fff' }}>
+            {/* <div
+              style={{
+                paddingLeft: '70px',
+                marginTop: '30px',
+                fontSize: '30px',
+              }}
+            >
+              <Link to="/admin/addcompany">
+                <ArrowLeftOutlined />
+              </Link>
+            </div> */}
             <div
               className="site-layout-background"
               style={{ padding: 70, minHeight: 360 }}
             >
               <h1 className="title-top">All Companies</h1>
+
               <Table columns={columns} dataSource={data.allCompany} />
             </div>
           </Content>

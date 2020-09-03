@@ -149,7 +149,7 @@ const AddCompany = () => {
                     <Form.Item
                       style={{ marginBottom: '-50px' }}
                       label="Description"
-                      name="describtion"
+                      name="des"
                       // rules={[
                       //   {
                       //     required: true,
@@ -175,7 +175,7 @@ const AddCompany = () => {
                   <Col span={8}>
                     <Form.Item
                       label="Global Size of Company"
-                      name="globalCompany"
+                      name="globalCompanySize"
                       rules={[
                         {
                           required: true,

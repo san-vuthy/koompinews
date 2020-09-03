@@ -73,6 +73,22 @@ const LeftNavbar = () => {
               <NavLink to="/admin/addcompany">Add Company</NavLink>
             </Menu.Item>
           </SubMenu>
+          <SubMenu key="6" icon={<PieChartOutlined />} title="Event Page">
+            <Menu.Item>
+              <NavLink to="/admin/allevent">All Event</NavLink>
+            </Menu.Item>
+            <Menu.Item>
+              <NavLink to="/admin/addevent">Add Event</NavLink>
+            </Menu.Item>
+          </SubMenu>
+          <SubMenu key="7" icon={<PieChartOutlined />} title="About Page">
+            <Menu.Item>
+              <NavLink to="/admin/allabout">All About</NavLink>
+            </Menu.Item>
+            <Menu.Item>
+              <NavLink to="/admin/addabout">Add About</NavLink>
+            </Menu.Item>
+          </SubMenu>
           <SubMenu key="sub1" icon={<UserOutlined />} title="User">
             <Menu.Item key="3">Tom</Menu.Item>
             <Menu.Item key="4">Bill</Menu.Item>

@@ -20,6 +20,12 @@ import Show from './Components/Page/Jobs/JobCategory/Show';
 import AddCompany from './Components/Page/Company/AddCompany';
 import AllCompany from './Components/Page/Company/AllCompany';
 import EditCompany from './Components/Page/Company/EditCompany';
+import AddEvent from './Components/Page/Event/AddEvent';
+import EditEvent from './Components/Page/Event/EditEvent';
+import AllEvent from './Components/Page/Event/AllEvent';
+import AllAbout from './Components/Page/About/AllAbout';
+import AddAbout from './Components/Page/About/AddAbout';
+import EditAbout from './Components/Page/About/EditAbout';
 
 function App() {
   return (
@@ -53,6 +59,12 @@ function App() {
           <Route exact path="/admin/addcompany" component={AddCompany} />
           <Route exact path="/admin/allcompanies" component={AllCompany} />
           <Route exact path="/admin/editcompany/:id" component={EditCompany} />
+          <Route exact path="/admin/addevent/" component={AddEvent} />
+          <Route exact path="/admin/editevent/:id" component={EditEvent} />
+          <Route exact path="/admin/allevent/" component={AllEvent} />
+          <Route exact path="/admin/allabout/" component={AllAbout} />
+          <Route exact path="/admin/addabout/" component={AddAbout} />
+          <Route exact path="/admin/editabout/:id" component={EditAbout} />
 
           {/* Test */}
           <Route exact path="/test" component={Test} />
