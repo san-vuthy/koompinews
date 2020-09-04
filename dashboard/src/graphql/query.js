@@ -246,6 +246,41 @@ const GET_A_ABOUT = gql`
     }
   }
 `;
+const GET_KNOWLEDGE = gql`
+  query {
+    allKnowledge {
+      id
+      title
+      des
+      user {
+        name
+      }
+      avarta
+      createAt
+      lastbase
+      recentbase
+      maintitle
+    }
+  }
+`;
+
+const GET_A_KNOWLEDGE = gql`
+  query($id: String!) {
+    aKnowledge(id: $id) {
+      id
+      title
+      des
+      user {
+        name
+      }
+      avarta
+      createAt
+      lastbase
+      recentbase
+      maintitle
+    }
+  }
+`;
 
 export {
   GET_NEWS,
@@ -263,4 +298,6 @@ export {
   GET_EVENT,
   GET_ABOUT,
   GET_A_ABOUT,
+  GET_A_KNOWLEDGE,
+  GET_KNOWLEDGE,
 };

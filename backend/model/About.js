@@ -7,7 +7,6 @@ const AboutSchema = new mongoose.Schema({
   },
   des: {
     type: String,
-    required: true,
   },
   avarta: {
     type: String,

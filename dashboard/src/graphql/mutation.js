@@ -62,8 +62,8 @@ const ADD_JOBS = gql`
     $location: String!
     $salary: String!
     $worktime: String!
-    $des: String!
-    $requireSkill: String!
+    $des: String
+    $requireSkill: String
     $image: String!
     $userId: String!
   ) {
@@ -93,8 +93,8 @@ const UPDATE_JOB = gql`
     $location: String!
     $salary: String!
     $worktime: String!
-    $des: String!
-    $requireSkill: String!
+    $des: String
+    $requireSkill: String
     $image: String!
     $userId: String!
   ) {
@@ -161,7 +161,7 @@ const UPDATE_COMPANY = gql`
     $location: String!
     $globalCompanySize: String!
     $industry: String!
-    $des: String!
+    $des: String
     $image: String!
     $userId: String!
     $website: String!
@@ -191,7 +191,7 @@ const ADD_COMPANY = gql`
     $location: String!
     $globalCompanySize: String!
     $industry: String!
-    $des: String!
+    $des: String
     $image: String!
     $userId: String!
     $website: String!
@@ -250,7 +250,7 @@ const DELETE_EVENT = gql`
 `;
 
 const ADD_ABOUT = gql`
-  mutation($title: String!, $avarta: String!, $des: String!, $userId: String!) {
+  mutation($title: String!, $avarta: String!, $des: String, $userId: String!) {
     addAbout(title: $title, avarta: $avarta, des: $des, userId: $userId) {
       message
     }
@@ -261,7 +261,7 @@ const UPDATE_ABOUT = gql`
     $id: String!
     $title: String!
     $avarta: String!
-    $des: String!
+    $des: String
     $userId: String!
   ) {
     updateAbout(
@@ -278,6 +278,62 @@ const UPDATE_ABOUT = gql`
 const DELETE_ABOUT = gql`
   mutation($id: String!) {
     deleteAbout(id: $id) {
+      message
+    }
+  }
+`;
+
+const ADD_KNOWLEDGE = gql`
+  mutation(
+    $title: String!
+    $userId: String!
+    $des: String!
+    $avarta: String!
+    $maintitle: String
+    $lastbase: String
+    $recentbase: String
+  ) {
+    addKnowledge(
+      title: $title
+      userId: $userId
+      des: $des
+      avarta: $avarta
+      maintitle: $maintitle
+      lastbase: $lastbase
+      recentbase: $recentbase
+    ) {
+      message
+    }
+  }
+`;
+const UPDATE_KNOWLEDGE = gql`
+  mutation(
+    $id: String!
+    $title: String!
+    $userId: String!
+    $des: String!
+    $avarta: String!
+    $maintitle: String
+    $lastbase: String
+    $recentbase: String
+  ) {
+    updateKnowledge(
+      id: $id
+      title: $title
+      userId: $userId
+      des: $des
+      avarta: $avarta
+      maintitle: $maintitle
+      lastbase: $lastbase
+      recentbase: $recentbase
+    ) {
+      message
+    }
+  }
+`;
+const DELETE_KNOWLEDGE = gql`
+  mutation($id: String!) {
+    deleteKnowledge(id: $id) {
       message
     }
   }
@@ -302,4 +358,7 @@ export {
   ADD_ABOUT,
   DELETE_ABOUT,
   UPDATE_ABOUT,
+  ADD_KNOWLEDGE,
+  UPDATE_KNOWLEDGE,
+  DELETE_KNOWLEDGE,
 };

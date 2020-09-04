@@ -10,6 +10,8 @@ import {
   Select,
   message,
 } from 'antd';
+import buttonLoading from '../../../asset/img/three-dots.svg';
+
 import LeftNavbar from '../../Layout/LeftNavbar';
 import Navbar from '../../Layout/Navbar';
 import TextEditor from '../../Help/TextEditor';
@@ -52,9 +54,13 @@ const EditCompany = (props) => {
       setTimeout(() => {
         setLoading(false);
       }, 3000);
+      // if (data.aCompany.name) {
+      //   await message.info(res.data.updateCompany.message);
+      // } else {
       await message.success(res.data.updateCompany.message);
       await refetch();
       await props.history.push('/admin/allcompanies');
+      // }
       // form.resetFields();
     });
     console.log('success', value);
@@ -191,7 +197,15 @@ const EditCompany = (props) => {
                       type="primary"
                       htmlType="submit"
                     >
-                      SUBMIT
+                      {loading1 ? (
+                        <img
+                          src={buttonLoading}
+                          alt="btn-loading"
+                          height="10"
+                        />
+                      ) : (
+                        'UPDATE'
+                      )}
                     </Button>
                   </Col>
                   <Col span={8}>

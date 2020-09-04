@@ -9,7 +9,10 @@ import {
   Popconfirm,
   Button,
   Divider,
+  Spin,
+  Alert,
 } from 'antd';
+import loadingPage from '../../../asset/img/Wedges-3s-200px.svg';
 import parse from 'html-react-parser';
 import LeftNavbar from '../../Layout/LeftNavbar';
 import Navbar from '../../Layout/Navbar';
@@ -23,7 +26,12 @@ const AllNewspage = () => {
   const [deleteNews] = useMutation(DELETE_NEWS);
   const { loading, error, data, refetch } = useQuery(GET_NEWS);
 
-  if (loading) return 'Loading...';
+  if (loading)
+    return (
+      <center>
+        <img style={{ height: '80px', marginTop: '200px' }} src={loadingPage} />
+      </center>
+    );
   console.log(data);
   if (error) return `Error! ${error.message}`;
   // function confirm() {

@@ -10,6 +10,7 @@ import {
   Select,
   message,
 } from 'antd';
+import buttonLoading from '../../../asset/img/three-dots.svg';
 import LeftNavbar from '../../Layout/LeftNavbar';
 import Navbar from '../../Layout/Navbar';
 import TextEditor from '../../Help/TextEditor';
@@ -26,15 +27,15 @@ const AddJob = () => {
 
   const [image, setImage] = useState('');
   const [desc, setDesc] = useState('');
-  const [reqSkill, setReqSkill] = useState('');
-  const [loading, setLoading] = useState(false);
+  const [reqSkill, setSkill] = useState('');
+  const [loading1, setLoading] = useState(false);
 
   const uploadImage = {
     name: 'file',
     multiple: false,
     action: 'http://localhost:8080/upload',
     // listType: 'picture',
-    defaultFileList: image,
+    // defaultFileList: image,
     onChange(info) {
       const { status } = info.file;
       if (status !== 'uploading') {
@@ -54,7 +55,7 @@ const AddJob = () => {
   };
   const handleReqSkillChange = (value) => {
     console.log(value);
-    setReqSkill(value);
+    setSkill(value);
   };
   function handleChange(value) {
     console.log(`selected ${value}`);
@@ -66,8 +67,8 @@ const AddJob = () => {
     addJob({
       variables: {
         ...value,
-        des: desc,
-        requireSkill: reqSkill,
+        des: desc === '' ? null : desc,
+        requireSkill: reqSkill === '' ? null : reqSkill,
         image: image,
         userId: '5f3e65128c70fe65b27d5c7f',
       },
@@ -77,6 +78,9 @@ const AddJob = () => {
         setLoading(false);
       }, 3000);
       await message.success(res.data.addJob.message);
+      setSkill(form.resetFields());
+      setDesc(form.resetFields());
+      // setImage();
       form.resetFields();
     });
     console.log('success', value);
@@ -210,7 +214,15 @@ const AddJob = () => {
                       type="primary"
                       htmlType="submit"
                     >
-                      SUBMIT
+                      {loading1 ? (
+                        <img
+                          src={buttonLoading}
+                          alt="btn-loading"
+                          height="10"
+                        />
+                      ) : (
+                        'SUBMIT'
+                      )}
                     </Button>
                   </Col>
                   <Col span={8}>
@@ -250,14 +262,13 @@ const AddJob = () => {
                       <Input size="large" />
                     </Form.Item>
 
-                    {/* <Form.Item label="Upload Image" name="image">
-                      <Upload {...props}>
-                        <Button>
-                          <UploadOutlined /> Upload
-                        </Button>
-                      </Upload>
-                    </Form.Item> */}
-                    <Form.Item label="Image">
+                    <Form.Item
+                      label="Image"
+                      name="image"
+                      rules={[
+                        { required: true, message: 'Province is required' },
+                      ]}
+                    >
                       <Upload.Dragger {...uploadImage}>
                         {image === '' ? (
                           <img

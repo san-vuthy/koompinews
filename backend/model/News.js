@@ -7,7 +7,6 @@ const NewsSchema = new mongoose.Schema({
   },
   describtion: {
     type: String,
-    required: true,
   },
   categoriesId: {
     type: String,

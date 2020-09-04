@@ -11,6 +11,8 @@ import {
   Checkbox,
   message,
 } from 'antd';
+import loadingPage from '../../../asset/img/Wedges-3s-200px.svg';
+import buttonLoading from '../../../asset/img/three-dots.svg';
 import LeftNavbar from '../../Layout/LeftNavbar';
 import Navbar from '../../Layout/Navbar';
 import TextEditor from '../../Help/TextEditor';
@@ -163,7 +165,11 @@ const EditNews = (props) => {
     );
   }
   if (NewsLoading) {
-    return 'Loading....';
+    return (
+      <center>
+        <img style={{ height: '80px', marginTop: '200px' }} src={loadingPage} />
+      </center>
+    );
   }
 
   return (
@@ -213,7 +219,15 @@ const EditNews = (props) => {
                       type="primary"
                       htmlType="submit"
                     >
-                      SUBMIT
+                      {loading1 ? (
+                        <img
+                          src={buttonLoading}
+                          alt="btn-loading"
+                          height="10"
+                        />
+                      ) : (
+                        'UPDATE'
+                      )}
                     </Button>
                   </Col>
                   <Col span={8}>

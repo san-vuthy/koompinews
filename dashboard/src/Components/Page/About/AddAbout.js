@@ -11,6 +11,7 @@ import {
   Checkbox,
   message,
 } from 'antd';
+import buttonLoading from '../../../asset/img/three-dots.svg';
 import LeftNavbar from '../../Layout/LeftNavbar';
 import Navbar from '../../Layout/Navbar';
 import TextEditor from '../../Help/TextEditor';
@@ -23,7 +24,7 @@ const AddAbout = () => {
   const [addAbout] = useMutation(ADD_ABOUT);
   const [image, setImage] = useState('');
   const [desc, setDesc] = useState('');
-  const [loading, setLoading] = useState(false);
+  const [loading1, setLoading] = useState(false);
   const onFinishFailed = (errorInfo) => {
     console.log('Failed:', errorInfo);
   };
@@ -119,11 +120,28 @@ const AddAbout = () => {
                       type="primary"
                       htmlType="submit"
                     >
-                      SUBMIT
+                      {loading1 ? (
+                        <img
+                          src={buttonLoading}
+                          alt="btn-loading"
+                          height="10"
+                        />
+                      ) : (
+                        'SUBMIT'
+                      )}
                     </Button>
                   </Col>
                   <Col span={8}>
-                    <Form.Item label="Avarta">
+                    <Form.Item
+                      rules={[
+                        {
+                          required: true,
+                          message: 'Please input Avatar!',
+                        },
+                      ]}
+                      label="Avarta"
+                      name="avarta"
+                    >
                       <Upload.Dragger {...uploadImage}>
                         {image === '' ? (
                           <img

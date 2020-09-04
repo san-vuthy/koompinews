@@ -14,15 +14,22 @@ import LeftNavbar from '../../Layout/LeftNavbar';
 import Navbar from '../../Layout/Navbar';
 import TextEditor from '../../Help/TextEditor';
 import { ADD_COMPANY } from '../../../graphql/mutation';
-import { useMutation } from '@apollo/client';
+import { GET_COMPANIES } from '../../../graphql/query';
+import { useMutation, useQuery } from '@apollo/client';
+import buttonLoading from '../../../asset/img/three-dots.svg';
 
 const { Content } = Layout;
 const { Option } = Select;
 const AddCompany = () => {
   const [addCompany] = useMutation(ADD_COMPANY);
-  const [loading, setLoading] = useState(false);
+  const [loading1, setLoading] = useState(false);
   const [desc, setDesc] = useState('');
   const [image, setImage] = useState('');
+
+  const { loading, data, refetch, error } = useQuery(GET_COMPANIES);
+  if (loading) return 'Loading...';
+  console.log(data);
+  if (error) return `Error! ${error.message}`;
 
   const handleDescChange = (value) => {
     setDesc(value);
@@ -43,7 +50,13 @@ const AddCompany = () => {
       setTimeout(() => {
         setLoading(false);
       }, 3000);
-      await message.success(res.data.addCompany.message);
+      console.log(data.allCompany.name);
+      if (data.allCompany.name) {
+        await message.error(res.data.addCompany.message);
+      } else {
+        await message.success(res.data.addCompany.message);
+      }
+      // await message.success(res.data.addCompany.message);
       // form.resetFields();
     });
     console.log('success', value);
@@ -169,7 +182,15 @@ const AddCompany = () => {
                       type="primary"
                       htmlType="submit"
                     >
-                      SUBMIT
+                      {loading1 ? (
+                        <img
+                          src={buttonLoading}
+                          alt="btn-loading"
+                          height="10"
+                        />
+                      ) : (
+                        'SUBMIT'
+                      )}
                     </Button>
                   </Col>
                   <Col span={8}>
@@ -209,7 +230,16 @@ const AddCompany = () => {
                     >
                       <Input size="large" />
                     </Form.Item>
-                    <Form.Item label="Image">
+                    <Form.Item
+                      label="Image"
+                      name="image"
+                      rules={[
+                        {
+                          required: true,
+                          message: 'Please Type of Company!',
+                        },
+                      ]}
+                    >
                       <Upload.Dragger {...uploadImage}>
                         {image === '' ? (
                           <img

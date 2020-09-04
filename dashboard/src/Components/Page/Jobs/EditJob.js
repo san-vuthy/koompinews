@@ -10,6 +10,7 @@ import {
   Select,
   message,
 } from 'antd';
+import buttonLoading from '../../../asset/img/three-dots.svg';
 import LeftNavbar from '../../Layout/LeftNavbar';
 import Navbar from '../../Layout/Navbar';
 import TextEditor from '../../Help/TextEditor';
@@ -234,7 +235,15 @@ const AddJob = (props) => {
                       type="primary"
                       htmlType="submit"
                     >
-                      SUBMIT
+                      {loading1 ? (
+                        <img
+                          src={buttonLoading}
+                          alt="btn-loading"
+                          height="10"
+                        />
+                      ) : (
+                        'SUBMIT'
+                      )}
                     </Button>
                   </Col>
                   <Col span={8}>
@@ -295,7 +304,6 @@ const AddJob = (props) => {
                         {image === null ? (
                           <img
                             style={{ width: '270px' }}
-                            sr
                             src={`${
                               'http://localhost:8080/' + JobsData.aJob.image
                             }`}

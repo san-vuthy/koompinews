@@ -10,6 +10,7 @@ const Company = require('../../model/Company');
 const Event = require('../../model/Event');
 const About = require('../../model/About');
 const Job = require('../../model/Job');
+const Knowledge = require('../../model/Knowledge');
 
 // =====================Type=================
 const UserType = require('./Types/user');
@@ -21,6 +22,7 @@ const CompanyType = require('./Types/company');
 const EventType = require('./Types/event');
 const AboutType = require('./Types/about');
 const JobType = require('./Types/jobs');
+const KnowledgeType = require('./Types/knowledge');
 const _ = require('lodash');
 
 const RootQuery = new GraphQLObjectType({
@@ -172,6 +174,23 @@ const RootQuery = new GraphQLObjectType({
       },
       resolve(parent, args) {
         return About.findOne({ _id: args.id });
+      },
+    },
+    //===========Get a Knowledge============
+    aKnowledge: {
+      type: KnowledgeType,
+      args: {
+        id: { type: GraphQLString },
+      },
+      resolve(parent, args) {
+        return Knowledge.findOne({ _id: args.id });
+      },
+    },
+    //============Get all Knowledge========
+    allKnowledge: {
+      type: new GraphQLList(KnowledgeType),
+      resolve(parent, args) {
+        return Knowledge.find();
       },
     },
   },

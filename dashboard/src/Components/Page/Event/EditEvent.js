@@ -18,6 +18,7 @@ import { useQuery, useMutation } from '@apollo/client';
 import { UPDATE_EVENT } from '../../../graphql/mutation';
 import { GET_A_EVENT, GET_EVENT } from '../../../graphql/query';
 import { useParams } from 'react-router-dom';
+import buttonLoading from '../../../asset/img/three-dots.svg';
 
 const { Content } = Layout;
 const { Option } = Select;
@@ -134,7 +135,15 @@ const EditEvent = (props) => {
                       type="primary"
                       htmlType="submit"
                     >
-                      SUBMIT
+                      {loading1 ? (
+                        <img
+                          src={buttonLoading}
+                          alt="btn-loading"
+                          height="10"
+                        />
+                      ) : (
+                        'UPDATE'
+                      )}
                     </Button>
                   </Col>
                   <Col span={8}>

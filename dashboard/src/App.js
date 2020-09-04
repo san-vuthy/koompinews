@@ -26,6 +26,9 @@ import AllEvent from './Components/Page/Event/AllEvent';
 import AllAbout from './Components/Page/About/AllAbout';
 import AddAbout from './Components/Page/About/AddAbout';
 import EditAbout from './Components/Page/About/EditAbout';
+import AllKnowledge from './Components/Page/Knowledge/AllKnowledge';
+import AddKnowledge from './Components/Page/Knowledge/AddKnowledge';
+import EditKnowledge from './Components/Page/Knowledge/EditKnowledge';
 
 function App() {
   return (
@@ -65,6 +68,13 @@ function App() {
           <Route exact path="/admin/allabout/" component={AllAbout} />
           <Route exact path="/admin/addabout/" component={AddAbout} />
           <Route exact path="/admin/editabout/:id" component={EditAbout} />
+          <Route exact path="/admin/allknowledge/" component={AllKnowledge} />
+          <Route exact path="/admin/addknowledge/" component={AddKnowledge} />
+          <Route
+            exact
+            path="/admin/editknowledge/:id"
+            component={EditKnowledge}
+          />
 
           {/* Test */}
           <Route exact path="/test" component={Test} />

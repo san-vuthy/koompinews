@@ -11,7 +11,6 @@ const EventSchema = new mogoose.Schema({
   },
   des: {
     type: String,
-    required: true,
   },
   createAt: {
     type: Date,

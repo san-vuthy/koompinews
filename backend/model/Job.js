@@ -31,11 +31,9 @@ const JobSchema = new mongoose.Schema({
   },
   des: {
     type: String,
-    required: true,
   },
   requireSkill: {
     type: String,
-    required: true,
   },
   image: {
     type: String,

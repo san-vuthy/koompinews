@@ -12,6 +12,7 @@ import { GET_COMPANIES } from '../../../graphql/query';
 import { DELETE_COMPANY } from '../../../graphql/mutation';
 import { NavLink, Link } from 'react-router-dom';
 import moment from 'moment';
+import parse from 'html-react-parser';
 
 const { Content } = Layout;
 
@@ -42,6 +43,15 @@ const AllCompany = () => {
       title: 'Name',
       dataIndex: 'name',
       key: 'title',
+    },
+    {
+      title: 'Des',
+      dataIndex: 'des',
+      key: 'des',
+      width: 300,
+      render: (data) => {
+        return parse(data.length <= 25 ? data : data.substring(0, 25) + ' ...');
+      },
     },
     {
       title: 'Location',

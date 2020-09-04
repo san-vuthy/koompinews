@@ -19,7 +19,6 @@ const CompanySchema = new mongoose.Schema({
   },
   des: {
     type: String,
-    required: true,
   },
   image: {
     type: String,

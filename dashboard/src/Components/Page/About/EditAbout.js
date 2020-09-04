@@ -11,6 +11,7 @@ import {
   Checkbox,
   message,
 } from 'antd';
+import buttonLoading from '../../../asset/img/three-dots.svg';
 import { useParams } from 'react-router-dom';
 import LeftNavbar from '../../Layout/LeftNavbar';
 import Navbar from '../../Layout/Navbar';
@@ -134,7 +135,15 @@ const EditAbout = (props) => {
                       type="primary"
                       htmlType="submit"
                     >
-                      SUBMIT
+                      {loading1 ? (
+                        <img
+                          src={buttonLoading}
+                          alt="btn-loading"
+                          height="10"
+                        />
+                      ) : (
+                        'SUBMIT'
+                      )}
                     </Button>
                   </Col>
                   <Col span={8}>

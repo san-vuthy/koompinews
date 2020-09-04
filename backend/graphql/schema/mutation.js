@@ -10,7 +10,6 @@ const {
   GraphQLID,
   GraphQLBoolean,
 } = graphql;
-const { GraphQLUpload } = require('graphql-upload');
 
 // ===============Type Section===============
 const UserType = require('../schema/Types/user');
@@ -21,7 +20,8 @@ const JobCatetoriesType = require('../schema/Types/jobCategories');
 const TypeOfNewsType = require('../schema/Types/typeOfNews');
 const CompanyType = require('../schema/Types/company');
 const EventType = require('../schema/Types/event');
-const AboutType = require('../schema/Types/about');
+const aboutType = require('../schema/Types/about');
+const KnowledgeType = require('../schema/Types/knowledge');
 
 // ================Model Section ==================
 
@@ -34,7 +34,7 @@ const TypeOfNews = require('../../model/TypeOfNews');
 const Company = require('../../model/Company');
 const Event = require('../../model/Event');
 const About = require('../../model/About');
-const aboutType = require('../schema/Types/about');
+const Knowledge = require('../../model/Knowledge');
 
 const RootMutation = new GraphQLObjectType({
   name: 'RootMutationType',
@@ -280,8 +280,8 @@ const RootMutation = new GraphQLObjectType({
         location: { type: new GraphQLNonNull(GraphQLString) },
         salary: { type: new GraphQLNonNull(GraphQLString) },
         worktime: { type: new GraphQLNonNull(GraphQLString) },
-        des: { type: new GraphQLNonNull(GraphQLString) },
-        requireSkill: { type: new GraphQLNonNull(GraphQLString) },
+        des: { type: GraphQLString },
+        requireSkill: { type: GraphQLString },
         image: { type: new GraphQLNonNull(GraphQLString) },
       },
       resolve: async (parent, args) => {
@@ -310,8 +310,8 @@ const RootMutation = new GraphQLObjectType({
         location: { type: new GraphQLNonNull(GraphQLString) },
         salary: { type: new GraphQLNonNull(GraphQLString) },
         worktime: { type: new GraphQLNonNull(GraphQLString) },
-        des: { type: new GraphQLNonNull(GraphQLString) },
-        requireSkill: { type: new GraphQLNonNull(GraphQLString) },
+        des: { type: GraphQLString },
+        requireSkill: { type: GraphQLString },
         image: { type: new GraphQLNonNull(GraphQLString) },
       },
       resolve: async (parent, args) => {
@@ -407,7 +407,7 @@ const RootMutation = new GraphQLObjectType({
         location: { type: new GraphQLNonNull(GraphQLString) },
         globalCompanySize: { type: new GraphQLNonNull(GraphQLString) },
         industry: { type: new GraphQLNonNull(GraphQLString) },
-        des: { type: new GraphQLNonNull(GraphQLString) },
+        des: { type: GraphQLString },
         image: { type: new GraphQLNonNull(GraphQLString) },
         userId: { type: new GraphQLNonNull(GraphQLString) },
         website: { type: new GraphQLNonNull(GraphQLString) },
@@ -418,7 +418,7 @@ const RootMutation = new GraphQLObjectType({
         try {
           const IsCompany = await Company.findOne({ name: args.name });
           if (IsCompany) {
-            throw new Error('This Company was added');
+            return { message: 'This Company was added' };
           }
           const company = new Company({ ...args });
           await company.save();
@@ -439,7 +439,7 @@ const RootMutation = new GraphQLObjectType({
         location: { type: new GraphQLNonNull(GraphQLString) },
         globalCompanySize: { type: new GraphQLNonNull(GraphQLString) },
         industry: { type: new GraphQLNonNull(GraphQLString) },
-        des: { type: new GraphQLNonNull(GraphQLString) },
+        des: { type: GraphQLString },
         image: { type: new GraphQLNonNull(GraphQLString) },
         userId: { type: new GraphQLNonNull(GraphQLString) },
         website: { type: new GraphQLNonNull(GraphQLString) },
@@ -448,10 +448,10 @@ const RootMutation = new GraphQLObjectType({
       },
       resolve: async (parent, args) => {
         try {
-          const IsCompany = await Company.findOne({ name: args.name });
-          if (IsCompany) {
-            throw new Error('This Company was added');
-          }
+          // const IsCompany = await Company.findOne({ name: args.name });
+          // if (IsCompany) {
+          //   return { message: ' This Company was added' };
+          // }
           await Company.updateOne({ _id: args.id }, { ...args });
           return { message: 'Update Successful' };
         } catch (error) {
@@ -478,7 +478,7 @@ const RootMutation = new GraphQLObjectType({
       args: {
         title: { type: new GraphQLNonNull(GraphQLString) },
         image: { type: new GraphQLNonNull(GraphQLString) },
-        des: { type: new GraphQLNonNull(GraphQLString) },
+        des: { type: GraphQLString },
         userId: { type: new GraphQLNonNull(GraphQLString) },
       },
       resolve: async (parent, args) => {
@@ -499,7 +499,7 @@ const RootMutation = new GraphQLObjectType({
         id: { type: new GraphQLNonNull(GraphQLString) },
         title: { type: new GraphQLNonNull(GraphQLString) },
         image: { type: new GraphQLNonNull(GraphQLString) },
-        des: { type: new GraphQLNonNull(GraphQLString) },
+        des: { type: GraphQLString },
         userId: { type: new GraphQLNonNull(GraphQLString) },
       },
       resolve: async (parent, args) => {
@@ -533,7 +533,7 @@ const RootMutation = new GraphQLObjectType({
       type: aboutType,
       args: {
         title: { type: new GraphQLNonNull(GraphQLString) },
-        des: { type: new GraphQLNonNull(GraphQLString) },
+        des: { type: GraphQLString },
         avarta: { type: new GraphQLNonNull(GraphQLString) },
         userId: { type: new GraphQLNonNull(GraphQLString) },
       },
@@ -554,7 +554,7 @@ const RootMutation = new GraphQLObjectType({
       args: {
         id: { type: new GraphQLNonNull(GraphQLString) },
         title: { type: new GraphQLNonNull(GraphQLString) },
-        des: { type: new GraphQLNonNull(GraphQLString) },
+        des: { type: GraphQLString },
         avarta: { type: new GraphQLNonNull(GraphQLString) },
         userId: { type: new GraphQLNonNull(GraphQLString) },
       },
@@ -577,6 +577,68 @@ const RootMutation = new GraphQLObjectType({
       resolve: async (parent, args) => {
         try {
           await About.deleteOne({ _id: args.id });
+          return { message: 'delete Successful' };
+        } catch (error) {
+          console.log(error);
+          throw error;
+        }
+      },
+    },
+    //=========Add Knowledge==============
+    addKnowledge: {
+      type: KnowledgeType,
+      args: {
+        des: { type: new GraphQLNonNull(GraphQLString) },
+        avarta: { type: new GraphQLNonNull(GraphQLString) },
+        maintitle: { type: GraphQLString },
+        title: { type: new GraphQLNonNull(GraphQLString) },
+        lastbase: { type: GraphQLString },
+        recentbase: { type: GraphQLString },
+        userId: { type: new GraphQLNonNull(GraphQLString) },
+      },
+      resolve: async (parent, args) => {
+        try {
+          const knowledge = new Knowledge({ ...args });
+          await knowledge.save();
+          return { message: 'Add Knowledge Successful' };
+        } catch (error) {
+          console.log(error);
+          throw error;
+        }
+      },
+    },
+    //============Update Knowledge==============
+    updateKnowledge: {
+      type: KnowledgeType,
+      args: {
+        id: { type: new GraphQLNonNull(GraphQLString) },
+        des: { type: new GraphQLNonNull(GraphQLString) },
+        avarta: { type: new GraphQLNonNull(GraphQLString) },
+        maintitle: { type: GraphQLString },
+        title: { type: new GraphQLNonNull(GraphQLString) },
+        lastbase: { type: GraphQLString },
+        recentbase: { type: GraphQLString },
+        userId: { type: new GraphQLNonNull(GraphQLString) },
+      },
+      resolve: async (parent, args) => {
+        try {
+          await Knowledge.updateOne({ _id: args.id }, { ...args });
+          return { message: 'Update Successful' };
+        } catch (error) {
+          console.log(error);
+          throw error;
+        }
+      },
+    },
+    //==============Delete Knowledge=================
+    deleteKnowledge: {
+      type: KnowledgeType,
+      args: {
+        id: { type: new GraphQLNonNull(GraphQLString) },
+      },
+      resolve: async (parent, args) => {
+        try {
+          await Knowledge.deleteOne({ _id: args.id });
           return { message: 'delete Successful' };
         } catch (error) {
           console.log(error);

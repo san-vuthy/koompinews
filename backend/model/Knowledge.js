@@ -1,10 +1,6 @@
 const mongoose = require('mongoose');
 
 const KnowledgeSchema = new mongoose.Schema({
-  banner: {
-    type: String,
-    required: true,
-  },
   userId: {
     type: String,
     required: true,
@@ -17,9 +13,9 @@ const KnowledgeSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
-  categKnowId: {
+  maintitle: {
     type: String,
-    required: true,
+    // required: true,
   },
   title: {
     type: String,
@@ -27,11 +23,11 @@ const KnowledgeSchema = new mongoose.Schema({
   },
   lastbase: {
     type: String,
-    required: true,
+    // required: true,
   },
   recentbase: {
     type: String,
-    required: true,
+    // required: true,
   },
   createAt: {
     type: Date,

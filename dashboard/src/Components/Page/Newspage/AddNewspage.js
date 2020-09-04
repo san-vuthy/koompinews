@@ -11,17 +11,19 @@ import {
   Checkbox,
   message,
 } from 'antd';
+import buttonLoading from '../../../asset/img/three-dots.svg';
 import LeftNavbar from '../../Layout/LeftNavbar';
 import Navbar from '../../Layout/Navbar';
 import TextEditor from '../../Help/TextEditor';
 import { GET_CATEGORIES, GET_TYPE_OF_NEWS } from '../../../graphql/query';
 import { ADD_NEWS } from '../../../graphql/mutation';
-import { useQuery, useMutation } from '@apollo/client';
+import { useQuery, useMutation, from } from '@apollo/client';
 
 const { Content } = Layout;
 const { Option } = Select;
 const AddNewspage = () => {
-  const [loading, setLoading] = useState(false);
+  const [form] = Form.useForm();
+  const [loading1, setLoading] = useState(false);
   const [image, setImage] = useState('');
   const [desc, setDesc] = useState('');
   const [addNews, { data }] = useMutation(ADD_NEWS);
@@ -33,7 +35,7 @@ const AddNewspage = () => {
     addNews({
       variables: {
         ...value,
-        describtion: desc,
+        describtion: desc === '' ? null : desc,
         image: image,
         userId: '5f324067aeef78b4df13ca54',
       },
@@ -44,6 +46,8 @@ const AddNewspage = () => {
       }, 3000);
       await message.success(res.data.addNews.message);
     });
+    setDesc(form.resetFields());
+    form.resetFields();
     console.log('success', value, desc);
   };
   const onChange = (e) => {
@@ -62,7 +66,7 @@ const AddNewspage = () => {
     multiple: false,
     action: 'http://localhost:8080/upload',
     // listType: 'picture',
-    defaultFileList: image,
+    // defaultFileList: image,
     onChange(info) {
       const { status } = info.file;
       if (status !== 'uploading') {
@@ -155,6 +159,7 @@ const AddNewspage = () => {
               {/* <div className="background-content-dashboard"> */}
               <h1 className="title-top">Add News</h1>
               <Form
+                form={form}
                 layout="vertical"
                 onFinish={onFinish}
                 onFinishFailed={onFinishFailed}
@@ -192,7 +197,15 @@ const AddNewspage = () => {
                       type="primary"
                       htmlType="submit"
                     >
-                      SUBMIT
+                      {loading1 ? (
+                        <img
+                          src={buttonLoading}
+                          alt="btn-loading"
+                          height="10"
+                        />
+                      ) : (
+                        'SUBMIT'
+                      )}
                     </Button>
                   </Col>
                   <Col span={8}>
@@ -212,7 +225,16 @@ const AddNewspage = () => {
                       />
                     </Form.Item> */}
 
-                    <Form.Item label="Image">
+                    <Form.Item
+                      label="Image"
+                      name="image"
+                      rules={[
+                        {
+                          required: true,
+                          message: 'Please input Title!',
+                        },
+                      ]}
+                    >
                       <Upload.Dragger {...uploadImage}>
                         {image === '' ? (
                           <img
