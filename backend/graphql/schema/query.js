@@ -55,15 +55,15 @@ const RootQuery = new GraphQLObjectType({
     //=========Get all News=========
     allNews: {
       type: new GraphQLList(NewsType),
-      resolve(parent, args) {
-        return News.find();
+      resolve(parent, args, { limit = null, offset = null }) {
+        return News.find({}).limit(limit).skip(offset).sort({ createAt: -1 });
       },
     },
     //======Get all Categories=========
     allCategories: {
       type: new GraphQLList(CategoriesType),
       resolve(parent, args) {
-        return Categories.find();
+        return Categories.find().sort({ createAt: -1 });
       },
     },
 
@@ -80,7 +80,7 @@ const RootQuery = new GraphQLObjectType({
     allJob: {
       type: new GraphQLList(JobType),
       resolve(parent, args) {
-        return Job.find();
+        return Job.find().sort({ createAt: -1 });
       },
     },
     //========Get a Job=========
@@ -104,7 +104,7 @@ const RootQuery = new GraphQLObjectType({
     allJobCategories: {
       type: new GraphQLList(JobCategoriesType),
       resolve(parent, args) {
-        return JobCategories.find();
+        return JobCategories.find().sort({ createAt: -1 });
       },
     },
 
@@ -112,7 +112,7 @@ const RootQuery = new GraphQLObjectType({
     allTypeOfNews: {
       type: new GraphQLList(TypeOfNewType),
       resolve(parent, args) {
-        return TypeOfNews.find();
+        return TypeOfNews.find().sort({ createAt: -1 });
       },
     },
     //=========Get a TypeofNews===========
@@ -129,7 +129,7 @@ const RootQuery = new GraphQLObjectType({
     allCompany: {
       type: new GraphQLList(CompanyType),
       resolve(parent, args) {
-        return Company.find();
+        return Company.find().sort({ createAt: -1 });
       },
     },
     //========Get a Company======
@@ -156,14 +156,14 @@ const RootQuery = new GraphQLObjectType({
     allEvent: {
       type: new GraphQLList(EventType),
       resolve(parent, args) {
-        return Event.find();
+        return Event.find().sort({ createAt: -1 });
       },
     },
     //========Get all About==============
     allAbout: {
       type: new GraphQLList(AboutType),
       resolve(parent, args) {
-        return About.find();
+        return About.find().sort({ createAt: -1 });
       },
     },
     //========Get a About==========
@@ -190,7 +190,7 @@ const RootQuery = new GraphQLObjectType({
     allKnowledge: {
       type: new GraphQLList(KnowledgeType),
       resolve(parent, args) {
-        return Knowledge.find();
+        return Knowledge.find().sort({ createAt: -1 });
       },
     },
   },

@@ -2,6 +2,7 @@ import React from 'react';
 import { Layout, Space, Table, Tag, Divider, Popconfirm, message } from 'antd';
 import LeftNavbar from '../../Layout/LeftNavbar';
 import Navbar from '../../Layout/Navbar';
+import loadingPage from '../../../asset/img/Wedges-3s-200px.svg';
 import { useQuery, useMutation } from '@apollo/client';
 import { GET_JOBS } from '../../../graphql/query';
 import { DELETE_JOB } from '../../../graphql/mutation';
@@ -13,7 +14,6 @@ const Alljobs = () => {
   const [deleteJob] = useMutation(DELETE_JOB);
   const { loading, error, data, refetch } = useQuery(GET_JOBS);
 
-  if (loading) return 'Loading...';
   console.log(data);
   if (error) return `Error! ${error.message}`;
 
@@ -66,22 +66,7 @@ const Alljobs = () => {
         return jobCateName.name;
       },
     },
-    // {
-    //   title: 'Describtion',
-    //   dataIndex: 'des',
-    //   key: 'des',
-    //   render: (data) => {
-    //     return parse(data.length <= 25 ? data : data.substring(0, 25) + ' ...');
-    //   },
-    // },
-    // {
-    //   title: 'Require Skill',
-    //   dataIndex: 'requireSkill',
-    //   key: 'des',
-    //   render: (data) => {
-    //     return parse(data.length <= 25 ? data : data.substring(0, 25) + ' ...');
-    //   },
-    // },
+
     {
       title: 'CreateBy',
       dataIndex: 'user',
@@ -139,6 +124,19 @@ const Alljobs = () => {
       },
     },
   ];
+  const DisplayForm = () => {
+    if (loading)
+      return (
+        <center>
+          <img
+            style={{ height: '80px', marginTop: '200px' }}
+            src={loadingPage}
+          />
+        </center>
+      );
+    refetch();
+    return <Table columns={columns} dataSource={data.allJob} />;
+  };
 
   return (
     <React.Fragment>
@@ -152,7 +150,7 @@ const Alljobs = () => {
               style={{ padding: 70, minHeight: 360 }}
             >
               <h1 className="title-top">All Jobs</h1>
-              <Table columns={columns} dataSource={data.allJob} />
+              <DisplayForm />
             </div>
           </Content>
         </Layout>

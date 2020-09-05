@@ -21,7 +21,6 @@ import { GET_COMPANIES, GET_A_COMPANY } from '../../../graphql/query';
 import { useParams } from 'react-router-dom';
 
 const { Content } = Layout;
-const { Option } = Select;
 const EditCompany = (props) => {
   const { id } = useParams();
   const { refetch } = useQuery(GET_COMPANIES);

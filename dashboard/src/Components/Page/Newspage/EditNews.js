@@ -31,16 +31,27 @@ const { Content } = Layout;
 const { Option } = Select;
 const EditNews = (props) => {
   const { id } = useParams();
-  const { loading, error, data, refetch } = useQuery(GET_NEWS);
-  const { loading: NewsLoading, data: NewsData } = useQuery(GET_ANEWS, {
+  const { refetch } = useQuery(GET_NEWS);
+  const {
+    loading: NewsLoading,
+    data: NewsData,
+    refetch: Newrefetch,
+  } = useQuery(GET_ANEWS, {
     variables: { id },
   });
+  const [updateNews] = useMutation(UPDATE_NEWS);
   // console.log('data', NewsData.aNews.title);
 
   const [loading1, setLoading] = useState(false);
   const [image, setImage] = useState(null);
   const [desc, setDesc] = useState('');
-  const [updateNews] = useMutation(UPDATE_NEWS);
+  const onChange = (e) => {
+    console.log(e);
+  };
+  const handleDescChange = (value) => {
+    console.log(value);
+    setDesc(value);
+  };
 
   const onFinishFailed = (errorInfo) => {
     console.log('Failed:', errorInfo);
@@ -48,8 +59,8 @@ const EditNews = (props) => {
   const onFinish = (value) => {
     updateNews({
       variables: {
-        id: id,
         ...value,
+        id: id,
         // describtion: desc,
         describtion: desc === '' ? NewsData.aNews.describtion : desc,
         image: image === null ? NewsData.aNews.image : image,
@@ -61,21 +72,12 @@ const EditNews = (props) => {
         setLoading(false);
       }, 3000);
       await message.success(res.data.updateNews.message);
+      await Newrefetch();
       await refetch();
       await props.history.push('/admin/allNews');
     });
     console.log('success', value, desc);
   };
-  const onChange = (e) => {
-    console.log(e);
-  };
-  const handleDescChange = (value) => {
-    console.log(value);
-    setDesc(value);
-  };
-  function handleChange(value) {
-    console.log(`selected ${value}`);
-  }
 
   const uploadImage = {
     name: 'file',
@@ -164,6 +166,7 @@ const EditNews = (props) => {
       </Form.Item>
     );
   }
+
   if (NewsLoading) {
     return (
       <center>
@@ -198,7 +201,7 @@ const EditNews = (props) => {
                       // style={{ fontSize: '30px' }}
                       name="title"
                     >
-                      <Input defaultValue={NewsData.aNews.title} size="large" />
+                      <Input size="large" />
                     </Form.Item>
 
                     <Form.Item

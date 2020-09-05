@@ -3,7 +3,7 @@ import { gql } from '@apollo/client';
 const ADD_NEWS = gql`
   mutation(
     $title: String!
-    $describtion: String!
+    $describtion: String
     $categoriesId: String!
     $newsTypeId: String!
     $userId: String!
@@ -34,7 +34,7 @@ const UPDATE_NEWS = gql`
   mutation(
     $id: String!
     $title: String!
-    $describtion: String!
+    $describtion: String
     $categoriesId: String!
     $newsTypeId: String!
     $userId: String!

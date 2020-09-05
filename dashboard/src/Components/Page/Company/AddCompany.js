@@ -19,8 +19,8 @@ import { useMutation, useQuery } from '@apollo/client';
 import buttonLoading from '../../../asset/img/three-dots.svg';
 
 const { Content } = Layout;
-const { Option } = Select;
 const AddCompany = () => {
+  const [form] = Form.useForm();
   const [addCompany] = useMutation(ADD_COMPANY);
   const [loading1, setLoading] = useState(false);
   const [desc, setDesc] = useState('');
@@ -51,13 +51,10 @@ const AddCompany = () => {
         setLoading(false);
       }, 3000);
       console.log(data.allCompany.name);
-      if (data.allCompany.name) {
-        await message.error(res.data.addCompany.message);
-      } else {
-        await message.success(res.data.addCompany.message);
-      }
-      // await message.success(res.data.addCompany.message);
-      // form.resetFields();
+
+      await message.success(res.data.addCompany.message);
+      setDesc(form.resetFields());
+      form.resetFields();
     });
     console.log('success', value);
   };
@@ -69,7 +66,7 @@ const AddCompany = () => {
     multiple: false,
     action: 'http://localhost:8080/upload',
     // listType: 'picture',
-    defaultFileList: image,
+    // defaultFileList: image,
     onChange(info) {
       const { status } = info.file;
       if (status !== 'uploading') {
@@ -97,6 +94,7 @@ const AddCompany = () => {
             >
               <h1 className="title-top">Add Company</h1>
               <Form
+                form={form}
                 onFinish={onFinish}
                 onFinishFailed={onFinishFailed}
                 layout="vertical"

@@ -3,13 +3,7 @@ const bcrypt = require('bcryptjs');
 const graphql = require('graphql');
 const config = require('config');
 const jwtSecret = config.get('JwtSecret');
-const {
-  GraphQLObjectType,
-  GraphQLString,
-  GraphQLNonNull,
-  GraphQLID,
-  GraphQLBoolean,
-} = graphql;
+const { GraphQLObjectType, GraphQLString, GraphQLNonNull, GraphQLID } = graphql;
 
 // ===============Type Section===============
 const UserType = require('../schema/Types/user');
@@ -119,7 +113,7 @@ const RootMutation = new GraphQLObjectType({
       type: NewsType,
       args: {
         title: { type: new GraphQLNonNull(GraphQLString) },
-        describtion: { type: new GraphQLNonNull(GraphQLString) },
+        describtion: { type: GraphQLString },
         categoriesId: { type: new GraphQLNonNull(GraphQLString) },
         newsTypeId: { type: new GraphQLNonNull(GraphQLString) },
         userId: { type: new GraphQLNonNull(GraphQLString) },
@@ -144,7 +138,7 @@ const RootMutation = new GraphQLObjectType({
       args: {
         id: { type: new GraphQLNonNull(GraphQLString) },
         title: { type: new GraphQLNonNull(GraphQLString) },
-        describtion: { type: new GraphQLNonNull(GraphQLString) },
+        describtion: { type: GraphQLString },
         categoriesId: { type: new GraphQLNonNull(GraphQLString) },
         newsTypeId: { type: new GraphQLNonNull(GraphQLString) },
         userId: { type: new GraphQLNonNull(GraphQLString) },

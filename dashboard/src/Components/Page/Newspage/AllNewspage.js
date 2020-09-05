@@ -24,26 +24,23 @@ const { Content } = Layout;
 
 const AllNewspage = () => {
   const [deleteNews] = useMutation(DELETE_NEWS);
-  const { loading, error, data, refetch } = useQuery(GET_NEWS);
 
-  if (loading)
-    return (
-      <center>
-        <img style={{ height: '80px', marginTop: '200px' }} src={loadingPage} />
-      </center>
-    );
+  const { loading, error, data, refetch } = useQuery(GET_NEWS);
   console.log(data);
   if (error) return `Error! ${error.message}`;
-  // function confirm() {
-  //   message.info('Clicked on Yes.');
-  //   deleteNews({
-  //     variables: {
-  //       ...data,
-  //     },
-  //   });
-  // }
-
-  const text = 'Are you sure to delete that ?';
+  const DisplayForm = () => {
+    if (loading)
+      return (
+        <center>
+          <img
+            style={{ height: '80px', marginTop: '200px' }}
+            src={loadingPage}
+          />
+        </center>
+      );
+    refetch();
+    return <Table columns={columns} dataSource={data.allNews} />;
+  };
 
   const columns = [
     {
@@ -65,16 +62,16 @@ const AllNewspage = () => {
       title: 'Title',
       dataIndex: 'title',
       key: 'title',
-      width: 300,
+      width: 200,
       render: (data) => {
         return data.length <= 25 ? data : data.substring(0, 25) + ' ...';
       },
     },
-
     {
       title: 'Des',
       dataIndex: 'describtion',
       key: 'des',
+      // width: 300,
       render: (data) => {
         return parse(data.length <= 25 ? data : data.substring(0, 25) + ' ...');
       },
@@ -167,7 +164,7 @@ const AllNewspage = () => {
               style={{ padding: 70, minHeight: 360 }}
             >
               <h1 className="title-top">All News</h1>
-              <Table columns={columns} dataSource={data.allNews} />
+              <DisplayForm />
             </div>
           </Content>
         </Layout>

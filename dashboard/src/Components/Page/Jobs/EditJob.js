@@ -11,6 +11,7 @@ import {
   message,
 } from 'antd';
 import buttonLoading from '../../../asset/img/three-dots.svg';
+import loadingPage from '../../../asset/img/Wedges-3s-200px.svg';
 import LeftNavbar from '../../Layout/LeftNavbar';
 import Navbar from '../../Layout/Navbar';
 import TextEditor from '../../Help/TextEditor';
@@ -25,9 +26,12 @@ const { Option } = Select;
 const AddJob = (props) => {
   const { id } = useParams();
   const { loading, error, data, refetch } = useQuery(GET_JOBS);
-  const { loading: JobLoading, data: JobsData } = useQuery(GET_A_JOB, {
-    variables: { id },
-  });
+  const { loading: JobLoading, data: JobsData, refetch: Jobrefetch } = useQuery(
+    GET_A_JOB,
+    {
+      variables: { id },
+    }
+  );
 
   const [updateJob] = useMutation(UPDATE_JOB);
 
@@ -85,6 +89,7 @@ const AddJob = (props) => {
         setLoading(false);
       }, 3000);
       await message.success(res.data.updateJob.message);
+      await Jobrefetch();
       await refetch();
       await props.history.push('/admin/alljobs');
     });
@@ -105,7 +110,6 @@ const AddJob = (props) => {
     return (
       <Form.Item
         initialValue={JobsData.aJob.jobCateName.id}
-        rules={[{ required: true, message: 'input Job Categories' }]}
         label="Job Categories"
         name="jobCategId"
       >
@@ -134,7 +138,11 @@ const AddJob = (props) => {
     );
   }
   if (JobLoading) {
-    return 'Loading....';
+    return (
+      <center>
+        <img style={{ height: '80px', marginTop: '200px' }} src={loadingPage} />
+      </center>
+    );
   }
   return (
     <React.Fragment>
@@ -159,12 +167,6 @@ const AddJob = (props) => {
                       label="Position"
                       name="position"
                       initialValue={JobsData.aJob.position}
-                      rules={[
-                        {
-                          required: true,
-                          message: 'Please input Position!',
-                        },
-                      ]}
                     >
                       <Input
                         defaultValue={JobsData.aJob.position}
@@ -175,12 +177,6 @@ const AddJob = (props) => {
                       initialValue={JobsData.aJob.company}
                       label="Company"
                       name="company"
-                      rules={[
-                        {
-                          required: true,
-                          message: 'Please input Company!',
-                        },
-                      ]}
                     >
                       <Input
                         defaultValue={JobsData.aJob.company}
@@ -195,12 +191,6 @@ const AddJob = (props) => {
                           label="Job description & requirements"
                           name="des"
                           initialValue={JobsData.aJob.des}
-                          // rules={[
-                          //   {
-                          //     required: true,
-                          //     message: 'job & requirement is required',
-                          //   },
-                          // ]}
                         >
                           <TextEditor
                             handleDescChange={handleDescChange}
@@ -214,12 +204,6 @@ const AddJob = (props) => {
                           label="Required Skills"
                           name="requireSkill"
                           initialValue={JobsData.aJob.requireSkill}
-                          // rules={[
-                          //   {
-                          //     required: true,
-                          //     message: 'Skill is required',
-                          //   },
-                          // ]}
                         >
                           <TextEditor
                             handleDescChange={handleReqSkillChange}
@@ -242,7 +226,7 @@ const AddJob = (props) => {
                           height="10"
                         />
                       ) : (
-                        'SUBMIT'
+                        'UPDATE'
                       )}
                     </Button>
                   </Col>
@@ -253,12 +237,6 @@ const AddJob = (props) => {
                       label="Location"
                       name="location"
                       initialValue={JobsData.aJob.location}
-                      rules={[
-                        {
-                          required: true,
-                          message: 'Please input Location!',
-                        },
-                      ]}
                     >
                       <Input
                         defaultValue={JobsData.aJob.location}
@@ -267,9 +245,6 @@ const AddJob = (props) => {
                     </Form.Item>
                     <Form.Item
                       initialValue={JobsData.aJob.worktime}
-                      rules={[
-                        { required: true, message: 'Province is required' },
-                      ]}
                       label="Time for work"
                       name="worktime"
                     >
@@ -282,12 +257,6 @@ const AddJob = (props) => {
                       initialValue={JobsData.aJob.salary}
                       label="Salary"
                       name="salary"
-                      rules={[
-                        {
-                          required: true,
-                          message: 'Please input Salary!',
-                        },
-                      ]}
                     >
                       <Input defaultValue={JobsData.aJob.salary} size="large" />
                     </Form.Item>

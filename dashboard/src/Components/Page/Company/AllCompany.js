@@ -5,6 +5,7 @@ import {
   DeleteOutlined,
   ArrowLeftOutlined,
 } from '@ant-design/icons';
+import loadingPage from '../../../asset/img/Wedges-3s-200px.svg';
 import LeftNavbar from '../../Layout/LeftNavbar';
 import Navbar from '../../Layout/Navbar';
 import { useQuery, useMutation } from '@apollo/client';
@@ -20,7 +21,6 @@ const AllCompany = () => {
   const [deleteCompany] = useMutation(DELETE_COMPANY);
   const { loading, error, data, refetch } = useQuery(GET_COMPANIES);
 
-  if (loading) return 'Loading...';
   console.log(data);
   if (error) return `Error! ${error.message}`;
 
@@ -96,7 +96,7 @@ const AllCompany = () => {
             <Divider type="vertical" />
             <Popconfirm
               placement="topRight"
-              title="Are you sure to delete this News?"
+              title="Are you sure to delete this?"
               okText="Yes"
               cancelText="No"
               onConfirm={() => {
@@ -121,6 +121,19 @@ const AllCompany = () => {
       },
     },
   ];
+  const DisplayForm = () => {
+    if (loading)
+      return (
+        <center>
+          <img
+            style={{ height: '80px', marginTop: '200px' }}
+            src={loadingPage}
+          />
+        </center>
+      );
+    refetch();
+    return <Table columns={columns} dataSource={data.allCompany} />;
+  };
   return (
     <div>
       <Layout style={{ minHeight: '100vh' }}>
@@ -145,7 +158,7 @@ const AllCompany = () => {
             >
               <h1 className="title-top">All Companies</h1>
 
-              <Table columns={columns} dataSource={data.allCompany} />
+              <DisplayForm />
             </div>
           </Content>
         </Layout>

@@ -98,7 +98,7 @@ const AddJob = () => {
     if (error) return `Error! ${error.message}`;
     return (
       <Form.Item
-        rules={[{ required: true, message: 'input Job Categories' }]}
+        rules={[{ required: true, message: 'Please input Job Categories' }]}
         label="Job Categories"
         name="jobCategId"
       >
@@ -194,12 +194,6 @@ const AddJob = () => {
                           style={{ marginBottom: '-50px' }}
                           label="Required Skills"
                           name="requireSkill"
-                          // rules={[
-                          //   {
-                          //     required: true,
-                          //     message: 'Skill is required',
-                          //   },
-                          // ]}
                         >
                           <TextEditor
                             handleDescChange={handleReqSkillChange}
@@ -242,7 +236,7 @@ const AddJob = () => {
                     </Form.Item>
                     <Form.Item
                       rules={[
-                        { required: true, message: 'Province is required' },
+                        { required: true, message: 'Please input worktime' },
                       ]}
                       label="Time for work"
                       name="worktime"
@@ -266,7 +260,7 @@ const AddJob = () => {
                       label="Image"
                       name="image"
                       rules={[
-                        { required: true, message: 'Province is required' },
+                        { required: true, message: 'Please input image' },
                       ]}
                     >
                       <Upload.Dragger {...uploadImage}>

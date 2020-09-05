@@ -17,7 +17,7 @@ import Navbar from '../../Layout/Navbar';
 import TextEditor from '../../Help/TextEditor';
 import { GET_CATEGORIES, GET_TYPE_OF_NEWS } from '../../../graphql/query';
 import { ADD_NEWS } from '../../../graphql/mutation';
-import { useQuery, useMutation, from } from '@apollo/client';
+import { useQuery, useMutation } from '@apollo/client';
 
 const { Content } = Layout;
 const { Option } = Select;
@@ -35,7 +35,7 @@ const AddNewspage = () => {
     addNews({
       variables: {
         ...value,
-        describtion: desc === '' ? null : desc,
+        describtion: desc,
         image: image,
         userId: '5f324067aeef78b4df13ca54',
       },
@@ -98,7 +98,7 @@ const AddNewspage = () => {
           size="large"
           showSearch
           style={{ width: 200 }}
-          placeholder="Select a Category"
+          placeholder="Select a Type"
           optionFilterProp="children"
           onChange={onChange}
           filterOption={(input, option) =>
@@ -130,7 +130,7 @@ const AddNewspage = () => {
           className="event-select"
           showSearch
           style={{ width: 200 }}
-          placeholder="Select a Type"
+          placeholder="Select a Category"
           optionFilterProp="children"
           onChange={onChange}
           filterOption={(input, option) =>
@@ -181,7 +181,7 @@ const AddNewspage = () => {
                     </Form.Item>
 
                     <Form.Item
-                      label="Describtion"
+                      label="Description"
                       name="describtion"
                       style={{ marginBottom: '-90px' }}
                     >
@@ -213,17 +213,6 @@ const AddNewspage = () => {
                     <DisplayCategories />
                     {/* Display NewsType */}
                     <DisplayNewType />
-                    {/* <Form.Item
-                      rules={[{ required: true, message: 'Tag is required' }]}
-                      label="Tag"
-                      name="tag"
-                    >
-                      <Input
-                        bordered={true}
-                        className="tags-addnews"
-                        size="large"
-                      />
-                    </Form.Item> */}
 
                     <Form.Item
                       label="Image"
@@ -231,7 +220,7 @@ const AddNewspage = () => {
                       rules={[
                         {
                           required: true,
-                          message: 'Please input Title!',
+                          message: 'Please input image!',
                         },
                       ]}
                     >
