@@ -3,6 +3,7 @@ const bcrypt = require('bcryptjs');
 const graphql = require('graphql');
 const config = require('config');
 const jwtSecret = config.get('JwtSecret');
+
 const { GraphQLObjectType, GraphQLString, GraphQLNonNull, GraphQLID } = graphql;
 
 // ===============Type Section===============

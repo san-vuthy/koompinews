@@ -52,7 +52,7 @@ app.post('/upload', async (req, res) => {
     res.status(500).send(error);
   }
 });
-
+// app.use(auth);
 app.use(
   '/graphql',
   // auth,
