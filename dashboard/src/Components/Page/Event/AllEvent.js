@@ -1,15 +1,8 @@
 import React from 'react';
 import moment from 'moment';
-import {
-  Layout,
-  Space,
-  Table,
-  Tag,
-  message,
-  Popconfirm,
-  Button,
-  Divider,
-} from 'antd';
+import { Layout, Table, Tag, message, Popconfirm, Divider } from 'antd';
+import { EditOutlined, DeleteOutlined } from '@ant-design/icons';
+import loadingPage from '../../../asset/img/Wedges-3s-200px.svg';
 import parse from 'html-react-parser';
 import LeftNavbar from '../../Layout/LeftNavbar';
 import Navbar from '../../Layout/Navbar';
@@ -22,7 +15,7 @@ const { Content } = Layout;
 const AllEvent = () => {
   const [deleteEvent] = useMutation(DELETE_EVENT);
   const { loading, error, data, refetch } = useQuery(GET_EVENT);
-  if (loading) return 'Loading...';
+
   console.log(data);
   if (error) return `Error! ${error.message}`;
   const columns = [
@@ -85,6 +78,7 @@ const AllEvent = () => {
           <div>
             <Link to={`/admin/editevent/${id}`}>
               <Tag style={{ cursor: 'pointer' }} color="rgb(1, 100, 145)">
+                <EditOutlined />
                 Edit
               </Tag>
             </Link>
@@ -107,6 +101,7 @@ const AllEvent = () => {
               }}
             >
               <Tag color="rgb(255, 0, 0)" style={{ cursor: 'pointer' }}>
+                <DeleteOutlined />
                 Delete
               </Tag>
             </Popconfirm>
@@ -115,6 +110,19 @@ const AllEvent = () => {
       },
     },
   ];
+  const DisplayForm = () => {
+    if (loading)
+      return (
+        <center>
+          <img
+            style={{ height: '80px', marginTop: '200px' }}
+            src={loadingPage}
+          />
+        </center>
+      );
+    refetch();
+    return <Table columns={columns} dataSource={data.allEvent} />;
+  };
   return (
     <React.Fragment>
       <Layout style={{ minHeight: '100vh' }}>
@@ -127,7 +135,7 @@ const AllEvent = () => {
               style={{ padding: 70, minHeight: 360 }}
             >
               <h1 className="title-top">All Events</h1>
-              <Table columns={columns} dataSource={data.allEvent} />
+              <DisplayForm />
             </div>
           </Content>
         </Layout>

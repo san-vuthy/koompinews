@@ -11,7 +11,7 @@ import {
   message,
 } from 'antd';
 import buttonLoading from '../../../asset/img/three-dots.svg';
-
+import loadingPage from '../../../asset/img/Wedges-3s-200px.svg';
 import LeftNavbar from '../../Layout/LeftNavbar';
 import Navbar from '../../Layout/Navbar';
 import TextEditor from '../../Help/TextEditor';
@@ -86,12 +86,12 @@ const EditCompany = (props) => {
       }
     },
   };
-
-  //   function DisplayCompanyName() {
-
-  //   }
   if (loading) {
-    return 'Loading....';
+    return (
+      <center>
+        <img style={{ height: '80px', marginTop: '200px' }} src={loadingPage} />
+      </center>
+    );
   }
   return (
     <React.Fragment>
@@ -116,12 +116,6 @@ const EditCompany = (props) => {
                       initialValue={data.aCompany.name}
                       label="Name of Company"
                       name="name"
-                      rules={[
-                        {
-                          required: true,
-                          message: 'Please input Company Name!',
-                        },
-                      ]}
                     >
                       <Input size="large" />
                     </Form.Item>
@@ -131,12 +125,6 @@ const EditCompany = (props) => {
                           initialValue={data.aCompany.website}
                           label="Website of Company"
                           name="website"
-                          rules={[
-                            {
-                              required: true,
-                              message: 'Please input Company Website!',
-                            },
-                          ]}
                         >
                           <Input size="large" />
                         </Form.Item>
@@ -146,12 +134,6 @@ const EditCompany = (props) => {
                           initialValue={data.aCompany.industry}
                           label="Industry"
                           name="industry"
-                          rules={[
-                            {
-                              required: true,
-                              message: 'Please input Industry!',
-                            },
-                          ]}
                         >
                           <Input size="large" />
                         </Form.Item>
@@ -161,12 +143,6 @@ const EditCompany = (props) => {
                           initialValue={data.aCompany.revenue}
                           label="Revenue"
                           name="revenue"
-                          rules={[
-                            {
-                              required: true,
-                              message: 'Please Company Revenue!',
-                            },
-                          ]}
                         >
                           <Input size="large" />
                         </Form.Item>
@@ -177,12 +153,6 @@ const EditCompany = (props) => {
                       initialValue={data.aCompany.des}
                       label="Description"
                       name="des"
-                      // rules={[
-                      //   {
-                      //     required: true,
-                      //     message: 'job & requirement is required',
-                      //   },
-                      // ]}
                     >
                       <TextEditor
                         handleDescChange={handleDescChange}
@@ -212,12 +182,6 @@ const EditCompany = (props) => {
                       initialValue={data.aCompany.globalCompanySize}
                       label="Global Size of Company"
                       name="globalCompanySize"
-                      // rules={[
-                      //   {
-                      //     required: true,
-                      //     message: 'Please input Global size company!',
-                      //   },
-                      // ]}
                     >
                       <Input
                         defaultValue={data.aCompany.globalCompanySize}
@@ -228,12 +192,6 @@ const EditCompany = (props) => {
                       initialValue={data.aCompany.location}
                       label="Location"
                       name="location"
-                      rules={[
-                        {
-                          required: true,
-                          message: 'Please input Location of Company!',
-                        },
-                      ]}
                     >
                       <Input size="large" />
                     </Form.Item>
@@ -241,12 +199,6 @@ const EditCompany = (props) => {
                       initialValue={data.aCompany.type}
                       label="Type of Company"
                       name="type"
-                      rules={[
-                        {
-                          required: true,
-                          message: 'Please Type of Company!',
-                        },
-                      ]}
                     >
                       <Input size="large" />
                     </Form.Item>

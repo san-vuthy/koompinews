@@ -1,22 +1,11 @@
 import React, { useState } from 'react';
-import {
-  Col,
-  Row,
-  Layout,
-  Form,
-  Button,
-  Input,
-  Upload,
-  Select,
-  Checkbox,
-  message,
-} from 'antd';
+import { Col, Row, Layout, Form, Button, Input, Upload, message } from 'antd';
 import buttonLoading from '../../../asset/img/three-dots.svg';
 import LeftNavbar from '../../Layout/LeftNavbar';
 import Navbar from '../../Layout/Navbar';
 import TextEditor from '../../Help/TextEditor';
 import { ADD_KNOWLEDGE } from '../../../graphql/mutation';
-import { useQuery, useMutation, from } from '@apollo/client';
+import { useMutation } from '@apollo/client';
 
 const { TextArea } = Input;
 const { Content } = Layout;
@@ -125,7 +114,7 @@ const AddKnowledge = () => {
                         <Form.Item
                           label="Lastbase"
                           name="lastbase"
-                          style={{ marginBottom: '-90px' }}
+                          style={{ marginBottom: '-50px' }}
                         >
                           <TextEditor
                             handleDescChange={handleDescChange}
@@ -137,7 +126,7 @@ const AddKnowledge = () => {
                         <Form.Item
                           label="Recentbase"
                           name="recentbase"
-                          style={{ marginBottom: '-90px' }}
+                          style={{ marginBottom: '-50px' }}
                         >
                           <TextEditor
                             handleDescChange={handleDesc1Change}

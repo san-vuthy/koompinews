@@ -97,3 +97,27 @@
 .ant-btn-primary:hover {
   background-color: #052c52 !important;
 }
+
+.login-form {
+  width: 20% !important;
+  top: 50%;
+  left: 50%;
+  position: absolute;
+  transform: translate(-50%, -50%);
+  box-sizing: border-box;
+  box-shadow: 0 0px 0px 0px rgba(0, 0, 0, 0.3),
+    0 4px 6px -2px rgba(0, 0, 0, 0.5);
+  border-radius: 10px !important;
+  padding: 20px !important;
+  height: 350px;
+}
+.avatar-login img {
+  max-width: 104px;
+  margin-bottom: 12px;
+}
+.login-form-forgot {
+  float: right;
+}
+.login-form-button {
+  width: 100%;
+}

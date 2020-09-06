@@ -1,22 +1,12 @@
 import React from 'react';
 import moment from 'moment';
-import {
-  Layout,
-  Space,
-  Table,
-  Tag,
-  message,
-  Popconfirm,
-  Button,
-  Divider,
-  Spin,
-  Alert,
-} from 'antd';
+import { Layout, Space, Table, Tag, message, Popconfirm, Divider } from 'antd';
+import { EditOutlined, DeleteOutlined } from '@ant-design/icons';
 import loadingPage from '../../../asset/img/Wedges-3s-200px.svg';
 import parse from 'html-react-parser';
 import LeftNavbar from '../../Layout/LeftNavbar';
 import Navbar from '../../Layout/Navbar';
-import { NavLink, Link } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { useQuery, useMutation } from '@apollo/client';
 import { GET_NEWS } from '../../../graphql/query';
 import { DELETE_NEWS } from '../../../graphql/mutation';
@@ -121,7 +111,7 @@ const AllNewspage = () => {
           <div>
             <Link to={`/admin/editnews/${id}`}>
               <Tag style={{ cursor: 'pointer' }} color="rgb(1, 100, 145)">
-                Edit
+                <EditOutlined /> Edit
               </Tag>
             </Link>
             <Divider type="vertical" />
@@ -143,7 +133,7 @@ const AllNewspage = () => {
               }}
             >
               <Tag color="rgb(255, 0, 0)" style={{ cursor: 'pointer' }}>
-                Delete
+                <DeleteOutlined /> Delete
               </Tag>
             </Popconfirm>
           </div>

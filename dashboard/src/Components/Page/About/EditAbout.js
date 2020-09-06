@@ -8,10 +8,10 @@ import {
   Input,
   Upload,
   Select,
-  Checkbox,
   message,
 } from 'antd';
 import buttonLoading from '../../../asset/img/three-dots.svg';
+import loadingPage from '../../../asset/img/Wedges-3s-200px.svg';
 import { useParams } from 'react-router-dom';
 import LeftNavbar from '../../Layout/LeftNavbar';
 import Navbar from '../../Layout/Navbar';
@@ -21,7 +21,6 @@ import { UPDATE_ABOUT } from '../../../graphql/mutation';
 import { GET_A_ABOUT, GET_ABOUT } from '../../../graphql/query';
 
 const { Content } = Layout;
-const { Option } = Select;
 const EditAbout = (props) => {
   const { id } = useParams();
   const [updateAbout] = useMutation(UPDATE_ABOUT);
@@ -82,7 +81,11 @@ const EditAbout = (props) => {
     },
   };
   if (loading) {
-    return 'Loading.....';
+    return (
+      <center>
+        <img style={{ height: '80px', marginTop: '200px' }} src={loadingPage} />
+      </center>
+    );
   }
   return (
     <React.Fragment>
@@ -95,7 +98,7 @@ const EditAbout = (props) => {
               className="site-layout-background"
               style={{ minHeight: 360, padding: 70 }}
             >
-              <h1 className="title-top">Edit About</h1>
+              <h1 className="title-top">Update About</h1>
               <Form
                 layout="vertical"
                 onFinish={onFinish}
@@ -108,12 +111,6 @@ const EditAbout = (props) => {
                       label="Title"
                       // style={{ fontSize: '30px' }}
                       name="title"
-                      rules={[
-                        {
-                          required: true,
-                          message: 'Please input Title!',
-                        },
-                      ]}
                     >
                       <Input size="large" />
                     </Form.Item>

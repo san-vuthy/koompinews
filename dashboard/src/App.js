@@ -29,6 +29,7 @@ import EditAbout from './Components/Page/About/EditAbout';
 import AllKnowledge from './Components/Page/Knowledge/AllKnowledge';
 import AddKnowledge from './Components/Page/Knowledge/AddKnowledge';
 import EditKnowledge from './Components/Page/Knowledge/EditKnowledge';
+import Login from './Components/Layout/Login';
 
 function App() {
   return (
@@ -75,6 +76,7 @@ function App() {
             path="/admin/editknowledge/:id"
             component={EditKnowledge}
           />
+          <Route exact path="/login" component={Login} />
 
           {/* Test */}
           <Route exact path="/test" component={Test} />

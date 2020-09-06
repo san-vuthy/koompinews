@@ -10,10 +10,12 @@ import {
   Button,
   Divider,
 } from 'antd';
+import { EditOutlined, DeleteOutlined } from '@ant-design/icons';
+import loadingPage from '../../../asset/img/Wedges-3s-200px.svg';
 import parse from 'html-react-parser';
 import LeftNavbar from '../../Layout/LeftNavbar';
 import Navbar from '../../Layout/Navbar';
-import { NavLink, Link } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { useMutation, useQuery } from '@apollo/client';
 import { GET_ABOUT } from '../../../graphql/query';
 import { DELETE_ABOUT } from '../../../graphql/mutation';
@@ -22,7 +24,7 @@ const { Content } = Layout;
 const AllAbout = () => {
   const [deleteAbout] = useMutation(DELETE_ABOUT);
   const { loading, error, data, refetch } = useQuery(GET_ABOUT);
-  if (loading) return 'Loading...';
+
   console.log(data);
   if (error) return `Error! ${error.message}`;
   const columns = [
@@ -85,13 +87,14 @@ const AllAbout = () => {
           <div>
             <Link to={`/admin/editabout/${id}`}>
               <Tag style={{ cursor: 'pointer' }} color="rgb(1, 100, 145)">
+                <EditOutlined />
                 Edit
               </Tag>
             </Link>
             <Divider type="vertical" />
             <Popconfirm
               placement="topRight"
-              title="Are you sure to delete this News?"
+              title="Are you sure to delete?"
               okText="Yes"
               cancelText="No"
               onConfirm={() => {
@@ -107,7 +110,7 @@ const AllAbout = () => {
               }}
             >
               <Tag color="rgb(255, 0, 0)" style={{ cursor: 'pointer' }}>
-                Delete
+                <DeleteOutlined /> Delete
               </Tag>
             </Popconfirm>
           </div>
@@ -115,6 +118,19 @@ const AllAbout = () => {
       },
     },
   ];
+  const DisplayForm = () => {
+    if (loading)
+      return (
+        <center>
+          <img
+            style={{ height: '80px', marginTop: '200px' }}
+            src={loadingPage}
+          />
+        </center>
+      );
+    refetch();
+    return <Table columns={columns} dataSource={data.allAbout} />;
+  };
   return (
     <React.Fragment>
       <Layout style={{ minHeight: '100vh' }}>
@@ -126,8 +142,8 @@ const AllAbout = () => {
               className="site-layout-background"
               style={{ padding: 70, minHeight: 360 }}
             >
-              <h1 className="title-top">All Events</h1>
-              <Table columns={columns} dataSource={data.allAbout} />
+              <h1 className="title-top">All About</h1>
+              <DisplayForm />
             </div>
           </Content>
         </Layout>

@@ -12,6 +12,7 @@ import {
   message,
 } from 'antd';
 import LeftNavbar from '../../Layout/LeftNavbar';
+import loadingPage from '../../../asset/img/Wedges-3s-200px.svg';
 import Navbar from '../../Layout/Navbar';
 import TextEditor from '../../Help/TextEditor';
 import { useParams } from 'react-router-dom';
@@ -93,7 +94,11 @@ const EditKnowledge = (props) => {
     },
   };
   if (loading) {
-    return 'Loading......';
+    return (
+      <center>
+        <img style={{ height: '80px', marginTop: '200px' }} src={loadingPage} />
+      </center>
+    );
   }
   return (
     <React.Fragment>

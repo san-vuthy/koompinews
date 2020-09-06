@@ -7,8 +7,15 @@ import {
   TeamOutlined,
   UserOutlined,
 } from '@ant-design/icons';
-import { NavLink } from 'react-router-dom';
+import { NavLink, Link } from 'react-router-dom';
+import feet from '../../asset/img/feed.svg';
+import news from '../../asset/img/news.svg';
+import company from '../../asset/img/home.svg';
+import event from '../../asset/img/calendar-event.svg';
+import about from '../../asset/img/cards.svg';
+import Knowledge from '../../asset/img/book-opened.svg';
 
+const pathname = window.location.pathname;
 const { Sider } = Layout;
 const { SubMenu } = Menu;
 const LeftNavbar = () => {
@@ -18,7 +25,7 @@ const LeftNavbar = () => {
   };
   return (
     <React.Fragment>
-      <Sider collapsible collapsed={collapsed} onCollapse={onCollapse}>
+      <Sider collapsed={collapsed} onCollapse={onCollapse}>
         <div className="logo">
           <img
             style={{
@@ -29,32 +36,39 @@ const LeftNavbar = () => {
             src="/img/logo.png"
           />
         </div>
-        <Menu theme="dark" defaultSelectedKeys={['1']} mode="inline">
-          {/* <SubMenu key="1" icon={<PieChartOutlined />} title="Home Page">
+        <Menu
+          theme="dark"
+          defaultSelectedKeys={[pathname]}
+          defaultOpenKeys={[pathname]}
+          mode="inline"
+        >
+          <SubMenu
+            key="/admin/allnews"
+            icon={
+              <img
+                style={{ color: '#fff', width: '30px', paddingRight: '7px' }}
+                src={news}
+              />
+            }
+            title="News Page"
+          >
             <Menu.Item>
-              <NavLink to="/admin/newpage">All News</NavLink>
+              <Link to="/admin/allnews">All News</Link>
             </Menu.Item>
             <Menu.Item>
-              <NavLink to="/admin/addnews">Add News</NavLink>
-            </Menu.Item>
-          </SubMenu>
-          <SubMenu key="2" icon={<PieChartOutlined />} title="Popular News">
-            <Menu.Item>
-              <NavLink to="/admin/allpopularnews">All Popular News</NavLink>
-            </Menu.Item>
-            <Menu.Item>
-              <NavLink to="/admin/addpopularnews">Add Popular News</NavLink>
-            </Menu.Item>
-          </SubMenu> */}
-          <SubMenu key="3" icon={<PieChartOutlined />} title="News Page">
-            <Menu.Item>
-              <NavLink to="/admin/allnews">All News</NavLink>
-            </Menu.Item>
-            <Menu.Item>
-              <NavLink to="/admin/addnewspage">Add News</NavLink>
+              <Link to="/admin/addnewspage">Add News</Link>
             </Menu.Item>
           </SubMenu>
-          <SubMenu key="4" icon={<PieChartOutlined />} title="Jobs Page">
+          <SubMenu
+            key="4"
+            icon={
+              <img
+                style={{ color: '#fff', width: '25px', paddingRight: '7px' }}
+                src={feet}
+              />
+            }
+            title="Jobs Page"
+          >
             <Menu.Item>
               <NavLink to="/admin/alljobs">All Jobs</NavLink>
             </Menu.Item>
@@ -65,7 +79,16 @@ const LeftNavbar = () => {
               <NavLink to="/admin/jobcategories">Job Categories</NavLink>
             </Menu.Item>
           </SubMenu>
-          <SubMenu key="5" icon={<PieChartOutlined />} title="Company Page">
+          <SubMenu
+            key="5"
+            icon={
+              <img
+                style={{ color: '#fff', width: '28px', paddingRight: '7px' }}
+                src={company}
+              />
+            }
+            title="Company Page"
+          >
             <Menu.Item>
               <NavLink to="/admin/allcompanies">All Company</NavLink>
             </Menu.Item>
@@ -73,7 +96,16 @@ const LeftNavbar = () => {
               <NavLink to="/admin/addcompany">Add Company</NavLink>
             </Menu.Item>
           </SubMenu>
-          <SubMenu key="6" icon={<PieChartOutlined />} title="Event Page">
+          <SubMenu
+            key="6"
+            icon={
+              <img
+                style={{ color: '#fff', width: '30px', paddingRight: '7px' }}
+                src={event}
+              />
+            }
+            title="Event Page"
+          >
             <Menu.Item>
               <NavLink to="/admin/allevent">All Event</NavLink>
             </Menu.Item>
@@ -81,7 +113,16 @@ const LeftNavbar = () => {
               <NavLink to="/admin/addevent">Add Event</NavLink>
             </Menu.Item>
           </SubMenu>
-          <SubMenu key="7" icon={<PieChartOutlined />} title="About Page">
+          <SubMenu
+            key="7"
+            icon={
+              <img
+                style={{ color: '#fff', width: '30px', paddingRight: '7px' }}
+                src={about}
+              />
+            }
+            title="About Page"
+          >
             <Menu.Item>
               <NavLink to="/admin/allabout">All About</NavLink>
             </Menu.Item>
@@ -89,7 +130,16 @@ const LeftNavbar = () => {
               <NavLink to="/admin/addabout">Add About</NavLink>
             </Menu.Item>
           </SubMenu>
-          <SubMenu key="8" icon={<PieChartOutlined />} title="Knowledge Page">
+          <SubMenu
+            key="8"
+            icon={
+              <img
+                style={{ color: '#fff', width: '30px', paddingRight: '7px' }}
+                src={Knowledge}
+              />
+            }
+            title="Knowledge Page"
+          >
             <Menu.Item>
               <NavLink to="/admin/allknowledge">All Knowledge</NavLink>
             </Menu.Item>

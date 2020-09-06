@@ -1,12 +1,9 @@
 import React, { useState } from 'react';
 import {
-  Col,
-  Row,
   Layout,
   Form,
   Button,
   Input,
-  Upload,
   Select,
   Space,
   Tag,
@@ -15,13 +12,10 @@ import {
   Popconfirm,
   Divider,
 } from 'antd';
+import buttonLoading from '../../../asset/img/three-dots.svg';
 import LeftNavbar from '../../Layout/LeftNavbar';
 import Navbar from '../../Layout/Navbar';
-import {
-  UploadOutlined,
-  EditOutlined,
-  DeleteOutlined,
-} from '@ant-design/icons';
+import { EditOutlined, DeleteOutlined } from '@ant-design/icons';
 import moment from 'moment';
 import { useMutation, useQuery } from '@apollo/client';
 import {
@@ -29,20 +23,15 @@ import {
   DELETE_JOB_CATEGORY,
   UPDATE_JOB_CATEGORY,
 } from '../../../graphql/mutation';
-import {
-  GET_JOB_CATEGORY,
-  GET_A_JOB_CATEGORY,
-  GET_A_JOB,
-} from '../../../graphql/query';
+import { GET_JOB_CATEGORY, GET_A_JOB_CATEGORY } from '../../../graphql/query';
 import { useParams } from 'react-router-dom';
 
 const { Content } = Layout;
-const { TextArea } = Input;
-const { Option } = Select;
 
 const JobCategories = () => {
   const [id, setId] = useState('');
   const [dat, setdata1] = useState('');
+  const [loading2, setLoading2] = useState(false);
   // const { id } = useParams();
 
   const [form] = Form.useForm();
@@ -71,6 +60,10 @@ const JobCategories = () => {
         userId: '5f3e65128c70fe65b27d5c7f',
       },
     }).then(async (res) => {
+      setLoading2(true);
+      setTimeout(() => {
+        setLoading2(false);
+      }, 3000);
       await message.success(res.data.addJobCategory.message);
       await refetch();
       form.resetFields();
@@ -85,6 +78,10 @@ const JobCategories = () => {
         userId: '5f3e65128c70fe65b27d5c7f',
       },
     }).then(async (res) => {
+      setLoading2(true);
+      setTimeout(() => {
+        setLoading2(false);
+      }, 3000);
       await message.success(res.data.updateJobCategory.message);
       await refetch();
       window.location.reload();
@@ -92,8 +89,6 @@ const JobCategories = () => {
     });
     console.log('success', value);
   };
-
-  function DisplayUpdate() {}
 
   const columns = [
     {
@@ -220,7 +215,15 @@ const JobCategories = () => {
                       htmlType="submit"
                       //   style={{ marginTop: '70px' }}
                     >
-                      Submit
+                      {loading2 ? (
+                        <img
+                          src={buttonLoading}
+                          alt="btn-loading"
+                          height="10"
+                        />
+                      ) : (
+                        'SUBMIT'
+                      )}
                     </Button>
                   </Form>
                 </div>
@@ -259,7 +262,15 @@ const JobCategories = () => {
                         // onClick={() => setEdit(false)}
                         //   style={{ marginTop: '70px' }}
                       >
-                        Submit
+                        {loading2 ? (
+                          <img
+                            src={buttonLoading}
+                            alt="btn-loading"
+                            height="10"
+                          />
+                        ) : (
+                          'UPDATE'
+                        )}
                       </Button>
                       <div style={{ paddingLeft: '10px' }}>
                         <Button

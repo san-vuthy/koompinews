@@ -3,6 +3,7 @@ import { Layout, Space, Table, Tag, Divider, Popconfirm, message } from 'antd';
 import LeftNavbar from '../../Layout/LeftNavbar';
 import Navbar from '../../Layout/Navbar';
 import loadingPage from '../../../asset/img/Wedges-3s-200px.svg';
+import { EditOutlined, DeleteOutlined } from '@ant-design/icons';
 import { useQuery, useMutation } from '@apollo/client';
 import { GET_JOBS } from '../../../graphql/query';
 import { DELETE_JOB } from '../../../graphql/mutation';
@@ -94,6 +95,7 @@ const Alljobs = () => {
           <Space>
             <Link to={`/admin/editjob/${id}`}>
               <Tag style={{ cursor: 'pointer' }} color="rgb(1, 100, 145)">
+                <EditOutlined />
                 Edit
               </Tag>
             </Link>
@@ -116,7 +118,7 @@ const Alljobs = () => {
               }}
             >
               <Tag color="rgb(255, 0, 0)" style={{ cursor: 'pointer' }}>
-                Delete
+                <DeleteOutlined /> Delete
               </Tag>
             </Popconfirm>
           </Space>

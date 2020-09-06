@@ -1,24 +1,12 @@
 import React from 'react';
 import moment from 'moment';
-import {
-  Layout,
-  Space,
-  Table,
-  Tag,
-  message,
-  Popconfirm,
-  Button,
-  Divider,
-} from 'antd';
-import {
-  UploadOutlined,
-  EditOutlined,
-  DeleteOutlined,
-} from '@ant-design/icons';
+import loadingPage from '../../../asset/img/Wedges-3s-200px.svg';
+import { Layout, Table, Tag, message, Popconfirm, Divider } from 'antd';
+import { EditOutlined, DeleteOutlined } from '@ant-design/icons';
 import parse from 'html-react-parser';
 import LeftNavbar from '../../Layout/LeftNavbar';
 import Navbar from '../../Layout/Navbar';
-import { NavLink, Link } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { useQuery, useMutation } from '@apollo/client';
 import { GET_KNOWLEDGE } from '../../../graphql/query';
 import { DELETE_KNOWLEDGE } from '../../../graphql/mutation';
@@ -27,7 +15,7 @@ const { Content } = Layout;
 const AllKnowledge = () => {
   const [deleteKnowledge] = useMutation(DELETE_KNOWLEDGE);
   const { loading, error, data, refetch } = useQuery(GET_KNOWLEDGE);
-  if (loading) return 'Loading...';
+
   console.log(data);
   if (error) return `Error! ${error.message}`;
   const columns = [
@@ -46,15 +34,7 @@ const AllKnowledge = () => {
         );
       },
     },
-    // {
-    //   title: 'MianTitle',
-    //   dataIndex: 'maintitle',
-    //   key: 'title',
 
-    //   render: (data) => {
-    //     return data.length <= 25 ? data : data.substring(0, 25) + ' ...';
-    //   },
-    // },
     {
       title: 'Title',
       dataIndex: 'title',
@@ -107,7 +87,7 @@ const AllKnowledge = () => {
             <Divider type="vertical" />
             <Popconfirm
               placement="topRight"
-              title="Are you sure to delete this?"
+              title="Are you sure to delete?"
               okText="Yes"
               cancelText="No"
               onConfirm={() => {
@@ -131,6 +111,20 @@ const AllKnowledge = () => {
       },
     },
   ];
+  const DisplayForm = () => {
+    if (loading) {
+      return (
+        <center>
+          <img
+            style={{ height: '80px', marginTop: '200px' }}
+            src={loadingPage}
+          />
+        </center>
+      );
+    }
+    refetch();
+    return <Table columns={columns} dataSource={data.allKnowledge} />;
+  };
 
   return (
     <React.Fragment>
@@ -144,7 +138,7 @@ const AllKnowledge = () => {
               style={{ padding: 70, minHeight: 360 }}
             >
               <h1 className="title-top">All Knowledge</h1>
-              <Table columns={columns} dataSource={data.allKnowledge} />
+              <DisplayForm />
             </div>
           </Content>
         </Layout>

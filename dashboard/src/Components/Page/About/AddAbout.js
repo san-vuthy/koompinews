@@ -1,26 +1,15 @@
 import React, { useState } from 'react';
-import {
-  Col,
-  Row,
-  Layout,
-  Form,
-  Button,
-  Input,
-  Upload,
-  Select,
-  Checkbox,
-  message,
-} from 'antd';
+import { Col, Row, Layout, Form, Button, Input, Upload, message } from 'antd';
 import buttonLoading from '../../../asset/img/three-dots.svg';
 import LeftNavbar from '../../Layout/LeftNavbar';
 import Navbar from '../../Layout/Navbar';
 import TextEditor from '../../Help/TextEditor';
-import { useQuery, useMutation } from '@apollo/client';
+import { useMutation } from '@apollo/client';
 import { ADD_ABOUT } from '../../../graphql/mutation';
 
 const { Content } = Layout;
-const { Option } = Select;
 const AddAbout = () => {
+  const [form] = Form.useForm();
   const [addAbout] = useMutation(ADD_ABOUT);
   const [image, setImage] = useState('');
   const [desc, setDesc] = useState('');
@@ -42,6 +31,8 @@ const AddAbout = () => {
         setLoading(false);
       }, 3000);
       await message.success(res.data.addAbout.message);
+      setDesc(form.resetFields());
+      form.resetFields();
     });
     console.log('success', value, desc);
   };
@@ -56,8 +47,7 @@ const AddAbout = () => {
     name: 'file',
     multiple: false,
     action: 'http://localhost:8080/upload',
-    // listType: 'picture',
-    defaultFileList: image,
+
     onChange(info) {
       const { status } = info.file;
       if (status !== 'uploading') {
@@ -84,6 +74,7 @@ const AddAbout = () => {
             >
               <h1 className="title-top">Add About</h1>
               <Form
+                form={form}
                 layout="vertical"
                 onFinish={onFinish}
                 onFinishFailed={onFinishFailed}
