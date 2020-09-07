@@ -207,6 +207,7 @@ body h1 {
 }
 .des-news-article {
   font-size: 21px;
+  /* line-height: 12px; */
 }
 .title-news-article {
   font-size: 33px;

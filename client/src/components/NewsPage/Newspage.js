@@ -104,6 +104,7 @@ import { Layout, Row, Col, Avatar, Carousel } from 'antd';
 import Footer from '../Layouts/Footer';
 import RightSiteJob from '../Jobs/RightSiteJob';
 import RightSiteNewspage from './RightSiteNewspage';
+import { Link } from 'react-router-dom';
 const { Sider, Content } = Layout;
 
 const Newspage = () => {
@@ -164,29 +165,30 @@ const Newspage = () => {
                     <Col className="padding-news" lg={12} md={12} key={index}>
                       <div className="news-col">
                         {/* <Link to={'/news/' + res._id}> */}
-                        <div
-                          style={{
-                            backgroundImage: `url("http://localhost:8080/${res.image}")`,
-                          }}
-                          className="image-news-style"
-                        ></div>
-                        <div style={{ padding: '12px' }}>
-                          <h1 className="title-news">
-                            {res.title.length <= 60
-                              ? res.title
-                              : res.title.substring(0, 60) + '......'}
-                            {/* {res.title<< res.title.substring(0, 60) + '.....'} */}
-                          </h1>
-                          <div style={{ display: 'flex' }}>
-                            <Avatar size="small" src={res.avatar} />
-                            <span className="indexNewsDate">
-                              {moment
-                                .unix(res.createAt / 1000)
-                                .format('dddd-YYYY-MM-DD')}
-                            </span>
+                        <Link to={`/news/${res.id}`}>
+                          <div
+                            style={{
+                              backgroundImage: `url("http://localhost:8080/${res.image}")`,
+                            }}
+                            className="image-news-style"
+                          ></div>
+                          <div style={{ padding: '12px' }}>
+                            <h1 className="title-news">
+                              {res.title.length <= 60
+                                ? res.title
+                                : res.title.substring(0, 60) + '......'}
+                              {/* {res.title<< res.title.substring(0, 60) + '.....'} */}
+                            </h1>
+                            <div style={{ display: 'flex' }}>
+                              <Avatar size="small" src={res.avatar} />
+                              <span className="indexNewsDate">
+                                {moment
+                                  .unix(res.createAt / 1000)
+                                  .format('dddd-YYYY-MM-DD')}
+                              </span>
+                            </div>
                           </div>
-                        </div>
-                        {/* </Link> */}
+                        </Link>
                       </div>
                     </Col>
                   );

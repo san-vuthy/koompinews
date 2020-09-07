@@ -67,5 +67,53 @@ const GET_JOBS = gql`
     }
   }
 `;
+const GET_ANEWS = gql`
+  query($id: String!) {
+    aNews(id: $id) {
+      title
+      image
+      describtion
+      createAt
+      user {
+        name
+      }
+      categoreyname {
+        name
+        id
+      }
+      type {
+        name
+        id
+      }
+    }
+  }
+`;
+const GET_A_JOB = gql`
+  query($id: String) {
+    aJob(id: $id) {
+      position
+      jobCategId
+      jobCateName {
+        name
+        id
+      }
+      company
+      user {
+        name
+        id
+      }
+      location
+      salary
+      worktime
+      des
+      requireSkill
+      image
+      message
+      createAt
+      show
+      message
+    }
+  }
+`;
 
-export { GET_NEWS, GET_NEWS_BY_MOSTPOPULAR, GET_JOBS };
+export { GET_NEWS, GET_NEWS_BY_MOSTPOPULAR, GET_JOBS, GET_A_JOB, GET_ANEWS };

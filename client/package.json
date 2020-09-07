@@ -10,6 +10,8 @@
     "add": "^2.0.6",
     "antd": "^4.4.3",
     "graphql": "^15.3.0",
+    "html-react-parser": "^0.13.0",
+    "quill-image-resize-module": "^3.0.0",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
     "react-router-dom": "^5.2.0",
