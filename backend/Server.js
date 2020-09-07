@@ -1,6 +1,7 @@
 const express = require('express');
 const cors = require('cors');
 const colors = require('colors');
+const publicschema = require('./graphql/schema/publicshcema');
 const schema = require('./graphql/schema/scheam');
 const { graphqlHTTP } = require('express-graphql');
 const fileUpload = require('express-fileupload');
@@ -52,6 +53,17 @@ app.post('/upload', async (req, res) => {
     res.status(500).send(error);
   }
 });
+
+//Public API
+
+app.use(
+  '/api',
+  graphqlHTTP({
+    schema: publicschema,
+    graphiql: true,
+  })
+);
+
 // app.use(auth);
 app.use(
   '/graphql',

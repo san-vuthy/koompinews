@@ -60,7 +60,7 @@ const LeftNavbar = () => {
             </Menu.Item>
           </SubMenu>
           <SubMenu
-            key="4"
+            key="/admin/alljobs"
             icon={
               <img
                 style={{ color: '#fff', width: '25px', paddingRight: '7px' }}

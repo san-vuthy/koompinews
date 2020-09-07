@@ -26,7 +26,7 @@ const Navbar = () => {
   const content = (
     <div style={{ cursor: 'pointer' }}>
       <p>
-        <NavLink to="/news">Sport</NavLink>
+        <NavLink to="/sport">Sport</NavLink>
       </p>
       <p>
         <NavLink to="/news">Social</NavLink>
@@ -52,13 +52,18 @@ const Navbar = () => {
               mode="horizontal"
               defaultSelectedKeys={['2']}
             >
-              <Menu.Item style={{ float: 'left' }} key="0">
+              {/* <Menu.Item style={{ float: 'left' }} key="0">
                 <Popover content={content}>
                   NEWS
                   <DownOutlined
                     style={{ marginLeft: '5px', fontSize: '10px' }}
                   />
                 </Popover>
+              </Menu.Item> */}
+              <Menu.Item active={{ color: 'red' }} style={{ float: 'left' }}>
+                <NavLink activeClassName="main-nav-active " to="/news">
+                  NEWS
+                </NavLink>
               </Menu.Item>
               <Menu.Item active={{ color: 'red' }} style={{ float: 'left' }}>
                 <NavLink activeClassName="main-nav-active " to="/jobs">
@@ -135,7 +140,7 @@ const Navbar = () => {
             </Menu.Item>
           </Menu>
         </div>
-        <Drawer
+        {/* <Drawer
           placement="left"
           closable={false}
           onClose={onClose}
@@ -183,7 +188,7 @@ const Navbar = () => {
               </NavLink>
             </p>
           </div>
-        </Drawer>
+        </Drawer> */}
       </Affix>
     </React.Fragment>
   );

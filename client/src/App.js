@@ -11,6 +11,7 @@ import CompaniesAtical from './components/Companies/CompaniesAtical';
 import EventHome from './components/Event/EventHome';
 import Knowledge from './components/Knowledge/Knowledge';
 import About from './components/About';
+import Sport from './components/NewsPage/Sport/Sport';
 
 function App() {
   return (
@@ -27,6 +28,7 @@ function App() {
           <Route path="/event" exact={true} component={EventHome} />
           <Route path="/knowledge" exact={true} component={Knowledge} />
           <Route path="/about" exact={true} component={About} />
+          <Route path="/sport" exact={true} component={Sport} />
         </Switch>
       </Router>
     </React.Fragment>

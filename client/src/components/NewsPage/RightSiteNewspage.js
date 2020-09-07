@@ -1,46 +1,82 @@
 import React, { useState } from 'react';
+import moment from 'moment';
 import { Avatar, Card, Input, Tag, Affix } from 'antd';
+import { useQuery } from '@apollo/client';
+import { GET_NEWS_BY_MOSTPOPULAR, GET_JOBS } from '../../graphql/query';
 
 const RightSiteNewspage = () => {
-  const [des, setDes] = useState([
-    {
-      avatar: '/img/jobsuche_blue.jpg',
-      des: ' The fall of an ecommerce startup and other top stories this week',
-    },
-    {
-      avatar: '/img/jobsuche_blue.jpg',
-      des: ' The fall of an ecommerce startup and other top stories this week',
-    },
-    {
-      avatar: '/img/jobsuche_blue.jpg',
-      des: ' The fall of an ecommerce startup and other top stories this week',
-    },
-    {
-      avatar: '/img/jobsuche_blue.jpg',
-      des: ' The fall of an ecommerce startup and other top stories this week',
-    },
-  ]);
-
-  const [lastjob, setLastjob] = useState([
-    {
-      img: '/img/jobsuche_blue.jpg',
-      titile: 'KOOMPI Company',
-      pos: 'Graphic Design',
-      Date: '20/20/2020',
-    },
-    {
-      img: '/img/jobsuche_blue.jpg',
-      titile: 'KOOMPI Company',
-      pos: 'Graphic Design',
-      Date: '20/20/2020',
-    },
-    {
-      img: '/img/jobsuche_blue.jpg',
-      titile: 'KOOMPI Company',
-      pos: 'Graphic Design',
-      Date: '20/20/2020',
-    },
-  ]);
+  // const [lastjob, setLastjob] = useState([
+  //   {
+  //     img: '/img/jobsuche_blue.jpg',
+  //     titile: 'KOOMPI Company',
+  //     pos: 'Graphic Design',
+  //     Date: '20/20/2020',
+  //   },
+  //   {
+  //     img: '/img/jobsuche_blue.jpg',
+  //     titile: 'KOOMPI Company',
+  //     pos: 'Graphic Design',
+  //     Date: '20/20/2020',
+  //   },
+  //   {
+  //     img: '/img/jobsuche_blue.jpg',
+  //     titile: 'KOOMPI Company',
+  //     pos: 'Graphic Design',
+  //     Date: '20/20/2020',
+  //   },
+  // ]);
+  const DisplayJobs = () => {
+    const { loading, error, data, refetch } = useQuery(GET_JOBS);
+    if (loading) {
+      return 'laoding....';
+    }
+    console.log(data);
+    if (error) return `Error! ${error.message}`;
+    return (
+      <div style={{ marginTop: '30px' }}>
+        {data.allJob.slice(0, 6).map((res, index) => {
+          return (
+            <div style={{ display: 'flex' }}>
+              <div style={{ marginBottom: '12px' }}>
+                <Avatar
+                  // style={{ borderRadius: '40px' }}
+                  shape="square"
+                  size="large"
+                  src={'http://localhost:8080/' + res.image}
+                />
+              </div>
+              <div
+                style={{
+                  display: ' flex',
+                  paddingLeft: '12px',
+                  marginBottom: '24px',
+                  marginTop: '-12px',
+                }}
+              >
+                <div>
+                  <h3 style={{ marginBottom: '-8px' }}>{res.company}</h3>
+                  <span>{res.position}</span>
+                  <br></br>
+                  <span>
+                    {moment.unix(res.createAt / 1000).format('YYYY-MM-DD')}
+                  </span>
+                </div>
+                {/* <div style={{ paddingLeft: '12px' }}>
+                  <Tag color="default">featured</Tag>
+                </div> */}
+              </div>
+            </div>
+          );
+        })}
+      </div>
+    );
+  };
+  const { loading, error, data, refetch } = useQuery(GET_NEWS_BY_MOSTPOPULAR);
+  if (loading) {
+    return 'laoding....';
+  }
+  console.log(data);
+  if (error) return `Error! ${error.message}`;
   return (
     <React.Fragment>
       <div className="right-site-news">
@@ -57,12 +93,18 @@ const RightSiteNewspage = () => {
           </h4>
         </div>
         <div style={{ marginTop: '30px' }}>
-          {des.map((res, index) => {
+          {data.allNewsbyType.slice(0, 6).map((res, index) => {
             return (
               <div style={{ display: ' flex', marginTop: '19px' }}>
-                <Avatar size="large" shape="square" src={res.avatar} />
+                <Avatar
+                  size="large"
+                  shape="square"
+                  src={'http://localhost:8080/' + res.image}
+                />
                 <span style={{ paddingLeft: '12px', color: '#010101' }}>
-                  {res.des}
+                  {res.title.length <= 60
+                    ? res.title
+                    : res.title.substring(0, 60) + '......'}
                 </span>
               </div>
             );
@@ -97,33 +139,7 @@ const RightSiteNewspage = () => {
           >
             Lastest Jobs
           </h4>
-          <div style={{ marginTop: '30px' }}>
-            {lastjob.map((res, index) => {
-              return (
-                <div style={{ display: 'flex' }}>
-                  <div style={{ marginBottom: '12px' }}>
-                    <Avatar
-                      style={{ borderRadius: '40px' }}
-                      shape="square"
-                      size={64}
-                      src={res.img}
-                    />
-                  </div>
-                  <div style={{ display: ' flex', paddingLeft: '12px' }}>
-                    <div>
-                      <h3 style={{ marginBottom: '-8px' }}>{res.titile}</h3>
-                      <span>{res.pos}</span>
-                      <br></br>
-                      <span>{res.Date}</span>
-                    </div>
-                    <div style={{ paddingLeft: '12px' }}>
-                      <Tag color="default">featured</Tag>
-                    </div>
-                  </div>
-                </div>
-              );
-            })}
-          </div>
+          <DisplayJobs />
         </div>
       </div>
       {/* </Affix> */}
