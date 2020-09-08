@@ -97,8 +97,9 @@ const RightSiteNewspage = () => {
             return (
               <div style={{ display: ' flex', marginTop: '19px' }}>
                 <Avatar
-                  size="large"
+                  style={{ width: '60px' }}
                   shape="square"
+                  size="large"
                   src={'http://localhost:8080/' + res.image}
                 />
                 <span style={{ paddingLeft: '12px', color: '#010101' }}>

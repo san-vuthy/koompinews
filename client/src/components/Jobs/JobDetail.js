@@ -1,9 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import Navbar from '../Layouts/Navbar';
 import SubNavbar from '../Layouts/Subnavbar';
+import moment from 'moment';
 import JobData from '../data/JobData';
 import Footer from '../Layouts/Footer';
-
+import { useParams } from 'react-router-dom';
+import { useQuery } from '@apollo/client';
+import { GET_A_JOB } from '../../graphql/query';
+import parse from 'html-react-parser';
 import {
   Row,
   Col,
@@ -17,7 +21,6 @@ import {
   Upload,
 } from 'antd';
 import {
-  DollarCircleTwoTone,
   DollarOutlined,
   CalendarOutlined,
   AimOutlined,
@@ -54,9 +57,15 @@ const JobDetail = (props) => {
     listType: 'picture',
     defaultFileList: [...fileList],
   };
-  console.log(props.match.params.id);
-  let jobs = JobData.job.find((x) => x._id == props.match.params.id);
-
+  // console.log(props.match.params.id);
+  // let jobs = JobData.job.find((x) => x._id == props.match.params.id);
+  const { id } = useParams();
+  const { loading, error, data, refetch } = useQuery(GET_A_JOB, {
+    variables: { id },
+  });
+  if (loading) return 'loading......';
+  console.log(data);
+  if (error) return `Error! ${error.message}`;
   return (
     <React.Fragment>
       <Navbar />
@@ -66,25 +75,29 @@ const JobDetail = (props) => {
           <Col sm={24} md={24} lg={16}>
             <div style={{ display: 'flex' }}>
               <div style={{ marginBottom: '90px' }}>
-                <Avatar shape="square" size={100} src={jobs.img} />
+                <Avatar
+                  shape="square"
+                  size={100}
+                  src={'http://localhost:8080/' + data.aJob.image}
+                />
               </div>
 
               <div style={{ display: ' flex', paddingLeft: '30px' }}>
                 <div>
-                  <h3>{jobs.job}</h3>
+                  <h3>{data.aJob.job}</h3>
                   <span>
                     <AimOutlined style={{ paddingRight: '3px' }} />
-                    {jobs.location}
+                    {data.aJob.location}
                   </span>
                   <br></br>
                   <span>
                     <DollarOutlined style={{ paddingRight: '3px' }} />
-                    {jobs.salary}
+                    {data.aJob.salary}
                   </span>
                   <br></br>
                   <span>
                     <CalendarOutlined style={{ paddingRight: '3px' }} />
-                    {jobs.Schedule}
+                    {data.aJob.worktime}
                   </span>
                 </div>
                 <div
@@ -94,7 +107,11 @@ const JobDetail = (props) => {
                   <Tag color="default">featured</Tag>
                   <br></br>
                   <br></br>
-                  <span>{jobs.date}</span>
+                  <span>
+                    {moment
+                      .unix(data.aJob.createAt / 1000)
+                      .format('YYYY-MM-DD')}
+                  </span>
                   <br></br>
                   <Button
                     onClick={showModal}
@@ -249,9 +266,7 @@ const JobDetail = (props) => {
                   boxShadow: '0px 4px 4px rgba(0, 0, 0, 0.09)',
                 }}
               >
-                <p>Card content</p>
-                <p>Card content</p>
-                <p>Card content</p>
+                {parse(data.aJob.des)}
               </Card>
             </div>
             <div style={{ marginTop: '40px' }}>
@@ -264,9 +279,7 @@ const JobDetail = (props) => {
                 bordered={false}
                 title="Required Skills"
               >
-                <p>Card content</p>
-                <p>Card content</p>
-                <p>Card content</p>
+                {parse(data.aJob.requireSkill)}
               </Card>
             </div>
           </Col>
@@ -284,23 +297,23 @@ const JobDetail = (props) => {
             </div>
             <div style={{ display: 'flex', marginTop: '30px' }}>
               <div style={{ marginBottom: '90px' }}>
-                <Avatar shape="square" size={100} src={jobs.img} />
+                <Avatar shape="square" size={100} src={data.aJob.img} />
               </div>
 
               <div style={{ display: ' flex', paddingLeft: '30px' }}>
                 <div>
-                  <h3 style={{ marginBottom: '-8px' }}>{jobs.job}</h3>
-                  <span>{jobs.location}</span>
+                  <h3 style={{ marginBottom: '-8px' }}>{data.aJob.job}</h3>
+                  <span>{data.aJob.location}</span>
                   <br></br>
-                  {/* <span>{jobs.salary}</span>
+                  {/* <span>{data.aJob.salary}</span>
                                     <br></br>
-                                    <span>{jobs.Schedule}</span> */}
+                                    <span>{data.aJob.Schedule}</span> */}
                 </div>
                 <div style={{ paddingLeft: '30px' }}>
                   <Tag color="default">featured</Tag>
                   <br></br>
                   <br></br>
-                  <span>{jobs.date}</span>
+                  <span>{data.aJob.date}</span>
                 </div>
               </div>
             </div>

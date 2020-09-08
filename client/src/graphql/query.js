@@ -1,8 +1,8 @@
 import { gql } from '@apollo/client';
 
 const GET_NEWS = gql`
-  query {
-    allNews {
+  query($limit: Int!, $offset: Int!) {
+    allNews(limit: $limit, offset: $offset) {
       image
       title
       describtion
@@ -42,8 +42,8 @@ const GET_NEWS_BY_MOSTPOPULAR = gql`
 `;
 
 const GET_JOBS = gql`
-  query {
-    allJob {
+  query($limit: Int!, $offset: Int!) {
+    allJob(limit: $limit, offset: $offset) {
       id
       position
       jobCategId

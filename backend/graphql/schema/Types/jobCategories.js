@@ -1,6 +1,8 @@
 const graphql = require('graphql');
 const UserType = require('../Types/user');
 const User = require('../../../model/User');
+// const Job = require('../../../model/Job');
+// const JobType = require('../Types/jobs');
 
 const { GraphQLObjectType, GraphQLString, GraphQLID } = graphql;
 
@@ -19,6 +21,12 @@ const jobcategoriesType = new GraphQLObjectType({
         return User.findById(parent.userId);
       },
     },
+    // JobName: {
+    //   type: JobType,
+    //   resolve: (parent, args) => {
+    //     return Job.findById(parent.id);
+    //   },
+    // },
   }),
 });
 module.exports = jobcategoriesType;

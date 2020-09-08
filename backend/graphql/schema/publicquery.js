@@ -1,5 +1,11 @@
 const graphql = require('graphql');
-const { GraphQLObjectType, GraphQLString, GraphQLID, GraphQLList } = graphql;
+const {
+  GraphQLObjectType,
+  GraphQLString,
+  GraphQLID,
+  GraphQLList,
+  GraphQLInt,
+} = graphql;
 
 const User = require('../../model/User');
 const News = require('../../model/News');
@@ -55,7 +61,17 @@ const RootQuery = new GraphQLObjectType({
     //=========Get all News=========
     allNews: {
       type: new GraphQLList(NewsType),
-      resolve(parent, args, { limit = null, offset = null }) {
+      args: {
+        limit: {
+          name: 'limit',
+          type: GraphQLInt,
+        },
+        offset: {
+          name: 'offset',
+          type: GraphQLInt,
+        },
+      },
+      resolve(parent, { limit = null, offset = null }) {
         return News.find({}).limit(limit).skip(offset).sort({ createAt: -1 });
       },
     },
@@ -82,7 +98,7 @@ const RootQuery = new GraphQLObjectType({
     //=======Get a Categories=========
     aCategory: {
       type: CategoriesType,
-      args: { id: { type: GraphQLID } },
+      args: { id: { type: GraphQLString } },
       resolve(parent, args) {
         return Categories.findOne({ _id: args.id });
       },
@@ -91,8 +107,18 @@ const RootQuery = new GraphQLObjectType({
     //==========Get allJob=======
     allJob: {
       type: new GraphQLList(JobType),
-      resolve(parent, args) {
-        return Job.find().sort({ createAt: -1 });
+      args: {
+        limit: {
+          name: 'limit',
+          type: GraphQLInt,
+        },
+        offset: {
+          name: 'offset',
+          type: GraphQLInt,
+        },
+      },
+      resolve(parent, { limit = null, offset = null }) {
+        return Job.find({}).limit(limit).skip(offset).sort({ createAt: -1 });
       },
     },
     //========Get a Job=========
