@@ -23,6 +23,7 @@ const GET_NEWS = gql`
 const GET_NEWS_BY_MOSTPOPULAR = gql`
   query {
     allNewsbyType(id: "5f447e5b900bec1a5e421224") {
+      id
       title
       image
       describtion
@@ -44,6 +45,32 @@ const GET_NEWS_BY_MOSTPOPULAR = gql`
 const GET_JOBS = gql`
   query($limit: Int!, $offset: Int!) {
     allJob(limit: $limit, offset: $offset) {
+      id
+      position
+      jobCategId
+      jobCateName {
+        name
+      }
+      company
+      user {
+        name
+      }
+      location
+      salary
+      worktime
+      des
+      requireSkill
+      image
+      message
+      createAt
+      show
+      message
+    }
+  }
+`;
+const GET_ALLJOBS = gql`
+  query {
+    allJob {
       id
       position
       jobCategId
@@ -115,5 +142,136 @@ const GET_A_JOB = gql`
     }
   }
 `;
+const GET_COMPANIES = gql`
+  query($limit: Int!, $offset: Int!) {
+    allCompany(limit: $limit, offset: $offset) {
+      name
+      id
+      user {
+        name
+        id
+      }
+      createAt
+      location
+      globalCompanySize
+      email
+      des
+      image
+      website
+      type
+      address
+    }
+  }
+`;
+const GET_A_COMPANY = gql`
+  query($id: String!) {
+    aCompany(id: $id) {
+      name
+      id
+      user {
+        name
+        id
+      }
+      createAt
+      location
+      globalCompanySize
+      email
+      des
+      image
+      website
+      type
+      address
+    }
+  }
+`;
+const GET_EVENT = gql`
+  query($limit: Int!, $offset: Int!) {
+    allEvent(limit: $limit, offset: $offset) {
+      id
+      title
+      image
+      createAt
+      des
+      message
+      user {
+        name
+      }
+    }
+  }
+`;
+const GET_A_EVENT = gql`
+  query($id: String!) {
+    aEvent(id: $id) {
+      id
+      title
+      image
+      createAt
+      des
+      message
+      user {
+        name
+      }
+    }
+  }
+`;
+const GET_ABOUT = gql`
+  query($limit: Int!, $offset: Int!) {
+    allAbout(limit: $limit, offset: $offset) {
+      id
+      title
+      des
+      user {
+        name
+      }
+      avarta
+      createAt
+    }
+  }
+`;
+const GET_A_ABOUT = gql`
+  query($id: String!) {
+    aAbout(id: $id) {
+      id
+      title
+      des
+      user {
+        name
+      }
+      avarta
+      createAt
+    }
+  }
+`;
+const GET_KNOWLEDGE = gql`
+  query {
+    allKnowledge {
+      id
+      title
+      des
+      user {
+        name
+      }
+      avarta
+      createAt
+      lastbase
+      recentbase
+      maintitle
+    }
+  }
+`;
 
-export { GET_NEWS, GET_NEWS_BY_MOSTPOPULAR, GET_JOBS, GET_A_JOB, GET_ANEWS };
+export {
+  GET_KNOWLEDGE,
+  GET_NEWS,
+  GET_NEWS_BY_MOSTPOPULAR,
+  GET_JOBS,
+  GET_A_JOB,
+  GET_ANEWS,
+  GET_ALLJOBS,
+  GET_A_COMPANY,
+  GET_COMPANIES,
+  GET_A_EVENT,
+  GET_EVENT,
+  GET_ABOUT,
+  GET_A_ABOUT,
+};

@@ -1,12 +1,16 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Navbar from '../Layouts/Navbar';
 import Subnavbar from '../Layouts/Subnavbar';
 import Footer from '../Layouts/Footer';
 import { Input, Card, Row, Col, Avatar } from 'antd';
 import { AudioOutlined, UserOutlined } from '@ant-design/icons';
+import { useQuery } from '@apollo/client';
+import { GET_KNOWLEDGE } from '../../graphql/query';
 
 const { Search } = Input;
 const Knowledge = () => {
+  const [hasMoreItems, setHasMoreItems] = useState(true);
+  const { loading, data, error } = useQuery(GET_KNOWLEDGE);
   const suffix = (
     <AudioOutlined
       style={{

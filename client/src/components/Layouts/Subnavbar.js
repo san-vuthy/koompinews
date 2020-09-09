@@ -140,7 +140,7 @@ const Navbar = () => {
             </Menu.Item>
           </Menu>
         </div>
-        {/* <Drawer
+        <Drawer
           placement="left"
           closable={false}
           onClose={onClose}
@@ -188,7 +188,7 @@ const Navbar = () => {
               </NavLink>
             </p>
           </div>
-        </Drawer> */}
+        </Drawer>
       </Affix>
     </React.Fragment>
   );

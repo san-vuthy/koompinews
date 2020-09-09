@@ -1,17 +1,16 @@
 const graphql = require('graphql');
 const UserType = require('../Types/user');
 const User = require('../../../model/User');
-// const Job = require('../../../model/Job');
-// const JobType = require('../Types/jobs');
+const Job = require('../../../model/Job');
 
-const { GraphQLObjectType, GraphQLString, GraphQLID } = graphql;
+const { GraphQLObjectType, GraphQLString } = graphql;
 
 const jobcategoriesType = new GraphQLObjectType({
   name: 'JobCategories',
   fields: () => ({
-    id: { type: GraphQLID },
+    id: { type: GraphQLString },
     name: { type: GraphQLString },
-    userId: { type: GraphQLID },
+    userId: { type: GraphQLString },
     message: { type: GraphQLString },
     createAt: { type: GraphQLString },
     show: { type: GraphQLString },
@@ -21,12 +20,13 @@ const jobcategoriesType = new GraphQLObjectType({
         return User.findById(parent.userId);
       },
     },
-    // JobName: {
-    //   type: JobType,
-    //   resolve: (parent, args) => {
-    //     return Job.findById(parent.id);
-    //   },
-    // },
+    job: {
+      type: JobType,
+      resolve: (parent, args) => {
+        return Job.find({ jobCategId: parent.id });
+      },
+    },
   }),
 });
 module.exports = jobcategoriesType;
+const JobType = require('../Types/jobs');

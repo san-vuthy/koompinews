@@ -11,9 +11,8 @@ const CompanySchema = new mongoose.Schema({
   },
   globalCompanySize: {
     type: String,
-    required: true,
   },
-  industry: {
+  email: {
     type: String,
     required: true,
   },
@@ -36,7 +35,7 @@ const CompanySchema = new mongoose.Schema({
     type: String,
     required: true,
   },
-  revenue: {
+  address: {
     type: String,
     required: true,
   },

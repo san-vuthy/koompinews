@@ -1,13 +1,21 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Navbar from '../Layouts/Navbar';
 import SubNavbar from '../Layouts/Subnavbar';
+import { useQuery } from '@apollo/client';
+import { GET_EVENT } from '../../graphql/query';
+import InfiniteScroll from 'react-infinite-scroll-component';
 import { Breadcrumb, Row, Col, Card } from 'antd';
-import EventData from '../data/EventData';
+import moment from 'moment';
 import Footer from '../Layouts/Footer';
 
-const { Meta } = Card;
-
 const EventHome = () => {
+  const [hasMoreItems, setHasMoreItems] = useState(true);
+  const { loading, error, data, fetchMore } = useQuery(GET_EVENT, {
+    variables: { limit: 6, offset: 0 },
+  });
+  if (loading || !data) return 'loading......';
+  console.log(data);
+  if (error) return `Error! ${error.message}`;
   return (
     <React.Fragment>
       <Navbar />
@@ -20,32 +28,16 @@ const EventHome = () => {
         <h4>Sub Describtion</h4> */}
       </div>
       <div className="container-event">
-        {/* <Breadcrumb style={{ margin: '16px 0' }}>
+        <Breadcrumb style={{ margin: '16px 0' }}>
           <Breadcrumb.Item>Home</Breadcrumb.Item>
           <Breadcrumb.Item>Gategory</Breadcrumb.Item>
           <Breadcrumb.Item>Event</Breadcrumb.Item>
         </Breadcrumb>
-        <h3>EVENT</h3> */}
-        {/* <div className="background-banner-event">
-                    <Row >
-                        <Col lg={12}>
-                            <div style={{ padding: "20px" }}>
-                                <h1>Examples of good cover images</h1>
-                                <div style={{ marginTop: "167px" }}>
-                                    <h4>Thailand</h4>
-                                    <h5>15-Aug-2020</h5>
-                                </div>
-                            </div>
-                        </Col>
-                        <Col lg={12}>
-                            <img style={{ maxWidth: "100%" }} src="/img/news.png" />
-                        </Col>
-                    </Row>
-                </div> */}
+        <h3>EVENT</h3>
 
         <div style={{ marginTop: '40px' }}>
           <Row gutter={[16, 32]}>
-            {EventData.event.map((res, index) => {
+            {data.allEvent.map((res, index) => {
               return (
                 <Col lg={12} md={12} key={index}>
                   <div className="site-card-border-less-wrapper">
@@ -57,12 +49,20 @@ const EventHome = () => {
                         // boxShadow: '0px 4px 4px rgba(0, 0, 0, 0.25)',
                       }}
                       className="event-col"
-                      cover={<img alt="example" src={res.img} />}
+                      cover={
+                        <img
+                          alt="example"
+                          src={'http://localhost:8080/' + res.image}
+                        />
+                      }
                     >
                       {/* <Meta title="Europe Street beat" description="www.instagram.com" /> */}
                       <h1>{res.title}</h1>
-                      <p>{res.location}</p>
-                      <p>{res.date}</p>
+                      {/* <p>{res.location}</p> */}
+                      <p>
+                        {' '}
+                        {moment.unix(res.createAt / 1000).format('YYYY-MM-DD')}
+                      </p>
                     </Card>
                   </div>
                 </Col>
@@ -70,6 +70,35 @@ const EventHome = () => {
             })}
           </Row>
         </div>
+        <InfiniteScroll
+          dataLength={data.allEvent.length}
+          next={async () => {
+            console.log(data.allEvent.length);
+            fetchMore({
+              variables: {
+                offset: data.allEvent.length,
+              },
+              updateQuery: (prev, { fetchMoreResult }) => {
+                if (!fetchMoreResult) return prev;
+
+                if (fetchMoreResult.allEvent.length < 8) {
+                  setHasMoreItems(false);
+                }
+
+                return Object.assign({}, prev, {
+                  allEvent: [...prev.allEvent, ...fetchMoreResult.allEvent],
+                });
+              },
+            });
+          }}
+          hasMore={hasMoreItems}
+          loader={
+            <center>
+              <img style={{ height: '60px' }} src="/img/Spinner-1s-200px.svg" />
+            </center>
+          }
+          endMessage={null}
+        ></InfiniteScroll>
       </div>
       <Footer />
     </React.Fragment>

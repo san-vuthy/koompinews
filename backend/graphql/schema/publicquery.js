@@ -86,6 +86,16 @@ const RootQuery = new GraphQLObjectType({
         return News.find({ newsTypeId: args.id });
       },
     },
+    //===========GETJOb By CATEGORIES============
+    allJobByCate: {
+      type: new GraphQLList(JobType),
+      args: {
+        id: { type: GraphQLString },
+      },
+      resolve(parent, args) {
+        return Job.find({ cateId: args.id }).sort({ createAt: -1 });
+      },
+    },
 
     //======Get all Categories=========
     allCategories: {
@@ -166,8 +176,21 @@ const RootQuery = new GraphQLObjectType({
     //=======Get all Company=======
     allCompany: {
       type: new GraphQLList(CompanyType),
-      resolve(parent, args) {
-        return Company.find().sort({ createAt: -1 });
+      args: {
+        limit: {
+          name: 'limit',
+          type: GraphQLInt,
+        },
+        offset: {
+          name: 'offset',
+          type: GraphQLInt,
+        },
+      },
+      resolve(parent, { limit = null, offset = null }) {
+        return Company.find({})
+          .limit(limit)
+          .skip(offset)
+          .sort({ createAt: -1 });
       },
     },
     //========Get a Company======
@@ -193,15 +216,35 @@ const RootQuery = new GraphQLObjectType({
     //========Get all Event===========
     allEvent: {
       type: new GraphQLList(EventType),
-      resolve(parent, args) {
-        return Event.find().sort({ createAt: -1 });
+      args: {
+        limit: {
+          name: 'limit',
+          type: GraphQLInt,
+        },
+        offset: {
+          name: 'offset',
+          type: GraphQLInt,
+        },
+      },
+      resolve(parent, { limit = null, offset = null }) {
+        return Event.find({}).limit(limit).skip(offset).sort({ createAt: -1 });
       },
     },
     //========Get all About==============
     allAbout: {
       type: new GraphQLList(AboutType),
-      resolve(parent, args) {
-        return About.find().sort({ createAt: -1 });
+      args: {
+        limit: {
+          name: 'limit',
+          type: GraphQLInt,
+        },
+        offset: {
+          name: 'offset',
+          type: GraphQLInt,
+        },
+      },
+      resolve(parent, { limit = null, offset = null }) {
+        return About.find({}).limit(limit).skip(offset).sort({ createAt: -1 });
       },
     },
     //========Get a About==========

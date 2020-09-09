@@ -1,32 +1,13 @@
 import React, { useState } from 'react';
 import moment from 'moment';
+import { Link } from 'react-router-dom';
 import { Avatar, Card, Input, Tag, Affix } from 'antd';
 import { useQuery } from '@apollo/client';
-import { GET_NEWS_BY_MOSTPOPULAR, GET_JOBS } from '../../graphql/query';
+import { GET_NEWS_BY_MOSTPOPULAR, GET_ALLJOBS } from '../../graphql/query';
 
 const RightSiteNewspage = () => {
-  // const [lastjob, setLastjob] = useState([
-  //   {
-  //     img: '/img/jobsuche_blue.jpg',
-  //     titile: 'KOOMPI Company',
-  //     pos: 'Graphic Design',
-  //     Date: '20/20/2020',
-  //   },
-  //   {
-  //     img: '/img/jobsuche_blue.jpg',
-  //     titile: 'KOOMPI Company',
-  //     pos: 'Graphic Design',
-  //     Date: '20/20/2020',
-  //   },
-  //   {
-  //     img: '/img/jobsuche_blue.jpg',
-  //     titile: 'KOOMPI Company',
-  //     pos: 'Graphic Design',
-  //     Date: '20/20/2020',
-  //   },
-  // ]);
   const DisplayJobs = () => {
-    const { loading, error, data, refetch } = useQuery(GET_JOBS);
+    const { loading, error, data, refetch } = useQuery(GET_ALLJOBS);
     if (loading) {
       return 'laoding....';
     }
@@ -36,36 +17,39 @@ const RightSiteNewspage = () => {
       <div style={{ marginTop: '30px' }}>
         {data.allJob.slice(0, 6).map((res, index) => {
           return (
-            <div style={{ display: 'flex' }}>
-              <div style={{ marginBottom: '12px' }}>
-                <Avatar
-                  // style={{ borderRadius: '40px' }}
-                  shape="square"
-                  size="large"
-                  src={'http://localhost:8080/' + res.image}
-                />
-              </div>
-              <div
-                style={{
-                  display: ' flex',
-                  paddingLeft: '12px',
-                  marginBottom: '24px',
-                  marginTop: '-12px',
-                }}
-              >
-                <div>
-                  <h3 style={{ marginBottom: '-8px' }}>{res.company}</h3>
-                  <span>{res.position}</span>
-                  <br></br>
-                  <span>
-                    {moment.unix(res.createAt / 1000).format('YYYY-MM-DD')}
-                  </span>
+            <Link to={`/jobs/${res.id}`}>
+              <div style={{ display: 'flex' }}>
+                <div style={{ marginBottom: '12px' }}>
+                  <Avatar
+                    // style={{ borderRadius: '40px' }}
+                    shape="square"
+                    size="large"
+                    src={'http://localhost:8080/' + res.image}
+                  />
                 </div>
-                {/* <div style={{ paddingLeft: '12px' }}>
+                <div
+                  style={{
+                    display: ' flex',
+                    paddingLeft: '12px',
+                    marginBottom: '24px',
+                    marginTop: '-12px',
+                  }}
+                >
+                  <div>
+                    <h3 style={{ marginBottom: '-8px' }}>{res.company}</h3>
+                    <span style={{ color: 'black' }}>{res.position}</span>
+                    <br></br>
+                    <span style={{ color: '#797878', fontSize: '12px' }}>
+                      {moment.unix(res.createAt / 1000).format('YYYY-MM-DD')}
+                    </span>
+                  </div>
+                  {/* <div style={{ paddingLeft: '12px' }}>
                   <Tag color="default">featured</Tag>
+                  style={{color:"#797878"}}
                 </div> */}
+                </div>
               </div>
-            </div>
+            </Link>
           );
         })}
       </div>
@@ -95,19 +79,21 @@ const RightSiteNewspage = () => {
         <div style={{ marginTop: '30px' }}>
           {data.allNewsbyType.slice(0, 6).map((res, index) => {
             return (
-              <div style={{ display: ' flex', marginTop: '19px' }}>
-                <Avatar
-                  style={{ width: '60px' }}
-                  shape="square"
-                  size="large"
-                  src={'http://localhost:8080/' + res.image}
-                />
-                <span style={{ paddingLeft: '12px', color: '#010101' }}>
-                  {res.title.length <= 60
-                    ? res.title
-                    : res.title.substring(0, 60) + '......'}
-                </span>
-              </div>
+              <Link to={`/news/${res.id}`}>
+                <div style={{ display: ' flex', marginTop: '19px' }}>
+                  <Avatar
+                    style={{ width: '60px' }}
+                    shape="square"
+                    size="large"
+                    src={'http://localhost:8080/' + res.image}
+                  />
+                  <span style={{ paddingLeft: '12px', color: '#010101' }}>
+                    {res.title.length <= 60
+                      ? res.title
+                      : res.title.substring(0, 60) + '......'}
+                  </span>
+                </div>
+              </Link>
             );
           })}
         </div>

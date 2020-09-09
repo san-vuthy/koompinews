@@ -14,12 +14,12 @@ const companyType = new GraphQLObjectType({
     createAt: { type: GraphQLString },
     location: { type: GraphQLString },
     globalCompanySize: { type: GraphQLString },
-    industry: { type: GraphQLString },
+    email: { type: GraphQLString },
     des: { type: GraphQLString },
     image: { type: GraphQLString },
     website: { type: GraphQLString },
     type: { type: GraphQLString },
-    revenue: { type: GraphQLString },
+    address: { type: GraphQLString },
     user: {
       type: UserType,
       resolve: (parent, args) => {
