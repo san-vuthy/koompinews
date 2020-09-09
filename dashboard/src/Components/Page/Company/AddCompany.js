@@ -130,8 +130,8 @@ const AddCompany = () => {
                       </Col>
                       <Col lg={8}>
                         <Form.Item
-                          label="Industry"
-                          name="industry"
+                          label="Email"
+                          name="email"
                           rules={[
                             {
                               required: true,
@@ -144,8 +144,8 @@ const AddCompany = () => {
                       </Col>
                       <Col lg={8}>
                         <Form.Item
-                          label="Revenue"
-                          name="revenue"
+                          label="Address"
+                          name="address"
                           rules={[
                             {
                               required: true,

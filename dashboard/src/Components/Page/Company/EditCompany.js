@@ -131,18 +131,18 @@ const EditCompany = (props) => {
                       </Col>
                       <Col lg={8}>
                         <Form.Item
-                          initialValue={data.aCompany.industry}
-                          label="Industry"
-                          name="industry"
+                          initialValue={data.aCompany.email}
+                          label="Email"
+                          name="email"
                         >
                           <Input size="large" />
                         </Form.Item>
                       </Col>
                       <Col lg={8}>
                         <Form.Item
-                          initialValue={data.aCompany.revenue}
-                          label="Revenue"
-                          name="revenue"
+                          initialValue={data.aCompany.address}
+                          label="Address"
+                          name="address"
                         >
                           <Input size="large" />
                         </Form.Item>

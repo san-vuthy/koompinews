@@ -158,12 +158,12 @@ const GET_COMPANIES = gql`
       createAt
       location
       globalCompanySize
-      industry
+      email
       des
       image
       website
       type
-      revenue
+      address
     }
   }
 `;
@@ -179,12 +179,12 @@ const GET_A_COMPANY = gql`
       createAt
       location
       globalCompanySize
-      industry
+      email
       des
       image
       website
       type
-      revenue
+      address
     }
   }
 `;

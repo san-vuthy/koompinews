@@ -59,8 +59,8 @@ const AllCompany = () => {
       key: 'title',
     },
     {
-      title: 'Industry',
-      dataIndex: 'industry',
+      title: 'Email',
+      dataIndex: 'email',
       key: 'title',
     },
     {

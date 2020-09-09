@@ -160,12 +160,12 @@ const UPDATE_COMPANY = gql`
     $name: String!
     $location: String!
     $globalCompanySize: String!
-    $industry: String!
+    $email: String!
     $des: String
     $image: String!
     $userId: String!
     $website: String!
-    $revenue: String!
+    $address: String!
     $type: String!
   ) {
     updateCompany(
@@ -173,12 +173,12 @@ const UPDATE_COMPANY = gql`
       name: $name
       location: $location
       globalCompanySize: $globalCompanySize
-      industry: $industry
+      email: $email
       des: $des
       image: $image
       userId: $userId
       website: $website
-      revenue: $revenue
+      address: $address
       type: $type
     ) {
       message
@@ -190,24 +190,24 @@ const ADD_COMPANY = gql`
     $name: String!
     $location: String!
     $globalCompanySize: String!
-    $industry: String!
+    $email: String!
     $des: String
     $image: String!
     $userId: String!
     $website: String!
-    $revenue: String!
+    $address: String!
     $type: String!
   ) {
     addCompany(
       name: $name
       location: $location
       globalCompanySize: $globalCompanySize
-      industry: $industry
+      email: $email
       des: $des
       image: $image
       userId: $userId
       website: $website
-      revenue: $revenue
+      address: $address
       type: $type
     ) {
       message
