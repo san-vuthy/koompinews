@@ -11,6 +11,7 @@ const Event = require('../../model/Event');
 const About = require('../../model/About');
 const Job = require('../../model/Job');
 const Knowledge = require('../../model/Knowledge');
+const Cv = require('../../model/Cv');
 
 // =====================Type=================
 const UserType = require('./Types/user');
@@ -23,6 +24,7 @@ const EventType = require('./Types/event');
 const AboutType = require('./Types/about');
 const JobType = require('./Types/jobs');
 const KnowledgeType = require('./Types/knowledge');
+const CvType = require('./Types/cv');
 const _ = require('lodash');
 
 const RootQuery = new GraphQLObjectType({
@@ -203,6 +205,23 @@ const RootQuery = new GraphQLObjectType({
       type: new GraphQLList(KnowledgeType),
       resolve(parent, args) {
         return Knowledge.find().sort({ createAt: -1 });
+      },
+    },
+    //==========Get all CV===============
+    allCv: {
+      type: new GraphQLList(CvType),
+      resolve(parent, args) {
+        return Cv.find({}).sort({ createAt: -1 });
+      },
+    },
+    //=========Get a CV============
+    aCv: {
+      type: CvType,
+      args: {
+        id: { type: GraphQLString },
+      },
+      resolve: (parent, args) => {
+        return Cv.findOne({ _id: args.id });
       },
     },
   },

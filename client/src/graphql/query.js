@@ -259,8 +259,49 @@ const GET_KNOWLEDGE = gql`
     }
   }
 `;
+const GET_JOB_CATEGORY = gql`
+  query {
+    allJobCategories {
+      name
+      id
+      userId
+      createAt
+      user {
+        name
+      }
+    }
+  }
+`;
+const GET_JOB_BY_CATE = gql`
+  query($id: String!) {
+    allJobByCate(id: $id) {
+      id
+      position
+      jobCategId
+      jobCateName {
+        name
+      }
+      company
+      user {
+        name
+      }
+      location
+      salary
+      worktime
+      des
+      requireSkill
+      image
+      message
+      createAt
+      show
+      message
+    }
+  }
+`;
 
 export {
+  GET_JOB_BY_CATE,
+  GET_JOB_CATEGORY,
   GET_KNOWLEDGE,
   GET_NEWS,
   GET_NEWS_BY_MOSTPOPULAR,

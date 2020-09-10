@@ -1,70 +1,98 @@
 import React from 'react';
-import moment from 'moment';
-import loadingPage from '../../../asset/img/Wedges-3s-200px.svg';
-import { Layout, Table, Tag, message, Popconfirm, Divider } from 'antd';
-import { EditOutlined, DeleteOutlined } from '@ant-design/icons';
-import parse from 'html-react-parser';
 import LeftNavbar from '../../Layout/LeftNavbar';
 import Navbar from '../../Layout/Navbar';
+import parse from 'html-react-parser';
+import moment from 'moment';
 import { Link } from 'react-router-dom';
+import FileViewer from 'react-file-viewer';
+import { EditOutlined, DeleteOutlined } from '@ant-design/icons';
+import { Layout, Space, Table, Tag, message, Popconfirm, Divider } from 'antd';
 import { useQuery, useMutation } from '@apollo/client';
-import { GET_KNOWLEDGE } from '../../../graphql/query';
-import { DELETE_KNOWLEDGE } from '../../../graphql/mutation';
-
+import loadingPage from '../../../asset/img/Wedges-3s-200px.svg';
+import { GET_ALL_CV } from '../../../graphql/query';
+import { DELETE_CV } from '../../../graphql/mutation';
 const { Content } = Layout;
-const AllKnowledge = () => {
-  const [deleteKnowledge] = useMutation(DELETE_KNOWLEDGE);
-  const { loading, error, data, refetch } = useQuery(GET_KNOWLEDGE);
+const AllCv = () => {
+  const [deleteCV] = useMutation(DELETE_CV);
 
+  const { loading, error, data, refetch } = useQuery(GET_ALL_CV);
   console.log(data);
   if (error) return `Error! ${error.message}`;
+
+  const DisplayForm = () => {
+    if (loading)
+      return (
+        <center>
+          <img
+            style={{ height: '80px', marginTop: '200px' }}
+            src={loadingPage}
+          />
+        </center>
+      );
+    refetch();
+    return <Table columns={columns} dataSource={data.allCv} />;
+  };
   const columns = [
     {
-      title: 'Avatar',
-      dataIndex: 'avarta',
+      title: 'CVfile',
+      dataIndex: 'file',
       key: 'image',
-
+      width: 170,
       render: (data) => {
         return (
-          <img
-            src={'http://localhost:8080/' + data}
-            height="40px"
-            width="40px"
+          //   <img
+          //     src={'http://localhost:8080/' + data}
+          //     height="40px"
+          //     width="40px"
+          //   />
+          <FileViewer
+            // fileType={type}
+            filePath={data}
+            // errorComponent={CustomErrorComponent}
+            // onError={this.onError}
           />
         );
       },
     },
-
     {
-      title: 'Title',
-      dataIndex: 'title',
+      title: 'FirstName',
+      dataIndex: 'firstname',
       key: 'title',
-
+      width: 200,
       render: (data) => {
         return data.length <= 25 ? data : data.substring(0, 25) + ' ...';
       },
     },
     {
-      title: 'Description',
-      dataIndex: 'des',
-      key: 'title',
-
+      title: 'Lastname',
+      dataIndex: 'lastname',
+      key: 'des',
+      // width: 300,
       render: (data) => {
-        return data.length <= 25 ? data : data.substring(0, 25) + ' ...';
+        return parse(data.length <= 25 ? data : data.substring(0, 25) + ' ...');
       },
     },
+
     {
-      title: 'CreateBy',
-      dataIndex: 'user',
+      title: 'Email',
+      dataIndex: 'email',
+      key: 'categ',
+    },
+    {
+      title: 'Additional',
+      dataIndex: 'additional',
+      key: 'type',
+    },
+    {
+      title: 'Position',
+      dataIndex: 'position',
       key: 'create_by',
-      render: (user) => {
-        return user.name;
-      },
     },
+
     {
       title: 'Date',
       dataIndex: 'createAt',
-      key: 'title',
+      key: 'createAt',
       render: (data) => {
         return moment.unix(data / 1000).format('YYYY-MM-DD');
       },
@@ -78,21 +106,21 @@ const AllKnowledge = () => {
         console.log('id', id);
         return (
           <div>
-            <Link to={`/admin/editknowledge/${id}`}>
+            <Link to={`/admin/acv/${id}`}>
               <Tag style={{ cursor: 'pointer' }} color="rgb(1, 100, 145)">
-                <EditOutlined /> Edit
+                <EditOutlined /> Preview
               </Tag>
             </Link>
             <Divider type="vertical" />
             <Popconfirm
               placement="topRight"
-              title="Are you sure to delete?"
+              title="Are you sure to delete this News?"
               okText="Yes"
               cancelText="No"
               onConfirm={() => {
-                deleteKnowledge({ variables: { id: `${id}` } })
+                deleteCV({ variables: { id: `${id}` } })
                   .then(async (res) => {
-                    await message.success(res.data.deleteKnowledge.message);
+                    await message.success(res.data.deleteCv.message);
                     await refetch();
                   })
                   .catch((error) => {
@@ -110,20 +138,6 @@ const AllKnowledge = () => {
       },
     },
   ];
-  const DisplayForm = () => {
-    if (loading) {
-      return (
-        <center>
-          <img
-            style={{ height: '80px', marginTop: '200px' }}
-            src={loadingPage}
-          />
-        </center>
-      );
-    }
-    refetch();
-    return <Table columns={columns} dataSource={data.allKnowledge} />;
-  };
 
   return (
     <React.Fragment>
@@ -136,7 +150,7 @@ const AllKnowledge = () => {
               className="site-layout-background"
               style={{ padding: 70, minHeight: 360 }}
             >
-              <h1 className="title-top">All Knowledge</h1>
+              <h1 className="title-top">All CV</h1>
               <DisplayForm />
             </div>
           </Content>
@@ -146,4 +160,4 @@ const AllKnowledge = () => {
   );
 };
 
-export default AllKnowledge;
+export default AllCv;

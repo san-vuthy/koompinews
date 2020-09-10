@@ -17,6 +17,7 @@ const CompanyType = require('../schema/Types/company');
 const EventType = require('../schema/Types/event');
 const aboutType = require('../schema/Types/about');
 const KnowledgeType = require('../schema/Types/knowledge');
+const CvType = require('../schema/Types/cv');
 
 // ================Model Section ==================
 
@@ -30,6 +31,7 @@ const Company = require('../../model/Company');
 const Event = require('../../model/Event');
 const About = require('../../model/About');
 const Knowledge = require('../../model/Knowledge');
+const Cv = require('../../model/Cv');
 
 const RootMutation = new GraphQLObjectType({
   name: 'RootMutationType',
@@ -635,6 +637,29 @@ const RootMutation = new GraphQLObjectType({
         try {
           await Knowledge.deleteOne({ _id: args.id });
           return { message: 'delete Successful' };
+        } catch (error) {
+          console.log(error);
+          throw error;
+        }
+      },
+    },
+
+    //===============ADD CV===============
+    addCv: {
+      type: CvType,
+      args: {
+        firstname: { type: new GraphQLNonNull(GraphQLString) },
+        lastname: { type: new GraphQLNonNull(GraphQLString) },
+        email: { type: new GraphQLNonNull(GraphQLString) },
+        position: { type: new GraphQLNonNull(GraphQLString) },
+        additional: { type: new GraphQLNonNull(GraphQLString) },
+        file: { type: new GraphQLNonNull(GraphQLString) },
+      },
+      resolve: async (parent, args) => {
+        try {
+          const cv = new Cv({ ...args });
+          await cv.save();
+          return { message: 'Successfull' };
         } catch (error) {
           console.log(error);
           throw error;

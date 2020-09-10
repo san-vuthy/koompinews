@@ -5,8 +5,9 @@ import moment from 'moment';
 import JobData from '../data/JobData';
 import Footer from '../Layouts/Footer';
 import { useParams } from 'react-router-dom';
-import { useQuery } from '@apollo/client';
+import { useQuery, useMutation } from '@apollo/client';
 import { GET_A_JOB } from '../../graphql/query';
+import { ADD_CV } from '../../graphql/mutaion';
 import parse from 'html-react-parser';
 import {
   Row,
@@ -19,6 +20,7 @@ import {
   Form,
   Input,
   Upload,
+  message,
 } from 'antd';
 import {
   DollarOutlined,
@@ -29,6 +31,9 @@ import {
 } from '@ant-design/icons';
 
 const JobDetail = (props) => {
+  const [addCv] = useMutation(ADD_CV);
+  const [file, setFile] = useState('');
+  const [loading1, setLoading] = useState(false);
   const [state, setState] = useState({
     loaing: false,
     visible: false,
@@ -49,13 +54,38 @@ const JobDetail = (props) => {
   };
 
   const onFinish = (value) => {
+    addCv({
+      variables: {
+        ...value,
+        file: file,
+      },
+    }).then(async (res) => {
+      setLoading(true);
+      setTimeout(() => {
+        setLoading(false);
+      }, 3000);
+      await message.success(res.data.addCv.message);
+    });
     console.log('suceess', value);
   };
-  const fileList = [];
-  const propss = {
-    action: 'https://www.mocky.io/v2/5cc8019d300000980a055e76',
-    listType: 'picture',
-    defaultFileList: [...fileList],
+  const uploadFile = {
+    name: 'file',
+    multiple: false,
+    action: 'http://localhost:8080/upload',
+    // listType: 'picture',
+    // defaultFileList: image,
+    onChange(info) {
+      const { status } = info.file;
+      if (status !== 'uploading') {
+        console.log(info.file, info.fileList);
+      }
+      if (status === 'done') {
+        setFile(info.file.name.replace(/\s+/g, '-').toLowerCase());
+        message.success(`${info.file.name} file uploaded successfully.`);
+      } else if (status === 'error') {
+        message.error(`${info.file.name} file upload failed.`);
+      }
+    },
   };
   // console.log(props.match.params.id);
   // let jobs = JobData.job.find((x) => x._id == props.match.params.id);
@@ -163,7 +193,7 @@ const JobDetail = (props) => {
                         <center>
                           <Form.Item
                             label="First Name"
-                            name="firstName"
+                            name="firstname"
                             rules={[
                               {
                                 required: true,
@@ -175,7 +205,7 @@ const JobDetail = (props) => {
                           </Form.Item>
                           <Form.Item
                             label="Last Name"
-                            name="lastName"
+                            name="lastname"
                             rules={[
                               {
                                 required: true,
@@ -187,7 +217,7 @@ const JobDetail = (props) => {
                           </Form.Item>
                           <Form.Item
                             label="Email Address"
-                            name="EmailAddress"
+                            name="email"
                             rules={[
                               {
                                 required: true,
@@ -199,7 +229,7 @@ const JobDetail = (props) => {
                           </Form.Item>
                           <Form.Item
                             label="Position Apply For"
-                            name="Position"
+                            name="position"
                             rules={[
                               {
                                 required: true,
@@ -211,7 +241,7 @@ const JobDetail = (props) => {
                           </Form.Item>
                           <Form.Item
                             label="Additional Information"
-                            name="additional information"
+                            name="additional"
                             rules={[
                               {
                                 required: true,
@@ -229,14 +259,11 @@ const JobDetail = (props) => {
                                 message: 'Please Uplaod your CV!',
                               },
                             ]}
-                            label="Upload Image"
-                            name="image"
+                            label="Upload File"
+                            name="file"
                           >
-                            <Upload {...propss}>
-                              <Button
-                                className="button-upload"
-                                // style={{ marginLeft: '-476px' }}
-                              >
+                            <Upload {...uploadFile}>
+                              <Button className="button-upload">
                                 <UploadOutlined /> Select File
                               </Button>
                             </Upload>
@@ -283,41 +310,7 @@ const JobDetail = (props) => {
               </Card>
             </div>
           </Col>
-          <Col className="right-site-job-detail" sm={24} md={24} lg={8}>
-            <div>
-              <h4
-                style={{
-                  border: '1px solid #C4C4C4',
-                  borderLeft: '5px solid #373738',
-                  padding: '10px 10px 10px 10px',
-                }}
-              >
-                Similar Jobs
-              </h4>
-            </div>
-            <div style={{ display: 'flex', marginTop: '30px' }}>
-              <div style={{ marginBottom: '90px' }}>
-                <Avatar shape="square" size={100} src={data.aJob.img} />
-              </div>
-
-              <div style={{ display: ' flex', paddingLeft: '30px' }}>
-                <div>
-                  <h3 style={{ marginBottom: '-8px' }}>{data.aJob.job}</h3>
-                  <span>{data.aJob.location}</span>
-                  <br></br>
-                  {/* <span>{data.aJob.salary}</span>
-                                    <br></br>
-                                    <span>{data.aJob.Schedule}</span> */}
-                </div>
-                <div style={{ paddingLeft: '30px' }}>
-                  <Tag color="default">featured</Tag>
-                  <br></br>
-                  <br></br>
-                  <span>{data.aJob.date}</span>
-                </div>
-              </div>
-            </div>
-          </Col>
+          <Col className="right-site-job-detail" sm={24} md={24} lg={8}></Col>
         </Row>
       </div>
       <Footer />

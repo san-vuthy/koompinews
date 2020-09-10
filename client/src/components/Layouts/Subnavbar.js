@@ -150,11 +150,16 @@ const Navbar = () => {
           <div className="mobile-navbar-color">
             <p>Login</p>
             <p>Sign Up</p>
-            <p>
+            {/* <p>
               <Popover placement="bottom" content={content}>
                 NEWS
                 <DownOutlined style={{ marginLeft: '5px', fontSize: '10px' }} />
               </Popover>
+            </p> */}
+            <p>
+              <NavLink activeClassName="main-nav-active " to="/news">
+                NEWS
+              </NavLink>
             </p>
             <p>
               <NavLink activeClassName="main-nav-active " to="/jobs">

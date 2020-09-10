@@ -30,6 +30,8 @@ const Company = require('../../model/Company');
 const Event = require('../../model/Event');
 const About = require('../../model/About');
 const Knowledge = require('../../model/Knowledge');
+const CvType = require('./Types/cv');
+const Cv = require('../../model/Cv');
 
 const RootMutation = new GraphQLObjectType({
   name: 'RootMutationType',
@@ -634,6 +636,21 @@ const RootMutation = new GraphQLObjectType({
       resolve: async (parent, args) => {
         try {
           await Knowledge.deleteOne({ _id: args.id });
+          return { message: 'delete Successful' };
+        } catch (error) {
+          console.log(error);
+          throw error;
+        }
+      },
+    },
+    deleteCV: {
+      type: CvType,
+      args: {
+        id: { type: new GraphQLNonNull(GraphQLString) },
+      },
+      resolve: async (parent, args) => {
+        try {
+          await Cv.deleteOne({ _id: args.id });
           return { message: 'delete Successful' };
         } catch (error) {
           console.log(error);

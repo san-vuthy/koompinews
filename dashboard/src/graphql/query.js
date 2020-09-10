@@ -282,6 +282,35 @@ const GET_A_KNOWLEDGE = gql`
   }
 `;
 
+const GET_ALL_CV = gql`
+  query {
+    allCv {
+      id
+      firstname
+      lastname
+      additional
+      email
+      position
+      file
+      createAt
+    }
+  }
+`;
+const GET_A_CV = gql`
+  query($id: String!) {
+    aCv(id: $id) {
+      id
+      firstname
+      lastname
+      additional
+      email
+      position
+      file
+      createAt
+    }
+  }
+`;
+
 export {
   GET_NEWS,
   GET_CATEGORIES,
@@ -300,4 +329,6 @@ export {
   GET_A_ABOUT,
   GET_A_KNOWLEDGE,
   GET_KNOWLEDGE,
+  GET_ALL_CV,
+  GET_A_CV,
 };

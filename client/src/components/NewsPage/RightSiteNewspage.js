@@ -38,15 +38,18 @@ const RightSiteNewspage = () => {
                   <div>
                     <h3 style={{ marginBottom: '-8px' }}>{res.company}</h3>
                     <span style={{ color: 'black' }}>{res.position}</span>
-                    <br></br>
-                    <span style={{ color: '#797878', fontSize: '12px' }}>
+
+                    <span
+                      style={{
+                        display: 'block',
+                        color: '#797878',
+                        fontSize: '12px',
+                        marginTop: '-4px',
+                      }}
+                    >
                       {moment.unix(res.createAt / 1000).format('YYYY-MM-DD')}
                     </span>
                   </div>
-                  {/* <div style={{ paddingLeft: '12px' }}>
-                  <Tag color="default">featured</Tag>
-                  style={{color:"#797878"}}
-                </div> */}
                 </div>
               </div>
             </Link>

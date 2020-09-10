@@ -338,8 +338,16 @@ const DELETE_KNOWLEDGE = gql`
     }
   }
 `;
+const DELETE_CV = gql`
+  mutation($id: String!) {
+    deleteCV(id: $id) {
+      message
+    }
+  }
+`;
 
 export {
+  DELETE_CV,
   ADD_NEWS,
   DELETE_NEWS,
   UPDATE_NEWS,

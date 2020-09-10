@@ -30,6 +30,8 @@ import AllKnowledge from './Components/Page/Knowledge/AllKnowledge';
 import AddKnowledge from './Components/Page/Knowledge/AddKnowledge';
 import EditKnowledge from './Components/Page/Knowledge/EditKnowledge';
 import Login from './Components/Layout/Login';
+import AllCv from './Components/Page/CV/AllCv';
+import PreviewCv from './Components/Page/CV/PreviewCv';
 
 function App() {
   return (
@@ -76,6 +78,8 @@ function App() {
             path="/admin/editknowledge/:id"
             component={EditKnowledge}
           />
+          <Route exact path="/admin/allcv/" component={AllCv} />
+          <Route exact path="/admin/acv/:id" component={PreviewCv} />
           <Route exact path="/login" component={Login} />
 
           {/* Test */}
