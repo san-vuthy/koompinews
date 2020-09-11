@@ -27,12 +27,12 @@ const RightSiteJob = () => {
       <div>
         {data.allJob.map((res, index) => {
           return (
-            <div>
+            <div className="hover-jobs">
               <List.Item>
-                <div className="display-rigth-site-job">
+                <div className="display-rigth-site-job ">
                   {/* <Link key={index} to={'/jobs/' + res._id}> */}
                   <Link to={`/jobs/${res.id}`}>
-                    <div style={{ marginBottom: '27px' }}>
+                    <div style={{ marginBottom: '5px' }}>
                       <Avatar
                         shape="square"
                         size={100}

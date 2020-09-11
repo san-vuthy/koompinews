@@ -93,9 +93,20 @@ const RootQuery = new GraphQLObjectType({
       type: new GraphQLList(JobType),
       args: {
         id: { type: GraphQLString },
+        limit: {
+          name: 'limit',
+          type: GraphQLInt,
+        },
+        offset: {
+          name: 'offset',
+          type: GraphQLInt,
+        },
       },
-      resolve(parent, args) {
-        return Job.find({ jobCategId: args.id }).sort({ createAt: -1 });
+      resolve(parent, args, { limit = null, offset = null }) {
+        return Job.find({ jobCategId: args.id })
+          .limit(limit)
+          .skip(offset)
+          .sort({ createAt: -1 });
       },
     },
 

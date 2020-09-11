@@ -32,7 +32,6 @@ const JobCategories = () => {
   const [id, setId] = useState('');
   const [dat, setdata1] = useState('');
   const [loading2, setLoading2] = useState(false);
-  // const { id } = useParams();
 
   const [form] = Form.useForm();
   const [edit, setEdit] = useState(false);

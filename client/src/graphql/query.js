@@ -273,8 +273,8 @@ const GET_JOB_CATEGORY = gql`
   }
 `;
 const GET_JOB_BY_CATE = gql`
-  query($id: String!) {
-    allJobByCate(id: $id) {
+  query($limit: Int!, $offset: Int!, $id: String!) {
+    allJobByCate(limit: $limit, offset: $offset, id: $id) {
       id
       position
       jobCategId

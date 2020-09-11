@@ -18,13 +18,12 @@ import SubNavbar from '../Layouts/Subnavbar';
 import RightSiteJob from './RightSiteJob';
 import Footer from '../Layouts/Footer';
 import { useQuery } from '@apollo/client';
-import { GET_JOB_CATEGORY } from '../../graphql/query';
-import { Link } from 'react-router-dom';
+import { GET_JOB_CATEGORY, GET_JOB_BY_CATE } from '../../graphql/query';
 
 const { Sider, Content } = Layout;
-const HomeJobs = () => {
+const JobByCate = () => {
   const [edit, setEdit] = useState(false);
-  // const [id, setId] = useState('');
+  const [id, setId] = useState('');
   const { loading, error, data, refetch } = useQuery(GET_JOB_CATEGORY);
   // console.log('df', data.id);
   // const { loading: loading1 } = useQuery(GET_JOB_BY_CATE, {
@@ -60,16 +59,16 @@ const HomeJobs = () => {
               >
                 {data.allJobCategories.map((res, index) => {
                   return (
-                    <Link to={`/jobcategory/${res.id}`}>
-                      <div className="listJobCate" style={{ padding: '12px' }}>
-                        <span
-                          key={res.id}
-                          style={{ color: 'rgba(0, 0, 0, 0.65)' }}
-                        >
-                          {res.name}
-                        </span>
-                      </div>
-                    </Link>
+                    <div
+                      onClick={() => {
+                        setEdit(true);
+                        // setId(`${data.id}`);
+                      }}
+                      className="listJobCate"
+                      style={{ padding: '12px' }}
+                    >
+                      <span key={res.id}>{res.name}</span>
+                    </div>
                   );
                 })}
               </Card>
@@ -177,7 +176,7 @@ const HomeJobs = () => {
               </div>
             </Sider>
             <Content>
-              <RightSiteJob />
+              <RightSiteJobDetail />
             </Content>
           </Layout>
         </Content>
@@ -187,4 +186,4 @@ const HomeJobs = () => {
   );
 };
 
-export default HomeJobs;
+export default JobByCate;

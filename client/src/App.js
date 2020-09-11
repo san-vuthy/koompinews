@@ -12,6 +12,7 @@ import EventHome from './components/Event/EventHome';
 import Knowledge from './components/Knowledge/Knowledge';
 import About from './components/About';
 import Sport from './components/NewsPage/Sport/Sport';
+import JobByCate from './components/Jobs/JobByCate';
 
 function App() {
   return (
@@ -29,6 +30,7 @@ function App() {
           <Route path="/knowledge" exact={true} component={Knowledge} />
           <Route path="/about" exact={true} component={About} />
           <Route path="/sport" exact={true} component={Sport} />
+          <Route path="/jobcategory/:id" exact={true} component={JobByCate} />
         </Switch>
       </Router>
     </React.Fragment>
