@@ -12,6 +12,7 @@ import {
   Radio,
   Calendar,
   Typography,
+  Spin,
 } from 'antd';
 import Navbar from '../Layouts/Navbar';
 import SubNavbar from '../Layouts/Subnavbar';
@@ -20,17 +21,24 @@ import Footer from '../Layouts/Footer';
 import { useQuery } from '@apollo/client';
 import { GET_JOB_CATEGORY } from '../../graphql/query';
 import { Link } from 'react-router-dom';
+import NProgress from 'nprogress';
+// import { NProgress } from '@tanem/react-nprogress';
 
 const { Sider, Content } = Layout;
 const HomeJobs = () => {
-  const [edit, setEdit] = useState(false);
-  // const [id, setId] = useState('');
+  const [showMore, setShowMore] = useState(true);
   const { loading, error, data, refetch } = useQuery(GET_JOB_CATEGORY);
-  // console.log('df', data.id);
-  // const { loading: loading1 } = useQuery(GET_JOB_BY_CATE, {
-  //   variables: { id },
-  // });
-  if (loading) return 'Loading...';
+
+  if (loading || !data) {
+    return (
+      <Content style={{ marginTop: '15px' }}>
+        <center>
+          <Spin tip="Loading..."></Spin>
+        </center>
+      </Content>
+    );
+  }
+
   console.log(data);
   if (error) return `Error! ${error.message}`;
 
@@ -73,6 +81,67 @@ const HomeJobs = () => {
                   );
                 })}
               </Card>
+              {/* {showMore ? (
+                <Card
+                  title="Job Category"
+                  style={{
+                    width: '300px',
+                    border: '1px solid rgba(4, 47, 130, 0.3)',
+                    padding: '0 !important',
+                  }}
+                >
+                  {data.allJobCategories.slice(0, 4).map((res, index) => {
+                    return (
+                      <Link to={`/jobcategory/${res.id}`}>
+                        <div
+                          className="listJobCate"
+                          style={{ padding: '12px' }}
+                        >
+                          <span
+                            key={res.id}
+                            style={{ color: 'rgba(0, 0, 0, 0.65)' }}
+                          >
+                            {res.name}
+                          </span>
+                        </div>
+                      </Link>
+                    );
+                  })}
+                  <div className="listJobCate" style={{ paddingLeft: '12px' }}>
+                    <span onClick={() => setShowMore(false)}>
+                      Show More.....
+                    </span>
+                  </div>
+                </Card>
+              ) : (
+                <Card
+                  title="Job Category"
+                  style={{
+                    width: '300px',
+                    border: '1px solid rgba(4, 47, 130, 0.3)',
+                    padding: '0 !important',
+                  }}
+                >
+                  {data.allJobCategories.map((res, index) => {
+                    return (
+                      <Link to={`/jobcategory/${res.id}`}>
+                        <div
+                          className="listJobCate"
+                          style={{ padding: '12px' }}
+                        >
+                          <span
+                            key={res.id}
+                            style={{ color: 'rgba(0, 0, 0, 0.65)' }}
+                          >
+                            {res.name}
+                          </span>
+                        </div>
+                      </Link>
+                    );
+                  })}
+                </Card>
+              )} */}
+
               <div className="site-calendar-demo-card">
                 <div
                   className="site-calendar-customize-header-wrapper "

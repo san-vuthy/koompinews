@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import moment from 'moment';
-import { Avatar, Tag, List } from 'antd';
+import { Avatar, Tag, List, Spin, Layout } from 'antd';
 import InfiniteScroll from 'react-infinite-scroll-component';
 
 import JobData from '../data/JobData';
@@ -13,13 +13,20 @@ import {
   CalendarOutlined,
   AimOutlined,
 } from '@ant-design/icons';
-
+const { Sider, Content } = Layout;
 const RightSiteJob = () => {
   const [hasMoreItems, setHasMoreItems] = useState(true);
   const { loading, error, data, fetchMore } = useQuery(GET_JOBS, {
     variables: { limit: 6, offset: 0 },
   });
-  if (loading || !data) return 'loading......';
+  if (loading || !data)
+    return (
+      <Content style={{ marginTop: '15px' }}>
+        <center>
+          <Spin></Spin>
+        </center>
+      </Content>
+    );
   console.log(data);
   if (error) return `Error! ${error.message}`;
   const DisplayJobs = () => {

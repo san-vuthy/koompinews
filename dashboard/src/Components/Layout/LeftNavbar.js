@@ -147,6 +147,23 @@ const LeftNavbar = () => {
               <NavLink to="/admin/addknowledge">Add Knowledge</NavLink>
             </Menu.Item>
           </SubMenu>
+          <SubMenu
+            key="9"
+            icon={
+              <img
+                style={{ color: '#fff', width: '30px', paddingRight: '7px' }}
+                src={Knowledge}
+              />
+            }
+            title="CV "
+          >
+            <Menu.Item>
+              <NavLink to="/admin/allcv">All CV</NavLink>
+            </Menu.Item>
+            {/* <Menu.Item>
+              <NavLink to="/admin/addknowledge">Add Knowledge</NavLink>
+            </Menu.Item> */}
+          </SubMenu>
           <SubMenu key="sub1" icon={<UserOutlined />} title="User">
             <Menu.Item key="3">Tom</Menu.Item>
             <Menu.Item key="4">Bill</Menu.Item>

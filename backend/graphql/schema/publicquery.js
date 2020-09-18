@@ -88,6 +88,7 @@ const RootQuery = new GraphQLObjectType({
         return News.find({ newsTypeId: args.id });
       },
     },
+
     //===========GETJOb By CATEGORIES============
     allJobByCate: {
       type: new GraphQLList(JobType),

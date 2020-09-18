@@ -112,6 +112,7 @@ import {
   Calendar,
   Typography,
   Tag,
+  Spin,
 } from 'antd';
 import moment from 'moment';
 import {
@@ -131,9 +132,17 @@ import { useParams } from 'react-router-dom';
 
 const { Sider, Content } = Layout;
 const JobByCate = () => {
+  const [showMore, setShowMore] = useState(true);
   const { loading, error, data, refetch } = useQuery(GET_JOB_CATEGORY);
 
-  if (loading) return 'Loading...';
+  if (loading)
+    return (
+      <Content style={{ marginTop: '15px' }}>
+        <center>
+          <Spin tip="Loading..."></Spin>
+        </center>
+      </Content>
+    );
   console.log(data);
   if (error) return `Error! ${error.message}`;
 
@@ -146,67 +155,80 @@ const JobByCate = () => {
     const { loading, error, data, fetchMore } = useQuery(GET_JOB_BY_CATE, {
       variables: { id: id, limit: 2, offset: 0 },
     });
-    if (loading) return 'loading.....';
+    if (loading)
+      return (
+        <Content style={{ marginTop: '15px' }}>
+          <center>
+            <Spin></Spin>
+          </center>
+        </Content>
+      );
     return (
       <div>
-        {data.allJobByCate.map((res, index) => {
-          return (
-            <div>
-              <List.Item>
-                <div className="display-rigth-site-job">
-                  {/* <Link key={index} to={'/jobs/' + res._id}> */}
-                  <Link to={`/jobs/${res.id}`}>
-                    <div style={{ marginBottom: '27px' }}>
-                      <Avatar
-                        shape="square"
-                        size={100}
-                        src={'http://localhost:8080/' + res.image}
-                      />
-                    </div>
-                  </Link>
-                  <Link to={`/jobs/${res.id}`}>
-                    <div
-                      className="job-rigth-site"
-                      style={{ paddingLeft: '20px' }}
-                    >
-                      <div className="describe-opunity-job">
-                        <div>
-                          <h3>{res.position}</h3>
-                        </div>
-                        <span>
-                          <AimOutlined style={{ paddingRight: '3px' }} />
-                          {res.location}
-                        </span>
-                        <br></br>
-                        <span>
-                          <DollarOutlined style={{ paddingRight: '3px' }} />
-                          {res.salary}
-                        </span>
-                        <br></br>
-                        <span>
-                          <CalendarOutlined style={{ paddingRight: '3px' }} />
-                          {res.worktime}
-                        </span>
+        {data.allJobByCate == '' ? (
+          <center>
+            <h1>No result found</h1>
+          </center>
+        ) : (
+          data.allJobByCate.map((res, index) => {
+            return (
+              <div>
+                <List.Item>
+                  <div className="display-rigth-site-job">
+                    {/* <Link key={index} to={'/jobs/' + res._id}> */}
+                    <Link to={`/jobs/${res.id}`}>
+                      <div style={{ marginBottom: '27px' }}>
+                        <Avatar
+                          shape="square"
+                          size={100}
+                          src={'http://localhost:8080/' + res.image}
+                        />
                       </div>
-                    </div>
-                  </Link>
-                </div>
-                <div>
-                  <Tag color="default">featured</Tag>
-                  <br></br>
-                  <br></br>
-                  <span>
-                    {moment.unix(res.createAt / 1000).format('YYYY-MM-DD')}
-                  </span>
-                </div>
-              </List.Item>
-              <hr
-                className="hr-job"
-                style={{ border: '1px solid rgba(196, 196, 196, 0.5)' }}
-              ></hr>
-            </div>
-          );
-        })}
+                    </Link>
+                    <Link to={`/jobs/${res.id}`}>
+                      <div
+                        className="job-rigth-site"
+                        style={{ paddingLeft: '20px' }}
+                      >
+                        <div className="describe-opunity-job">
+                          <div>
+                            <h3>{res.position}</h3>
+                          </div>
+                          <span>
+                            <AimOutlined style={{ paddingRight: '3px' }} />
+                            {res.location}
+                          </span>
+                          <br></br>
+                          <span>
+                            <DollarOutlined style={{ paddingRight: '3px' }} />
+                            {res.salary}
+                          </span>
+                          <br></br>
+                          <span>
+                            <CalendarOutlined style={{ paddingRight: '3px' }} />
+                            {res.worktime}
+                          </span>
+                        </div>
+                      </div>
+                    </Link>
+                  </div>
+                  <div>
+                    <Tag color="default">featured</Tag>
+                    <br></br>
+                    <br></br>
+                    <span>
+                      {moment.unix(res.createAt / 1000).format('YYYY-MM-DD')}
+                    </span>
+                  </div>
+                </List.Item>
+                <hr
+                  className="hr-job"
+                  style={{ border: '1px solid rgba(196, 196, 196, 0.5)' }}
+                ></hr>
+              </div>
+            );
+          })
+        )}
       </div>
     );
   };
@@ -234,8 +256,8 @@ const JobByCate = () => {
                     <Link to={`/jobcategory/${res.id}`}>
                       <div className="listJobCate" style={{ padding: '12px' }}>
                         <span
-                          style={{ color: 'rgba(0, 0, 0, 0.65)' }}
                           key={res.id}
+                          style={{ color: 'rgba(0, 0, 0, 0.65)' }}
                         >
                           {res.name}
                         </span>
@@ -244,6 +266,66 @@ const JobByCate = () => {
                   );
                 })}
               </Card>
+              {/* {showMore ? (
+                <Card
+                  title="Job Category"
+                  style={{
+                    width: '300px',
+                    border: '1px solid rgba(4, 47, 130, 0.3)',
+                    padding: '0 !important',
+                  }}
+                >
+                  {data.allJobCategories.slice(0, 4).map((res, index) => {
+                    return (
+                      <Link to={`/jobcategory/${res.id}`}>
+                        <div
+                          className="listJobCate"
+                          style={{ padding: '12px' }}
+                        >
+                          <span
+                            key={res.id}
+                            style={{ color: 'rgba(0, 0, 0, 0.65)' }}
+                          >
+                            {res.name}
+                          </span>
+                        </div>
+                      </Link>
+                    );
+                  })}
+                  <div className="listJobCate" style={{ paddingLeft: '12px' }}>
+                    <span onClick={() => setShowMore(false)}>
+                      Show More.....
+                    </span>
+                  </div>
+                </Card>
+              ) : (
+                <Card
+                  title="Job Category"
+                  style={{
+                    width: '300px',
+                    border: '1px solid rgba(4, 47, 130, 0.3)',
+                    padding: '0 !important',
+                  }}
+                >
+                  {data.allJobCategories.map((res, index) => {
+                    return (
+                      <Link to={`/jobcategory/${res.id}`}>
+                        <div
+                          className="listJobCate"
+                          style={{ padding: '12px' }}
+                        >
+                          <span
+                            key={res.id}
+                            style={{ color: 'rgba(0, 0, 0, 0.65)' }}
+                          >
+                            {res.name}
+                          </span>
+                        </div>
+                      </Link>
+                    );
+                  })}
+                </Card>
+              )} */}
               <div className="site-calendar-demo-card">
                 <div
                   className="site-calendar-customize-header-wrapper "

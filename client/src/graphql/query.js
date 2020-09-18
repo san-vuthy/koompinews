@@ -42,6 +42,28 @@ const GET_NEWS_BY_MOSTPOPULAR = gql`
   }
 `;
 
+const GET_NEWS_BY_RECENT = gql`
+  query {
+    allNewsbyType(id: "5f448a17900bec1a5e421225") {
+      id
+      title
+      image
+      describtion
+      user {
+        name
+      }
+      categoreyname {
+        name
+        id
+      }
+      type {
+        name
+        id
+      }
+    }
+  }
+`;
+
 const GET_JOBS = gql`
   query($limit: Int!, $offset: Int!) {
     allJob(limit: $limit, offset: $offset) {
@@ -315,4 +337,5 @@ export {
   GET_EVENT,
   GET_ABOUT,
   GET_A_ABOUT,
+  GET_NEWS_BY_RECENT,
 };

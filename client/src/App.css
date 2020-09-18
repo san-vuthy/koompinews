@@ -438,6 +438,9 @@ News Aticle */
 /* .listJobCate {
   border: 1px 1px 1px 1px solid black;
 } */
+.popular-text {
+  color: #797878;
+}
 
 .listJobCate:hover {
   background-color: rgb(245, 245, 245);

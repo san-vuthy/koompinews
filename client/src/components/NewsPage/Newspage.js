@@ -6,7 +6,7 @@ import Navbar from '../../components/Layouts/Navbar';
 import { useQuery } from '@apollo/client';
 import { GET_NEWS } from '../../graphql/query';
 // import Footer from '../../components/Layouts/Footer';
-import { Layout, Row, Col, Avatar, Carousel } from 'antd';
+import { Layout, Row, Col, Avatar, Carousel, Spin } from 'antd';
 import Footer from '../Layouts/Footer';
 import RightSiteJob from '../Jobs/RightSiteJob';
 import RightSiteNewspage from './RightSiteNewspage';
@@ -26,7 +26,14 @@ const Newspage = () => {
     variables: { limit: 4, offset: 0 },
     // fetchPolicy: 'cache-and-network',
   });
-  if (loading || !data) return 'loading......';
+  if (loading || !data)
+    return (
+      <Content style={{ marginTop: '15px' }}>
+        <center>
+          <Spin tip="Loading..."></Spin>
+        </center>
+      </Content>
+    );
   console.log(data);
   if (error) return `Error! ${error.message}`;
   const DisplayNews = () => {
