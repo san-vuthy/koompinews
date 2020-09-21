@@ -93,14 +93,14 @@ const Navbar = () => {
                   KNOWLEDGE
                 </NavLink>
               </Menu.Item>
-              <Menu.Item
+              {/* <Menu.Item
                 activeClassName="main-nav-active "
                 style={{ float: 'left' }}
               >
                 <NavLink activeClassName="main-nav-active " to="/event">
                   ADVERTICE
                 </NavLink>
-              </Menu.Item>
+              </Menu.Item> */}
               <Menu.Item
                 style={{
                   float: 'right',
@@ -187,11 +187,11 @@ const Navbar = () => {
                 KNOWLEDGE
               </NavLink>
             </p>
-            <p>
+            {/* <p>
               <NavLink activeClassName="main-nav-active " to="/event">
                 ADVERTICE
               </NavLink>
-            </p>
+            </p> */}
           </div>
         </Drawer>
       </Affix>

@@ -6,6 +6,7 @@ import Navbar from '../../Layout/Navbar';
 import TextEditor from '../../Help/TextEditor';
 import { ADD_KNOWLEDGE } from '../../../graphql/mutation';
 import { useMutation } from '@apollo/client';
+import { UploadOutlined } from '@ant-design/icons';
 
 const { TextArea } = Input;
 const { Content } = Layout;
@@ -14,7 +15,9 @@ const AddKnowledge = () => {
   const [addKnowledge, { data }] = useMutation(ADD_KNOWLEDGE);
 
   const [loading1, setLoading] = useState(false);
-  const [image, setImage] = useState('');
+  const [imagesf, setImagesf] = useState('');
+  const [imagefaq, setImagefaq] = useState('');
+  const [imageklb, setImageklb] = useState('');
   const [desc, setDesc] = useState('');
   const [desc1, setDesc1] = useState('');
 
@@ -27,7 +30,9 @@ const AddKnowledge = () => {
         ...value,
         lastbase: desc === '' ? null : desc,
         recentbase: desc1 === '' ? null : desc1,
-        avarta: image,
+        klbavatar: imageklb,
+        faqavatar: imagefaq,
+        sfavatar: imagesf,
         userId: '5f324067aeef78b4df13ca54',
       },
     }).then(async (res) => {
@@ -57,7 +62,7 @@ const AddKnowledge = () => {
     console.log(`selected ${value}`);
   }
 
-  const uploadImage = {
+  const uploadFaqs = {
     name: 'file',
     multiple: false,
     action: 'http://localhost:8080/upload',
@@ -69,7 +74,46 @@ const AddKnowledge = () => {
         console.log(info.file, info.fileList);
       }
       if (status === 'done') {
-        setImage(info.file.name.replace(/\s+/g, '-').toLowerCase());
+        setImagefaq(info.file.name.replace(/\s+/g, '-').toLowerCase());
+        message.success(`${info.file.name} file uploaded successfully.`);
+      } else if (status === 'error') {
+        message.error(`${info.file.name} file upload failed.`);
+      }
+    },
+  };
+  const uploadKnowledgeBase = {
+    name: 'file',
+    multiple: false,
+    action: 'http://localhost:8080/upload',
+    // listType: 'picture',
+    // defaultFileList: image,
+    onChange(info) {
+      const { status } = info.file;
+      if (status !== 'uploading') {
+        console.log(info.file, info.fileList);
+      }
+      if (status === 'done') {
+        setImageklb(info.file.name.replace(/\s+/g, '-').toLowerCase());
+        message.success(`${info.file.name} file uploaded successfully.`);
+      } else if (status === 'error') {
+        message.error(`${info.file.name} file upload failed.`);
+      }
+    },
+  };
+
+  const uploadSupportForum = {
+    name: 'file',
+    multiple: false,
+    action: 'http://localhost:8080/upload',
+    // listType: 'picture',
+    // defaultFileList: image,
+    onChange(info) {
+      const { status } = info.file;
+      if (status !== 'uploading') {
+        console.log(info.file, info.fileList);
+      }
+      if (status === 'done') {
+        setImagesf(info.file.name.replace(/\s+/g, '-').toLowerCase());
         message.success(`${info.file.name} file uploaded successfully.`);
       } else if (status === 'error') {
         message.error(`${info.file.name} file upload failed.`);
@@ -154,7 +198,7 @@ const AddKnowledge = () => {
                     </Row>
                   </Col>
                   <Col span={8}>
-                    <Form.Item
+                    {/* <Form.Item
                       label="Title"
                       // style={{ fontSize: '30px' }}
                       name="title"
@@ -166,10 +210,10 @@ const AddKnowledge = () => {
                       ]}
                     >
                       <Input size="large" />
-                    </Form.Item>
+                    </Form.Item> */}
                     <Form.Item
-                      label="Description"
-                      name="des"
+                      label="FAQs"
+                      name="faq"
                       rules={[
                         {
                           required: true,
@@ -184,32 +228,87 @@ const AddKnowledge = () => {
                       />
                     </Form.Item>
                     <Form.Item
-                      label="Avatar"
-                      name="avarta"
+                      label="Knowledge Base"
+                      name="klb"
                       rules={[
                         {
                           required: true,
-                          message: 'Please input Avarta!',
+                          message: 'Please input Knowledge Base!',
                         },
                       ]}
                     >
-                      <Upload.Dragger {...uploadImage}>
-                        {image === '' ? (
-                          <img
-                            style={{ width: '270px' }}
-                            src="http://localhost:8080/undraw_upload_87y9.svg"
-                            alt="avatar"
-                          />
-                        ) : (
-                          <img
-                            style={{ width: '270px' }}
-                            src={`${'http://localhost:8080/' + image}`}
-                            // src="http://localhost:8080/Technology-Images-Wallpapers-027.jpg"
-                            alt="avatar"
-                          />
-                        )}
-                      </Upload.Dragger>
+                      <TextArea
+                        // placeholder="textarea with clear icon"
+                        allowClear
+                        onChange={onChange}
+                      />
                     </Form.Item>
+                    <Form.Item
+                      label="Support Forum"
+                      name="sf"
+                      rules={[
+                        {
+                          required: true,
+                          message: 'Please input Support Forum!',
+                        },
+                      ]}
+                    >
+                      <TextArea
+                        // placeholder="textarea with clear icon"
+                        allowClear
+                        onChange={onChange}
+                      />
+                    </Form.Item>
+                    <Row>
+                      <Col span={8}>
+                        <Form.Item
+                          label="FAQs Avarta"
+                          name="faqavatar"
+                          rules={[
+                            {
+                              required: true,
+                              message: 'Please input FAQs Avarta!',
+                            },
+                          ]}
+                        >
+                          <Upload {...uploadFaqs}>
+                            <Button icon={<UploadOutlined />}>Upload</Button>
+                          </Upload>
+                        </Form.Item>
+                      </Col>
+                      <Col span={8}>
+                        <Form.Item
+                          label="Knowledge"
+                          name="klbavatar"
+                          rules={[
+                            {
+                              required: true,
+                              message: 'Please input Knowledge Avarta!',
+                            },
+                          ]}
+                        >
+                          <Upload {...uploadKnowledgeBase}>
+                            <Button icon={<UploadOutlined />}>Upload</Button>
+                          </Upload>
+                        </Form.Item>
+                      </Col>
+                      <Col span={8}>
+                        <Form.Item
+                          label="Support Forum"
+                          name="sfavatar"
+                          rules={[
+                            {
+                              required: true,
+                              message: 'Please input Support Forum Avarta!',
+                            },
+                          ]}
+                        >
+                          <Upload {...uploadSupportForum}>
+                            <Button icon={<UploadOutlined />}>Upload</Button>
+                          </Upload>
+                        </Form.Item>
+                      </Col>
+                    </Row>
                   </Col>
                 </Row>
               </Form>

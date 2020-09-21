@@ -268,12 +268,15 @@ const GET_KNOWLEDGE = gql`
   query {
     allKnowledge {
       id
-      title
-      des
+      klb
+      sf
+      faq
+      faqavatar
+      klbavatar
+      sfavatar
       user {
         name
       }
-      avarta
       createAt
       lastbase
       recentbase

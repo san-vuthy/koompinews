@@ -36,24 +36,6 @@ const AllKnowledge = () => {
     },
 
     {
-      title: 'Title',
-      dataIndex: 'title',
-      key: 'title',
-
-      render: (data) => {
-        return data.length <= 25 ? data : data.substring(0, 25) + ' ...';
-      },
-    },
-    {
-      title: 'Description',
-      dataIndex: 'des',
-      key: 'title',
-
-      render: (data) => {
-        return data.length <= 25 ? data : data.substring(0, 25) + ' ...';
-      },
-    },
-    {
       title: 'CreateBy',
       dataIndex: 'user',
       key: 'create_by',

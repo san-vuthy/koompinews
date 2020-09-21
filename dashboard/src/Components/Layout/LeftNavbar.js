@@ -1,12 +1,6 @@
 import React, { useState } from 'react';
 import { Layout, Menu } from 'antd';
-import {
-  DesktopOutlined,
-  PieChartOutlined,
-  FileOutlined,
-  TeamOutlined,
-  UserOutlined,
-} from '@ant-design/icons';
+import { TeamOutlined, UserOutlined } from '@ant-design/icons';
 import { NavLink, Link } from 'react-router-dom';
 import feet from '../../asset/img/feed.svg';
 import news from '../../asset/img/news.svg';

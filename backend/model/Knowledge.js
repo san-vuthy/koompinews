@@ -5,19 +5,31 @@ const KnowledgeSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
-  des: {
-    type: String,
-    required: true,
-  },
-  avarta: {
-    type: String,
-    required: true,
-  },
-  maintitle: {
+  faqavatar: {
     type: String,
     // required: true,
   },
-  title: {
+  klbavatar: {
+    type: String,
+    // required: true,
+  },
+  sfavatar: {
+    type: String,
+    // required: true,
+  },
+  maintitle: {
+    type: String,
+    required: true,
+  },
+  faq: {
+    type: String,
+    required: true,
+  },
+  klb: {
+    type: String,
+    required: true,
+  },
+  sf: {
     type: String,
     required: true,
   },

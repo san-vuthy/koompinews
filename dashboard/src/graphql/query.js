@@ -250,12 +250,15 @@ const GET_KNOWLEDGE = gql`
   query {
     allKnowledge {
       id
-      title
-      des
+      faq
+      klb
+      sf
+      faqavatar
+      klbavatar
+      sfavatar
       user {
         name
       }
-      avarta
       createAt
       lastbase
       recentbase
@@ -268,12 +271,15 @@ const GET_A_KNOWLEDGE = gql`
   query($id: String!) {
     aKnowledge(id: $id) {
       id
-      title
-      des
+      faq
+      klb
+      sf
+      faqavatar
+      klbavatar
+      sfavatar
       user {
         name
       }
-      avarta
       createAt
       lastbase
       recentbase
