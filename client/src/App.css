@@ -411,7 +411,7 @@ News Aticle */
 }
 .middle-describe-event {
   /* height: 90vh; */
-  background-position: top;
+  background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
   /* background-position: center; */
@@ -454,7 +454,8 @@ News Aticle */
   margin-right: auto;
 }
 .banner-knowledge {
-  background-color: #2a4267;
+  /* background-color: #2a4267; */
+  background-image: url('/img/bge13.png');
   /* margin-top: 40px; */
   overflow: hidden;
   /* width: 781px; */

@@ -17,6 +17,8 @@ const CompanyType = require('../schema/Types/company');
 const EventType = require('../schema/Types/event');
 const aboutType = require('../schema/Types/about');
 const KnowledgeType = require('../schema/Types/knowledge');
+const AllpageType = require('../schema/Types/allpage');
+const BannerType = require('../schema/Types/banner');
 
 // ================Model Section ==================
 
@@ -32,6 +34,8 @@ const About = require('../../model/About');
 const Knowledge = require('../../model/Knowledge');
 const CvType = require('./Types/cv');
 const Cv = require('../../model/Cv');
+const Allpage = require('../../model/Allpage');
+const Banner = require('../../model/Banner');
 
 const RootMutation = new GraphQLObjectType({
   name: 'RootMutationType',
@@ -658,6 +662,72 @@ const RootMutation = new GraphQLObjectType({
         try {
           await Cv.deleteOne({ _id: args.id });
           return { message: 'delete Successful' };
+        } catch (error) {
+          console.log(error);
+          throw error;
+        }
+      },
+    },
+    addAllPage: {
+      type: AllpageType,
+      args: {
+        namePage: { type: GraphQLNonNull(GraphQLString) },
+        userId: { type: GraphQLNonNull(GraphQLString) },
+      },
+      resolve: async (parent, args) => {
+        try {
+          const allpage = new Allpage({ ...args });
+          await allpage.save();
+          return { message: 'sucessful' };
+        } catch (error) {
+          console.log(error);
+          throw error;
+        }
+      },
+    },
+    addBanner: {
+      type: BannerType,
+      args: {
+        banner: { type: GraphQLNonNull(GraphQLString) },
+        userId: { type: GraphQLNonNull(GraphQLString) },
+        page: { type: GraphQLNonNull(GraphQLString) },
+      },
+      resolve: async (parent, args) => {
+        try {
+          const banner = new Banner({ ...args });
+          await banner.save();
+          return { message: 'Sucessful' };
+        } catch (error) {
+          console.log(error);
+          throw error;
+        }
+      },
+    },
+    updateBanner: {
+      type: BannerType,
+      args: {
+        id: { type: GraphQLNonNull(GraphQLString) },
+        banner: { type: GraphQLNonNull(GraphQLString) },
+        userId: { type: GraphQLNonNull(GraphQLString) },
+        page: { type: GraphQLNonNull(GraphQLString) },
+      },
+      resolve: async (parent, args) => {
+        try {
+          await Banner.updateOne({ _id: args.id }, { ...args });
+          return { message: 'Sucessful' };
+        } catch (error) {
+          console.log(error);
+          throw error;
+        }
+      },
+    },
+    deleteBanner: {
+      type: BannerType,
+      args: { id: { type: GraphQLNonNull(GraphQLString) } },
+      resolve: async (parent, args) => {
+        try {
+          await Banner.deleteOne({ _id: args.id });
+          return { message: 'successful' };
         } catch (error) {
           console.log(error);
           throw error;

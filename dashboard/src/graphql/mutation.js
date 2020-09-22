@@ -282,6 +282,27 @@ const DELETE_ABOUT = gql`
     }
   }
 `;
+const DELETE_BANNER = gql`
+  mutation($id: String!) {
+    deleteBanner(id: $id) {
+      message
+    }
+  }
+`;
+const ADD_BANNER = gql`
+  mutation($userId: String!, $banner: String!, $page: String!) {
+    addBanner(userId: $userId, banner: $banner, page: $page) {
+      message
+    }
+  }
+`;
+const UPDATE_BANNER = gql`
+  mutation($id: String!, $userId: String!, $banner: String!, $page: String!) {
+    updateBanner(id: $id, userId: $userId, banner: $banner, page: $page) {
+      message
+    }
+  }
+`;
 
 const ADD_KNOWLEDGE = gql`
   mutation(
@@ -375,4 +396,7 @@ export {
   ADD_KNOWLEDGE,
   UPDATE_KNOWLEDGE,
   DELETE_KNOWLEDGE,
+  DELETE_BANNER,
+  UPDATE_BANNER,
+  ADD_BANNER,
 };

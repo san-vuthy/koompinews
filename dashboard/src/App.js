@@ -32,6 +32,9 @@ import EditKnowledge from './Components/Page/Knowledge/EditKnowledge';
 import Login from './Components/Layout/Login';
 import AllCv from './Components/Page/CV/AllCv';
 import PreviewCv from './Components/Page/CV/PreviewCv';
+import AllBanner from './Components/Page/Banner/AllBanner';
+import AddBanner from './Components/Page/Banner/AddBanner';
+import EditBanner from './Components/Page/Banner/EditBanner';
 
 function App() {
   return (
@@ -80,6 +83,9 @@ function App() {
           />
           <Route exact path="/admin/allcv/" component={AllCv} />
           <Route exact path="/admin/acv/:id" component={PreviewCv} />
+          <Route exact path="/admin/allbanner" component={AllBanner} />
+          <Route exact path="/admin/addbanner" component={AddBanner} />
+          <Route exact path="/admin/editbanner/:id" component={EditBanner} />
           <Route exact path="/login" component={Login} />
 
           {/* Test */}

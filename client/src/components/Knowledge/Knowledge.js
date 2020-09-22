@@ -6,6 +6,7 @@ import { Input, Card, Row, Col, Avatar, Spin, Layout } from 'antd';
 import { AudioOutlined, UserOutlined } from '@ant-design/icons';
 import { useQuery } from '@apollo/client';
 import { GET_KNOWLEDGE } from '../../graphql/query';
+import parse from 'html-react-parser';
 
 const { Search } = Input;
 const { Sider, Content } = Layout;
@@ -76,7 +77,10 @@ const Knowledge = () => {
                         <div
                           style={{ textAlign: 'center', marginTop: '-50px' }}
                         >
-                          <Avatar size={64} icon={<UserOutlined />} />
+                          <Avatar
+                            size={64}
+                            src={'http://localhost:8080/' + res.faqavatar}
+                          />
                         </div>
                         <center>
                           <h1>FAQs</h1>
@@ -101,7 +105,10 @@ const Knowledge = () => {
                         <div
                           style={{ textAlign: 'center', marginTop: '-50px' }}
                         >
-                          <Avatar size={64} icon={<UserOutlined />} />
+                          <Avatar
+                            size={64}
+                            src={'http://localhost:8080/' + res.klbavatar}
+                          />
                         </div>
                         <center>
                           <h1>Knowledge Base</h1>
@@ -120,7 +127,10 @@ const Knowledge = () => {
                         <div
                           style={{ textAlign: 'center', marginTop: '-50px' }}
                         >
-                          <Avatar size={64} icon={<UserOutlined />} />
+                          <Avatar
+                            size={64}
+                            src={'http://localhost:8080/' + res.sfavatar}
+                          />
                         </div>
                         <center>
                           <h1>Support Forum</h1>
@@ -149,7 +159,7 @@ const Knowledge = () => {
                         boxShadow: '0px 4px 10px rgba(0, 0, 0, 0.25)',
                       }}
                     >
-                      {res.lastbase}
+                      {parse(res.lastbase)}
                     </Card>
                   </Col>
                   <Col sm={24} md={12} lg={12}>
@@ -166,7 +176,7 @@ const Knowledge = () => {
                         boxShadow: '0px 4px 10px rgba(0, 0, 0, 0.25)',
                       }}
                     >
-                      {res.recentbase}
+                      {parse(res.recentbase)}
                     </Card>
                   </Col>
                 </Row>

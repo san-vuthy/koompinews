@@ -12,6 +12,8 @@ const About = require('../../model/About');
 const Job = require('../../model/Job');
 const Knowledge = require('../../model/Knowledge');
 const Cv = require('../../model/Cv');
+const Banner = require('../../model/Banner');
+const Page = require('../../model/Allpage');
 
 // =====================Type=================
 const UserType = require('./Types/user');
@@ -25,6 +27,8 @@ const AboutType = require('./Types/about');
 const JobType = require('./Types/jobs');
 const KnowledgeType = require('./Types/knowledge');
 const CvType = require('./Types/cv');
+const BannerType = require('./Types/banner');
+const PageType = require('./Types/allpage');
 const _ = require('lodash');
 
 const RootQuery = new GraphQLObjectType({
@@ -222,6 +226,36 @@ const RootQuery = new GraphQLObjectType({
       },
       resolve: (parent, args) => {
         return Cv.findOne({ _id: args.id });
+      },
+    },
+    allBanner: {
+      type: new GraphQLList(BannerType),
+      resolve(parent, args) {
+        return Banner.find().sort({ createAt: -1 });
+      },
+    },
+    aBanner: {
+      type: BannerType,
+      args: {
+        id: { type: GraphQLString },
+      },
+      resolve: (parent, args) => {
+        return Banner.findOne({ _id: args.id });
+      },
+    },
+    aPage: {
+      type: PageType,
+      args: {
+        id: { type: GraphQLString },
+      },
+      resolve: (parent, args) => {
+        return Page.findOne({ _id: args.id });
+      },
+    },
+    allPage: {
+      type: new GraphQLList(PageType),
+      resolve: (parent, args) => {
+        return Page.find().sort({ createAt: -1 });
       },
     },
   },

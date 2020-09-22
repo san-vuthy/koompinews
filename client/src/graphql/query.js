@@ -63,6 +63,14 @@ const GET_NEWS_BY_RECENT = gql`
     }
   }
 `;
+const GET_BANNER_BY_EVENTPAGE = gql`
+  query {
+    allBannerByPage(id: "5f699b082befbf5ba6711b23") {
+      banner
+      id
+    }
+  }
+`;
 
 const GET_JOBS = gql`
   query($limit: Int!, $offset: Int!) {
@@ -325,6 +333,7 @@ const GET_JOB_BY_CATE = gql`
 `;
 
 export {
+  GET_BANNER_BY_EVENTPAGE,
   GET_JOB_BY_CATE,
   GET_JOB_CATEGORY,
   GET_KNOWLEDGE,

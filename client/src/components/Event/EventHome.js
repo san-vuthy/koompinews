@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import Navbar from '../Layouts/Navbar';
 import SubNavbar from '../Layouts/Subnavbar';
 import { useQuery } from '@apollo/client';
-import { GET_EVENT } from '../../graphql/query';
+import { GET_EVENT, GET_BANNER_BY_EVENTPAGE } from '../../graphql/query';
 import InfiniteScroll from 'react-infinite-scroll-component';
 import { Breadcrumb, Row, Col, Card } from 'antd';
 import moment from 'moment';
@@ -16,17 +16,36 @@ const EventHome = () => {
   if (loading || !data) return 'loading......';
   console.log(data);
   if (error) return `Error! ${error.message}`;
+  function DisplayBanner() {
+    const { loading, error, data } = useQuery(GET_BANNER_BY_EVENTPAGE);
+
+    if (loading) return 'Loading...';
+    console.log(data);
+    if (error) return `Error! ${error.message}`;
+    return (
+      <div>
+        {data.allBannerByPage.slice(-1).map((res, index) => {
+          return (
+            <div
+              style={{
+                backgroundImage: `url("http://localhost:8080/${res.banner}")`,
+              }}
+              className="middle-describe-event"
+            >
+              {/* <h1>Your main Title Describtion</h1>
+          <h4>Sub Describtion</h4> */}
+              {/* <img src={'http://localhos t:8080/' + res.banner} /> */}
+            </div>
+          );
+        })}
+      </div>
+    );
+  }
   return (
     <React.Fragment>
       <Navbar />
       <SubNavbar />
-      <div
-        style={{ backgroundImage: `url("/img/banner6.png")` }}
-        className="middle-describe-event"
-      >
-        {/* <h1>Your main Title Describtion</h1>
-        <h4>Sub Describtion</h4> */}
-      </div>
+      <DisplayBanner />
       <div className="container-event">
         <Breadcrumb style={{ margin: '16px 0' }}>
           <Breadcrumb.Item>Home</Breadcrumb.Item>

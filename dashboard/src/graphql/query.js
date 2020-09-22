@@ -316,8 +316,52 @@ const GET_A_CV = gql`
     }
   }
 `;
+const GET_ALL_BANNER = gql`
+  query {
+    allBanner {
+      id
+      userId
+      page {
+        namePage
+      }
+      banner
+      createAt
+      user {
+        name
+      }
+    }
+  }
+`;
+const GET_A_BANNER = gql`
+  query($id: String!) {
+    aBanner(id: $id) {
+      id
+      userId
+      page {
+        namePage
+        id
+      }
+      banner
+      createAt
+      user {
+        name
+      }
+    }
+  }
+`;
+const GET_ALL_PAGE_BANNER = gql`
+  query {
+    allPage {
+      namePage
+      id
+    }
+  }
+`;
 
 export {
+  GET_ALL_PAGE_BANNER,
+  GET_ALL_BANNER,
+  GET_A_BANNER,
   GET_NEWS,
   GET_CATEGORIES,
   GET_TYPE_OF_NEWS,

@@ -18,6 +18,7 @@ const About = require('../../model/About');
 const Job = require('../../model/Job');
 const Knowledge = require('../../model/Knowledge');
 const Cv = require('../../model/Cv');
+const Banner = require('../../model/Banner');
 
 // =====================Type=================
 const UserType = require('./Types/user');
@@ -31,7 +32,9 @@ const AboutType = require('./Types/about');
 const JobType = require('./Types/jobs');
 const KnowledgeType = require('./Types/knowledge');
 const CvType = require('./Types/cv');
+const BannerType = require('./Types/banner');
 const _ = require('lodash');
+const bannerType = require('./Types/banner');
 
 const RootQuery = new GraphQLObjectType({
   name: 'RootQueryType',
@@ -86,6 +89,16 @@ const RootQuery = new GraphQLObjectType({
       },
       resolve(parent, args) {
         return News.find({ newsTypeId: args.id });
+      },
+    },
+    //=========Get banner by page========
+    allBannerByPage: {
+      type: new GraphQLList(BannerType),
+      args: {
+        id: { type: GraphQLString },
+      },
+      resolve(parent, args) {
+        return Banner.find({ page: args.id });
       },
     },
 
@@ -288,23 +301,22 @@ const RootQuery = new GraphQLObjectType({
         return Knowledge.find().sort({ createAt: -1 });
       },
     },
-    // //==========Get all CV===============
-    // allCv: {
-    //   type: new GraphQLList(CvType),
-    //   resolve(parent, args) {
-    //     return Cv.find({}).sort({ createAt: -1 });
-    //   },
-    // },
-    // //=========Get a CV============
-    // aCv: {
-    //   type: CvType,
-    //   args: {
-    //     id: { type: GraphQLString },
-    //   },
-    //   resolve: (parent, args) => {
-    //     return Cv.findOne({ _id: args.id });
-    //   },
-    // },
+    // //==========Get all Banner===============
+    allBanner: {
+      type: new GraphQLList(BannerType),
+      resolve(parent, args) {
+        return Banner.find().sort({ createAt: -1 });
+      },
+    },
+    aBanner: {
+      type: BannerType,
+      args: {
+        id: { type: GraphQLString },
+      },
+      resolve: (parent, args) => {
+        return Banner.findOne({ _id: args.id });
+      },
+    },
   },
 });
 
