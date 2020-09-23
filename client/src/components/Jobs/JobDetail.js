@@ -192,7 +192,7 @@ const JobDetail = (props) => {
                       <Form onFinish={onFinish}>
                         <center>
                           <Form.Item
-                            label="First Name"
+                            // label="First Name"
                             name="firstname"
                             rules={[
                               {
@@ -201,10 +201,10 @@ const JobDetail = (props) => {
                               },
                             ]}
                           >
-                            <Input />
+                            <Input placeholder="first Name" />
                           </Form.Item>
                           <Form.Item
-                            label="Last Name"
+                            // label="Last Name"
                             name="lastname"
                             rules={[
                               {
@@ -213,10 +213,10 @@ const JobDetail = (props) => {
                               },
                             ]}
                           >
-                            <Input />
+                            <Input placeholder="Last Name" />
                           </Form.Item>
                           <Form.Item
-                            label="Email Address"
+                            // label="Email Address"
                             name="email"
                             rules={[
                               {
@@ -225,10 +225,10 @@ const JobDetail = (props) => {
                               },
                             ]}
                           >
-                            <Input />
+                            <Input placeholder="Email Address" />
                           </Form.Item>
                           <Form.Item
-                            label="Position Apply For"
+                            // label="Position Apply For"
                             name="position"
                             rules={[
                               {
@@ -237,10 +237,10 @@ const JobDetail = (props) => {
                               },
                             ]}
                           >
-                            <Input />
+                            <Input placeholder="Postion Apply For" />
                           </Form.Item>
                           <Form.Item
-                            label="Additional Information"
+                            // label="Additional Information"
                             name="additional"
                             rules={[
                               {
@@ -250,7 +250,7 @@ const JobDetail = (props) => {
                               },
                             ]}
                           >
-                            <Input />
+                            <Input placeholder="Additional Information" />
                           </Form.Item>
                           <Form.Item
                             rules={[
@@ -259,12 +259,12 @@ const JobDetail = (props) => {
                                 message: 'Please Uplaod your CV!',
                               },
                             ]}
-                            label="Upload File"
+                            // label="Upload File"
                             name="file"
                           >
                             <Upload {...uploadFile}>
                               <Button className="button-upload">
-                                <UploadOutlined /> Select File
+                                <UploadOutlined /> Uplaod Your CV
                               </Button>
                             </Upload>
                           </Form.Item>

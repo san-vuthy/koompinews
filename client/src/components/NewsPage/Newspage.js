@@ -4,7 +4,7 @@ import moment from 'moment';
 import Subnavbar from '../../components/Layouts/Subnavbar';
 import Navbar from '../../components/Layouts/Navbar';
 import { useQuery } from '@apollo/client';
-import { GET_NEWS } from '../../graphql/query';
+import { GET_NEWS, GET_BANNER_BY_NEWSPAGE } from '../../graphql/query';
 // import Footer from '../../components/Layouts/Footer';
 import { Layout, Row, Col, Avatar, Carousel, Spin } from 'antd';
 import Footer from '../Layouts/Footer';
@@ -36,6 +36,38 @@ const Newspage = () => {
     );
   console.log(data);
   if (error) return `Error! ${error.message}`;
+  const DisplayBanner = () => {
+    const { loading, error, data } = useQuery(GET_BANNER_BY_NEWSPAGE);
+    if (loading)
+      return (
+        <Content style={{ marginTop: '15px' }}>
+          <center>
+            <Spin tip="Loading..."></Spin>
+          </center>
+        </Content>
+      );
+    console.log(data);
+    if (error) return `Error! ${error.message}`;
+    return (
+      <div>
+        <div className="newsPage-container ">
+          <Carousel>
+            {data.allBannerByPage.slice(0, 4).map((res, index) => {
+              return (
+                <div style={{ width: '10000px' }}>
+                  <img
+                    className="img-banner-news"
+                    style={contentStyle}
+                    src={'http://localhost:8080/' + res.banner}
+                  />
+                </div>
+              );
+            })}
+          </Carousel>
+        </div>
+      </div>
+    );
+  };
   const DisplayNews = () => {
     return (
       <Row gutter={[16, 16]}>
@@ -79,7 +111,8 @@ const Newspage = () => {
     <React.Fragment>
       <Navbar />
       <Subnavbar />
-      <div className="newsPage-container ">
+      <DisplayBanner />
+      {/* <div className="newsPage-container ">
         <Carousel autoplay>
           <div style={{ width: '10000px' }}>
             <img
@@ -110,7 +143,7 @@ const Newspage = () => {
             />
           </div>
         </Carousel>
-      </div>
+      </div> */}
       <div className="newsPage-container">
         <Content>
           <Layout>

@@ -71,6 +71,46 @@ const GET_BANNER_BY_EVENTPAGE = gql`
     }
   }
 `;
+const GET_BANNER_BY_NEWSPAGE = gql`
+  query {
+    allBannerByPage(id: "5f699ae32befbf5ba6711b20") {
+      banner
+      id
+    }
+  }
+`;
+const GET_BANNER_BY_COMPANYPAGE = gql`
+  query {
+    allBannerByPage(id: "5f699b022befbf5ba6711b22") {
+      banner
+      id
+    }
+  }
+`;
+const GET_BANNER_BY_ABOUTPAGE = gql`
+  query {
+    allBannerByPage(id: "5f699b122befbf5ba6711b24") {
+      banner
+      id
+    }
+  }
+`;
+const GET_BANNER_BY_KNOWLEDGEPAGE = gql`
+  query {
+    allBannerByPage(id: "5f699b182befbf5ba6711b25") {
+      banner
+      id
+    }
+  }
+`;
+const GET_BANNER_BY_HOMEEPAGE = gql`
+  query {
+    allBannerByPage(id: "5f6ac98b156f8907c909c491") {
+      banner
+      id
+    }
+  }
+`;
 
 const GET_JOBS = gql`
   query($limit: Int!, $offset: Int!) {
@@ -333,6 +373,11 @@ const GET_JOB_BY_CATE = gql`
 `;
 
 export {
+  GET_BANNER_BY_HOMEEPAGE,
+  GET_BANNER_BY_ABOUTPAGE,
+  GET_BANNER_BY_KNOWLEDGEPAGE,
+  GET_BANNER_BY_COMPANYPAGE,
+  GET_BANNER_BY_NEWSPAGE,
   GET_BANNER_BY_EVENTPAGE,
   GET_JOB_BY_CATE,
   GET_JOB_CATEGORY,

@@ -3,7 +3,7 @@ import Navbar from '../Layouts/Navbar';
 import SubNavbar from '../Layouts/Subnavbar';
 import parse from 'html-react-parser';
 import { useQuery } from '@apollo/client';
-import { GET_COMPANIES } from '../../graphql/query';
+import { GET_COMPANIES, GET_BANNER_BY_COMPANYPAGE } from '../../graphql/query';
 import InfiniteScroll from 'react-infinite-scroll-component';
 import { Link } from 'react-router-dom';
 import { Breadcrumb, Avatar, Row, Col, Rate } from 'antd';
@@ -23,17 +23,31 @@ const CompaniesHome = () => {
   const handleChange = (state) => {
     setState(state);
   };
+  const DisplayBanner = () => {
+    const { loading, data, error } = useQuery(GET_BANNER_BY_COMPANYPAGE);
+    if (loading || !data) return 'loading......';
+    console.log(data);
+    if (error) return `Error! ${error.message}`;
+    return (
+      <div>
+        {data.allBannerByPage.slice(-1).map((res, index) => {
+          return (
+            <div
+              style={{
+                backgroundImage: `url("http://localhost:8080/${res.banner}")`,
+              }}
+              className="middle-describe-event"
+            ></div>
+          );
+        })}
+      </div>
+    );
+  };
   return (
     <React.Fragment>
       <Navbar />
       <SubNavbar />
-      <div
-        style={{ backgroundImage: `url("/img/banner6.png")` }}
-        className="middle-describe-event"
-      >
-        {/* <h1>Banner of Company</h1> */}
-        {/* <h4>Sub Describtion</h4> */}
-      </div>
+      <DisplayBanner />
       <div className="container-company">
         <Breadcrumb style={{ margin: '16px 0' }}>
           <Breadcrumb.Item>Home</Breadcrumb.Item>

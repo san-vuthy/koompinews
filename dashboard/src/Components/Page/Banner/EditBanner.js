@@ -90,7 +90,7 @@ const EditBanner = (props) => {
     if (loading) return 'Loading...';
     console.log(data);
     if (error) return `Error! ${error.message}`;
-    console.log('page', BannerData.aBanner.page.namePage);
+    console.log('page', BannerData.aBanner.page.id);
     return (
       <Form.Item
         initialValue={BannerData.aBanner.page.id}

@@ -7,7 +7,7 @@ import { AudioOutlined, UserOutlined } from '@ant-design/icons';
 import InfiniteScroll from 'react-infinite-scroll-component';
 import Footer from './Layouts/Footer';
 import { useQuery } from '@apollo/client';
-import { GET_ABOUT } from '../graphql/query';
+import { GET_ABOUT, GET_BANNER_BY_ABOUTPAGE } from '../graphql/query';
 
 const About = () => {
   const [hasMoreItems, setHasMoreItems] = useState(true);
@@ -17,17 +17,37 @@ const About = () => {
   if (loading || !data) return 'loading......';
   console.log(data);
   if (error) return `Error! ${error.message}`;
+
+  const DisplayBanner = () => {
+    const { loading, error, data, fetchMore } = useQuery(
+      GET_BANNER_BY_ABOUTPAGE
+    );
+    if (loading || !data) return 'loading......';
+    console.log(data);
+    if (error) return `Error! ${error.message}`;
+    return (
+      <div>
+        {data.allBannerByPage.map((res, index) => {
+          return (
+            <div
+              style={{
+                backgroundImage: `url("http://localhost:8080/${res.banner}")`,
+              }}
+              className="middle-describe-event"
+            >
+              {/* <h1>Your main Title Describtion</h1>
+      <h4>Sub Describtion</h4> */}
+            </div>
+          );
+        })}
+      </div>
+    );
+  };
   return (
     <React.Fragment>
       <Navbar />
       <SubNavbar />
-      <div
-        style={{ backgroundImage: `url("/img/banner6.png")` }}
-        className="middle-describe-event"
-      >
-        {/* <h1>Your main Title Describtion</h1>
-        <h4>Sub Describtion</h4> */}
-      </div>
+      <DisplayBanner />
       {data.allAbout.map((res, index) => {
         if (index % 2 === 0) {
           return (

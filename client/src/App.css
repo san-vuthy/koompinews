@@ -455,11 +455,17 @@ News Aticle */
 }
 .banner-knowledge {
   /* background-color: #2a4267; */
-  background-image: url('/img/bge13.png');
+  /* background-image: url('/img/bge13.png'); */
   /* margin-top: 40px; */
-  overflow: hidden;
+  /* overflow: hidden; */
   /* width: 781px; */
-  height: 500px;
+  /* height: 500px;
+  padding: 13em 0px; */
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  overflow: hidden;
+  height: 600px;
   padding: 13em 0px;
 }
 .card-knowledge {
@@ -515,6 +521,16 @@ News Aticle */
   } */
   .padding-menu-news {
     width: 60% !important;
+  }
+}
+@media only screen and (max-width: 768px) {
+  .subNavbar {
+    display: none;
+  }
+}
+@media only screen and (min-width: 769px) {
+  .mobile-navbar {
+    display: none;
   }
 }
 @media only screen and (max-width: 767px) {
@@ -684,9 +700,9 @@ News Aticle */
     max-width: 90% !important;
   }
 
-  .subNavbar {
+  /* .subNavbar {
     display: none;
-  }
+  } */
 }
 @media only screen and (min-width: 1025px) {
   .mobile-navbar {

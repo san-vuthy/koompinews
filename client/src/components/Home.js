@@ -4,6 +4,8 @@ import Navbar from './Layouts/Navbar';
 import Subnavbar from './Layouts/Subnavbar';
 import RecentPopularStories from './RecentPopularStories';
 import Footer from './Layouts/Footer';
+import { useQuery } from '@apollo/client';
+import { GET_BANNER_BY_HOMEEPAGE } from '../graphql/query';
 
 const Home = () => {
   const [state, setState] = useState([
@@ -44,22 +46,39 @@ const Home = () => {
         'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur tempor magna eget elit efficitur, at accumsan sem placerat. Nulla tellus libero, mattis nec molestie at, facilisis ut turpis. Vestibulum dolor metus, tincidunt eget odio',
     },
   ]);
+  const { loading, error, data } = useQuery(GET_BANNER_BY_HOMEEPAGE);
+  if (loading) return 'Loading...';
+  console.log(data);
+  if (error) return `Error! ${error.message}`;
   const onFinish = (value) => {
     console.log('success', value);
   };
   const onFinishFailed = (errorInfo) => {
     console.log('Failed:', errorInfo);
   };
+
   return (
     <React.Fragment>
       <Navbar />
       <Subnavbar />
-      <div className="banner-homepage">
-        <div className="text-banner-container">
-          <h1>In-depth tech stories you won't find anywhere else</h1>
-          <h4>Join now and start reading the best in tech news. </h4>
-        </div>
-      </div>
+      {data.allBannerByPage.slice(-1).map((res, index) => {
+        return (
+          <div
+            style={{
+              background:
+                'linear-gradient(rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.8))',
+              backgroundImage: `url("http://localhost:8080/${res.banner}")`,
+            }}
+            className="banner-homepage"
+          >
+            <div className="text-banner-container">
+              <h1>In-depth tech stories you won't find anywhere else</h1>
+              <h4>Join now and start reading the best in tech news. </h4>
+            </div>
+          </div>
+        );
+      })}
+
       {state.map((res, index) => {
         if (index % 2 === 0) {
           return (

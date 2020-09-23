@@ -5,13 +5,19 @@ import Footer from '../Layouts/Footer';
 import { Input, Card, Row, Col, Avatar, Spin, Layout } from 'antd';
 import { AudioOutlined, UserOutlined } from '@ant-design/icons';
 import { useQuery } from '@apollo/client';
-import { GET_KNOWLEDGE } from '../../graphql/query';
+import {
+  GET_KNOWLEDGE,
+  GET_BANNER_BY_KNOWLEDGEPAGE,
+} from '../../graphql/query';
 import parse from 'html-react-parser';
 
 const { Search } = Input;
-const { Sider, Content } = Layout;
+const { Content } = Layout;
 const Knowledge = () => {
   const { loading, data, error } = useQuery(GET_KNOWLEDGE);
+  const { loading: loading1, data: data1, error: error1 } = useQuery(
+    GET_BANNER_BY_KNOWLEDGEPAGE
+  );
   if (loading || !data) {
     return (
       <Content style={{ marginTop: '15px' }}>
@@ -24,6 +30,18 @@ const Knowledge = () => {
 
   console.log(data);
   if (error) return `Error! ${error.message}`;
+  if (loading1 || !data1) {
+    return (
+      <Content style={{ marginTop: '15px' }}>
+        <center>
+          <Spin tip="Loading..."></Spin>
+        </center>
+      </Content>
+    );
+  }
+
+  console.log(data1);
+  if (error1) return `Error! ${error1.message}`;
   const suffix = (
     <AudioOutlined
       style={{
@@ -39,31 +57,31 @@ const Knowledge = () => {
       {data.allKnowledge.slice(0, 1).map((res, index) => {
         return (
           <div>
-            <div className="banner-knowledge">
-              <div className="container-Knowledge">
-                <center>
-                  <h1 style={{ color: '#fff', fontSize: '50px' }}>
-                    {/* HOW CAN WE HELP? */}
-                    {res.maintitle}
-                  </h1>
-                  <Search
-                    placeholder="Search the knowledge Base"
-                    onSearch={(value) => console.log(value)}
-                    style={{ width: 500, height: 50, borderRadius: 48 }}
-                  />
-                  {/* <Search
-              style={{
-                width: 500,
-                height: 50,
-                borderRadius: '48px !important',
-              }}
-              placeholder="input search text"
-              onSearch={(value) => console.log(value)}
-              enterButton
-            /> */}
-                </center>
-              </div>
-            </div>
+            {data1.allBannerByPage.slice(-1).map((ress, index) => {
+              return (
+                <div
+                  style={{
+                    backgroundImage: `url("http://localhost:8080/${ress.banner}")`,
+                  }}
+                  className="banner-knowledge"
+                >
+                  <div className="container-Knowledge">
+                    <center>
+                      <h1 style={{ color: '#fff', fontSize: '50px' }}>
+                        {/* HOW CAN WE HELP? */}
+                        {res.maintitle}
+                      </h1>
+                      <Search
+                        placeholder="Search the knowledge Base"
+                        onSearch={(value) => console.log(value)}
+                        style={{ width: 500, height: 50, borderRadius: 48 }}
+                      />
+                    </center>
+                  </div>
+                </div>
+              );
+            })}
+
             <div className="container-Knowledge">
               <div style={{ justifyContent: 'center', marginTop: '-84px' }}>
                 <Row gutter={[32, 32]}>
