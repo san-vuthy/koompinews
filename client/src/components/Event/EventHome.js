@@ -4,16 +4,26 @@ import SubNavbar from '../Layouts/Subnavbar';
 import { useQuery } from '@apollo/client';
 import { GET_EVENT, GET_BANNER_BY_EVENTPAGE } from '../../graphql/query';
 import InfiniteScroll from 'react-infinite-scroll-component';
-import { Breadcrumb, Row, Col, Card } from 'antd';
+import { Breadcrumb, Row, Col, Card, Spin, Layout } from 'antd';
 import moment from 'moment';
 import Footer from '../Layouts/Footer';
+import parse from 'html-react-parser';
+import { Link } from 'react-router-dom';
 
+const { Sider, Content } = Layout;
 const EventHome = () => {
   const [hasMoreItems, setHasMoreItems] = useState(true);
   const { loading, error, data, fetchMore } = useQuery(GET_EVENT, {
     variables: { limit: 6, offset: 0 },
   });
-  if (loading || !data) return 'loading......';
+  if (loading || !data)
+    return (
+      <Content style={{ marginTop: '15px' }}>
+        <center>
+          <Spin tip="Loading..."></Spin>
+        </center>
+      </Content>
+    );
   console.log(data);
   if (error) return `Error! ${error.message}`;
   function DisplayBanner() {
@@ -55,34 +65,45 @@ const EventHome = () => {
         <h3>EVENT</h3>
 
         <div style={{ marginTop: '40px' }}>
-          <Row gutter={[16, 32]}>
+          <Row gutter={[32, 32]}>
             {data.allEvent.map((res, index) => {
               return (
-                <Col lg={12} md={12} key={index}>
+                <Col lg={8} md={12} key={index}>
                   <div className="site-card-border-less-wrapper">
-                    <Card
-                      bordered={false}
-                      // hoverable
-                      style={{
-                        width: '100%',
-                        // boxShadow: '0px 4px 4px rgba(0, 0, 0, 0.25)',
-                      }}
-                      className="event-col"
-                      cover={
-                        <img
-                          alt="example"
-                          src={'http://localhost:8080/' + res.image}
-                        />
-                      }
-                    >
-                      {/* <Meta title="Europe Street beat" description="www.instagram.com" /> */}
-                      <h1>{res.title}</h1>
-                      {/* <p>{res.location}</p> */}
-                      <p>
-                        {' '}
-                        {moment.unix(res.createAt / 1000).format('YYYY-MM-DD')}
-                      </p>
-                    </Card>
+                    <Link to={`/event/${res.id}`}>
+                      <Card
+                        bordered={false}
+                        // hoverable
+                        style={{
+                          width: '100%',
+                          // boxShadow: '0px 4px 4px rgba(0, 0, 0, 0.25)',
+                        }}
+                        className="event-col"
+                        cover={
+                          <img
+                            alt="example"
+                            src={'http://localhost:8080/' + res.image}
+                          />
+                        }
+                      >
+                        {/* <Meta title="Europe Street beat" description="www.instagram.com" /> */}
+                        <h1>{res.title}</h1>
+                        {/* <p>{parse(res.des)}</p> */}
+                        <p>
+                          {parse(
+                            res.des.length <= 60
+                              ? res.des
+                              : res.des.substring(0, 60) + '......'
+                          )}
+                        </p>
+                        <p>
+                          {' '}
+                          {moment
+                            .unix(res.createAt / 1000)
+                            .format('YYYY-MM-DD')}
+                        </p>
+                      </Card>
+                    </Link>
                   </div>
                 </Col>
               );

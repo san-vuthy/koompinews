@@ -6,13 +6,15 @@ import Navbar from '../../components/Layouts/Navbar';
 import { useQuery } from '@apollo/client';
 import { GET_NEWS, GET_BANNER_BY_NEWSPAGE } from '../../graphql/query';
 // import Footer from '../../components/Layouts/Footer';
-import { Layout, Row, Col, Avatar, Carousel, Spin } from 'antd';
+import { Layout, Row, Col, Avatar, Carousel, Spin, Icon } from 'antd';
 import Footer from '../Layouts/Footer';
 import RightSiteJob from '../Jobs/RightSiteJob';
 import RightSiteNewspage from './RightSiteNewspage';
 import { Link } from 'react-router-dom';
+import { LeftOutlined, RightCircleOutlined } from '@ant-design/icons';
 const { Sider, Content } = Layout;
 
+const carousel = React.createRef();
 const Newspage = () => {
   const [hasMoreItems, setHasMoreItems] = useState(true);
   const contentStyle = {
@@ -22,6 +24,12 @@ const Newspage = () => {
     textAlign: 'center',
     background: '#364d79',
   };
+  // const next = () => {
+  //   carousel.next();
+  // };
+  // const previous = () => {
+  //   carousel.prev();
+  // };
   const { loading, error, data, fetchMore } = useQuery(GET_NEWS, {
     variables: { limit: 4, offset: 0 },
     // fetchPolicy: 'cache-and-network',
@@ -51,7 +59,8 @@ const Newspage = () => {
     return (
       <div>
         <div className="newsPage-container ">
-          <Carousel>
+          {/* <RightCircleOutlined onClick={previous} /> */}
+          <Carousel autoplay>
             {data.allBannerByPage.slice(0, 4).map((res, index) => {
               return (
                 <div style={{ width: '10000px' }}>

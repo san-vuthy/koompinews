@@ -14,6 +14,7 @@ const Knowledge = require('../../model/Knowledge');
 const Cv = require('../../model/Cv');
 const Banner = require('../../model/Banner');
 const Page = require('../../model/Allpage');
+const Home = require('../../model/Home');
 
 // =====================Type=================
 const UserType = require('./Types/user');
@@ -29,6 +30,7 @@ const KnowledgeType = require('./Types/knowledge');
 const CvType = require('./Types/cv');
 const BannerType = require('./Types/banner');
 const PageType = require('./Types/allpage');
+const HomeType = require('./Types/home');
 const _ = require('lodash');
 
 const RootQuery = new GraphQLObjectType({
@@ -256,6 +258,21 @@ const RootQuery = new GraphQLObjectType({
       type: new GraphQLList(PageType),
       resolve: (parent, args) => {
         return Page.find().sort({ createAt: -1 });
+      },
+    },
+    //======Get all Home==========
+    allHome: {
+      type: new GraphQLList(HomeType),
+      resolve: (parent, args) => {
+        return Home.find().sort({ createAt: -1 });
+      },
+    },
+    //===========Get a Home =========
+    aHome: {
+      type: HomeType,
+      args: { id: { type: GraphQLString } },
+      resolve: (parent, args) => {
+        return Home.findOne({ _id: args.id });
       },
     },
   },

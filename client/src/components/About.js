@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Row, Col, Card, Avatar } from 'antd';
+import { Row, Col, Card, Avatar, Spin, Layout } from 'antd';
 import Navbar from './Layouts/Navbar';
 import SubNavbar from './Layouts/Subnavbar';
 import parse from 'html-react-parser';
@@ -9,12 +9,20 @@ import Footer from './Layouts/Footer';
 import { useQuery } from '@apollo/client';
 import { GET_ABOUT, GET_BANNER_BY_ABOUTPAGE } from '../graphql/query';
 
+const { Content } = Layout;
 const About = () => {
   const [hasMoreItems, setHasMoreItems] = useState(true);
   const { loading, error, data, fetchMore } = useQuery(GET_ABOUT, {
     variables: { limit: 6, offset: 0 },
   });
-  if (loading || !data) return 'loading......';
+  if (loading || !data)
+    return (
+      <Content style={{ marginTop: '15px' }}>
+        <center>
+          <Spin tip="Loading..."></Spin>
+        </center>
+      </Content>
+    );
   console.log(data);
   if (error) return `Error! ${error.message}`;
 

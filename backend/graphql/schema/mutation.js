@@ -19,6 +19,7 @@ const aboutType = require('../schema/Types/about');
 const KnowledgeType = require('../schema/Types/knowledge');
 const AllpageType = require('../schema/Types/allpage');
 const BannerType = require('../schema/Types/banner');
+const HomeType = require('../schema/Types/home');
 
 // ================Model Section ==================
 
@@ -36,6 +37,7 @@ const CvType = require('./Types/cv');
 const Cv = require('../../model/Cv');
 const Allpage = require('../../model/Allpage');
 const Banner = require('../../model/Banner');
+const Home = require('../../model/Home');
 
 const RootMutation = new GraphQLObjectType({
   name: 'RootMutationType',
@@ -728,6 +730,62 @@ const RootMutation = new GraphQLObjectType({
         try {
           await Banner.deleteOne({ _id: args.id });
           return { message: 'successful' };
+        } catch (error) {
+          console.log(error);
+          throw error;
+        }
+      },
+    },
+    //========Add Home Page ==========
+    addHome: {
+      type: HomeType,
+      args: {
+        userId: { type: GraphQLNonNull(GraphQLString) },
+        title: { type: GraphQLNonNull(GraphQLString) },
+        subtitle: { type: GraphQLNonNull(GraphQLString) },
+        image: { type: GraphQLNonNull(GraphQLString) },
+        des: { type: GraphQLNonNull(GraphQLString) },
+      },
+      resolve: async (parent, args) => {
+        try {
+          const home = new Home({ ...args });
+          await home.save();
+          return { message: 'successful' };
+        } catch (error) {
+          console.log(error);
+          throw error;
+        }
+      },
+    },
+    //==========UPdate Home===========
+    updateHome: {
+      type: HomeType,
+      args: {
+        id: { type: GraphQLNonNull(GraphQLString) },
+        userId: { type: GraphQLNonNull(GraphQLString) },
+        title: { type: GraphQLNonNull(GraphQLString) },
+        subtitle: { type: GraphQLNonNull(GraphQLString) },
+        image: { type: GraphQLNonNull(GraphQLString) },
+        des: { type: GraphQLNonNull(GraphQLString) },
+      },
+      resolve: async (parent, args) => {
+        try {
+          await Home.updateOne({ _id: args.id }, { ...args });
+          return { message: 'update sucessful' };
+        } catch (error) {
+          console.log(error);
+          throw error;
+        }
+      },
+    },
+    //===========Delete Home===========
+    deleteHome: {
+      type: HomeType,
+      args: { id: { type: GraphQLNonNull(GraphQLString) } },
+      resolve: async (parent, args) => {
+        try {
+          await Home.deleteOne({ _id: args.id });
+          return { message: 'delete sucessful' };
         } catch (error) {
           console.log(error);
           throw error;

@@ -6,17 +6,25 @@ import { useQuery } from '@apollo/client';
 import { GET_COMPANIES, GET_BANNER_BY_COMPANYPAGE } from '../../graphql/query';
 import InfiniteScroll from 'react-infinite-scroll-component';
 import { Link } from 'react-router-dom';
-import { Breadcrumb, Avatar, Row, Col, Rate } from 'antd';
+import { Breadcrumb, Avatar, Row, Col, Spin, Layout } from 'antd';
 import Footer from '../Layouts/Footer';
 import CompanyData from '../data/CompanyData';
 
+const { Sider, Content } = Layout;
 const CompaniesHome = () => {
   const [state, setState] = useState(3);
   const [hasMoreItems, setHasMoreItems] = useState(true);
   const { loading, error, data, fetchMore } = useQuery(GET_COMPANIES, {
     variables: { limit: 6, offset: 0 },
   });
-  if (loading || !data) return 'loading......';
+  if (loading || !data)
+    return (
+      <Content style={{ marginTop: '15px' }}>
+        <center>
+          <Spin tip="Loading..."></Spin>
+        </center>
+      </Content>
+    );
   console.log(data);
   if (error) return `Error! ${error.message}`;
 

@@ -149,6 +149,40 @@ const LeftNavbar = () => {
                 src={Knowledge}
               />
             }
+            title="Banner Page"
+          >
+            <Menu.Item>
+              <NavLink to="/admin/allbanner">All Banner</NavLink>
+            </Menu.Item>
+            <Menu.Item>
+              <NavLink to="/admin/addbanner">Add Banner</NavLink>
+            </Menu.Item>
+          </SubMenu>
+          <SubMenu
+            key="10"
+            icon={
+              <img
+                style={{ color: '#fff', width: '30px', paddingRight: '7px' }}
+                src={Knowledge}
+              />
+            }
+            title="Home Page"
+          >
+            <Menu.Item>
+              <NavLink to="/admin/allhome">All Home</NavLink>
+            </Menu.Item>
+            <Menu.Item>
+              <NavLink to="/admin/addhome">Add Home</NavLink>
+            </Menu.Item>
+          </SubMenu>
+          <SubMenu
+            key="11"
+            icon={
+              <img
+                style={{ color: '#fff', width: '30px', paddingRight: '7px' }}
+                src={Knowledge}
+              />
+            }
             title="CV "
           >
             <Menu.Item>

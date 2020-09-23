@@ -19,6 +19,7 @@ const Job = require('../../model/Job');
 const Knowledge = require('../../model/Knowledge');
 const Cv = require('../../model/Cv');
 const Banner = require('../../model/Banner');
+const Home = require('../../model/Home');
 
 // =====================Type=================
 const UserType = require('./Types/user');
@@ -33,8 +34,8 @@ const JobType = require('./Types/jobs');
 const KnowledgeType = require('./Types/knowledge');
 const CvType = require('./Types/cv');
 const BannerType = require('./Types/banner');
+const HomeType = require('./Types/home');
 const _ = require('lodash');
-const bannerType = require('./Types/banner');
 
 const RootQuery = new GraphQLObjectType({
   name: 'RootQueryType',
@@ -315,6 +316,12 @@ const RootQuery = new GraphQLObjectType({
       },
       resolve: (parent, args) => {
         return Banner.findOne({ _id: args.id });
+      },
+    },
+    allHome: {
+      type: HomeType,
+      resolve: (parent, args) => {
+        return Home.find().sort({ createAt: -1 });
       },
     },
   },

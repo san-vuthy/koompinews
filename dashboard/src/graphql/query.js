@@ -358,7 +358,40 @@ const GET_ALL_PAGE_BANNER = gql`
   }
 `;
 
+const GET_ALL_HOME = gql`
+  query {
+    allHome {
+      id
+      title
+      subtitle
+      image
+      des
+      createAt
+      user {
+        name
+      }
+    }
+  }
+`;
+const GET_A_HOME = gql`
+  query($id: String!) {
+    aHome(id: $id) {
+      id
+      title
+      subtitle
+      image
+      des
+      createAt
+      user {
+        name
+      }
+    }
+  }
+`;
+
 export {
+  GET_ALL_HOME,
+  GET_A_HOME,
   GET_ALL_PAGE_BANNER,
   GET_ALL_BANNER,
   GET_A_BANNER,

@@ -8,16 +8,16 @@ import LeftNavbar from '../../Layout/LeftNavbar';
 import Navbar from '../../Layout/Navbar';
 import { Link } from 'react-router-dom';
 import { useQuery, useMutation } from '@apollo/client';
-import { GET_NEWS } from '../../../graphql/query';
-import { DELETE_NEWS } from '../../../graphql/mutation';
+import { GET_ALL_HOME } from '../../../graphql/query';
+import { DELETE_HOME } from '../../../graphql/mutation';
+
 const { Content } = Layout;
-
-const AllNewspage = () => {
-  const [deleteNews] = useMutation(DELETE_NEWS);
-
-  const { loading, error, data, refetch } = useQuery(GET_NEWS);
+const AllHome = () => {
+  const [deleteHome] = useMutation(DELETE_HOME);
+  const { loading, error, data, refetch } = useQuery(GET_ALL_HOME);
   console.log(data);
   if (error) return `Error! ${error.message}`;
+
   const DisplayForm = () => {
     if (loading)
       return (
@@ -29,9 +29,8 @@ const AllNewspage = () => {
         </center>
       );
     refetch();
-    return <Table columns={columns} dataSource={data.allNews} />;
+    return <Table columns={columns} dataSource={data.allHome} />;
   };
-
   const columns = [
     {
       title: 'Image',
@@ -58,29 +57,21 @@ const AllNewspage = () => {
       },
     },
     {
-      title: 'Des',
-      dataIndex: 'describtion',
-      key: 'des',
-      // width: 300,
+      title: 'SubTitle',
+      dataIndex: 'subtitle',
+      key: 'title',
+      width: 200,
       render: (data) => {
         return parse(data.length <= 25 ? data : data.substring(0, 25) + ' ...');
       },
     },
-
     {
-      title: 'Categories',
-      dataIndex: 'categoreyname',
-      key: 'categ',
-      render: (categoreyname) => {
-        return categoreyname.name;
-      },
-    },
-    {
-      title: 'Type',
-      dataIndex: 'type',
-      key: 'type',
-      render: (type) => {
-        return type.name;
+      title: 'Description',
+      dataIndex: 'des',
+      key: 'title',
+      width: 200,
+      render: (data) => {
+        return parse(data.length <= 25 ? data : data.substring(0, 25) + ' ...');
       },
     },
     {
@@ -91,7 +82,6 @@ const AllNewspage = () => {
         return user.name;
       },
     },
-
     {
       title: 'Date',
       dataIndex: 'createAt',
@@ -109,7 +99,7 @@ const AllNewspage = () => {
         console.log('id', id);
         return (
           <div>
-            <Link to={`/admin/editnews/${id}`}>
+            <Link to={`/admin/edithome/${id}`}>
               <Tag style={{ cursor: 'pointer' }} color="rgb(1, 100, 145)">
                 <EditOutlined /> Edit
               </Tag>
@@ -121,9 +111,9 @@ const AllNewspage = () => {
               okText="Yes"
               cancelText="No"
               onConfirm={() => {
-                deleteNews({ variables: { id: `${id}` } })
+                deleteHome({ variables: { id: `${id}` } })
                   .then(async (res) => {
-                    await message.success(res.data.deleteNews.message);
+                    await message.success(res.data.deleteHome.message);
                     await refetch();
                   })
                   .catch((error) => {
@@ -141,7 +131,6 @@ const AllNewspage = () => {
       },
     },
   ];
-
   return (
     <React.Fragment>
       <Layout style={{ minHeight: '100vh' }}>
@@ -153,7 +142,7 @@ const AllNewspage = () => {
               className="site-layout-background"
               style={{ padding: 70, minHeight: 360 }}
             >
-              <h1 className="title-top">All News</h1>
+              <h1 className="title-top">All Home</h1>
               <DisplayForm />
             </div>
           </Content>
@@ -163,4 +152,4 @@ const AllNewspage = () => {
   );
 };
 
-export default AllNewspage;
+export default AllHome;

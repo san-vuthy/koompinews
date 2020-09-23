@@ -372,8 +372,58 @@ const DELETE_CV = gql`
     }
   }
 `;
+const DELETE_HOME = gql`
+  mutation($id: String!) {
+    deleteHome(id: $id) {
+      message
+    }
+  }
+`;
+const ADD_HOME = gql`
+  mutation(
+    $title: String!
+    $subtitle: String!
+    $image: String!
+    $userId: String!
+    $des: String!
+  ) {
+    addHome(
+      title: $title
+      subtitle: $subtitle
+      image: $image
+      userId: $userId
+      des: $des
+    ) {
+      message
+    }
+  }
+`;
+const UPDATE_HOME = gql`
+  mutation(
+    $id: String!
+    $title: String!
+    $subtitle: String!
+    $image: String!
+    $userId: String!
+    $des: String!
+  ) {
+    updateHome(
+      id: $id
+      title: $title
+      subtitle: $subtitle
+      image: $image
+      userId: $userId
+      des: $des
+    ) {
+      message
+    }
+  }
+`;
 
 export {
+  UPDATE_HOME,
+  ADD_HOME,
+  DELETE_HOME,
   DELETE_CV,
   ADD_NEWS,
   DELETE_NEWS,

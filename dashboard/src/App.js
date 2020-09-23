@@ -3,11 +3,11 @@ import 'antd/dist/antd.css';
 import './App.css';
 import Dashboard from './Components/Dashboard';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
-import AllPage from './Components/Page/AllPage';
-import AllNews from './Components/Page/Homepage/AllNews';
-import AddNews from './Components/Page/Homepage/AddNews';
-import AllPopularNews from './Components/Page/PopularNews.js/AllPopularNews';
-import AddPopularNews from './Components/Page/PopularNews.js/AddPopularNews';
+// import AllPage from './Components/Page/AllPage';
+// import AllNews from './Components/Page/Homepage/AllNews';
+// import AddNews from './Components/Page/Homepage/AddHome';
+// import AllPopularNews from './Components/Page/PopularNews.js/AllPopularNews';
+// import AddPopularNews from './Components/Page/PopularNews.js/AddPopularNews';
 import AddNewspage from './Components/Page/Newspage/AddNewspage';
 import AllNewspage from './Components/Page/Newspage/AllNewspage';
 import Alljobs from './Components/Page/Jobs/Alljobs';
@@ -35,6 +35,9 @@ import PreviewCv from './Components/Page/CV/PreviewCv';
 import AllBanner from './Components/Page/Banner/AllBanner';
 import AddBanner from './Components/Page/Banner/AddBanner';
 import EditBanner from './Components/Page/Banner/EditBanner';
+import AllHome from './Components/Page/Homepage/AllHome';
+import AddHome from './Components/Page/Homepage/AddHome';
+import EditHome from './Components/Page/Homepage/EditHome';
 
 function App() {
   return (
@@ -86,6 +89,9 @@ function App() {
           <Route exact path="/admin/allbanner" component={AllBanner} />
           <Route exact path="/admin/addbanner" component={AddBanner} />
           <Route exact path="/admin/editbanner/:id" component={EditBanner} />
+          <Route exact path="/admin/allhome" component={AllHome} />
+          <Route exact path="/admin/addhome" component={AddHome} />
+          <Route exact path="/admin/edithome/:id" component={EditHome} />
           <Route exact path="/login" component={Login} />
 
           {/* Test */}

@@ -60,7 +60,9 @@ const CompaniesAtical = (props) => {
           </Card>
           <Card type="inner" style={{ marginTop: '12px' }} title="WebSite">
             <div>
-              <a href={data.aCompany.website}>{data.aCompany.website}</a>
+              <a target="_blank" href={data.aCompany.website}>
+                {data.aCompany.website}
+              </a>
             </div>
           </Card>
         </Card>
