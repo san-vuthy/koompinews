@@ -6,7 +6,7 @@ import moment from 'moment';
 import { Link } from 'react-router-dom';
 import FileViewer from 'react-file-viewer';
 import { EditOutlined, DeleteOutlined } from '@ant-design/icons';
-import { Layout, Space, Table, Tag, message, Popconfirm, Divider } from 'antd';
+import { Layout, Table, Tag, message, Popconfirm, Divider } from 'antd';
 import { useQuery, useMutation } from '@apollo/client';
 import loadingPage from '../../../asset/img/Wedges-3s-200px.svg';
 import { GET_ALL_CV } from '../../../graphql/query';
@@ -24,6 +24,7 @@ const AllCv = () => {
       return (
         <center>
           <img
+            alt="loading"
             style={{ height: '80px', marginTop: '200px' }}
             src={loadingPage}
           />

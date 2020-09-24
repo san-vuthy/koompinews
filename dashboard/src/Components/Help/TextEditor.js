@@ -2,7 +2,6 @@ import React from 'react';
 import ReactQuill from 'react-quill';
 
 import 'react-quill/dist/quill.snow.css';
-import parse from 'html-react-parser';
 
 const TextEditor = (props) => {
   const modules = {

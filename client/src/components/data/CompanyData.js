@@ -9,7 +9,7 @@ export default {
       location: 'PhnomPenh',
       type: 'Technology',
       emp: '30 Employee',
-      rate: ['1.0', '2.0', '3.0', '4.0', '5.0'],
+      // rate: ['1.0', '2.0', '3.0', '4.0', '5.0'],
       des:
         "KOOMPI is a practical, affordable and effective entry-level notebook computer specifically designed for performing all daily tasks required for work and school.We've created a customized operating system of our own called KOOMPI OS based on the well-known open-source Linux software.",
     },

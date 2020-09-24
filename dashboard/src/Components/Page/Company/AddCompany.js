@@ -1,15 +1,5 @@
 import React, { useState } from 'react';
-import {
-  Col,
-  Row,
-  Layout,
-  Form,
-  Button,
-  Input,
-  Upload,
-  Select,
-  message,
-} from 'antd';
+import { Col, Row, Layout, Form, Button, Input, Upload, message } from 'antd';
 import LeftNavbar from '../../Layout/LeftNavbar';
 import Navbar from '../../Layout/Navbar';
 import TextEditor from '../../Help/TextEditor';
@@ -26,7 +16,7 @@ const AddCompany = () => {
   const [desc, setDesc] = useState('');
   const [image, setImage] = useState('');
 
-  const { loading, data, refetch, error } = useQuery(GET_COMPANIES);
+  const { loading, data, error } = useQuery(GET_COMPANIES);
   if (loading) return 'Loading...';
   console.log(data);
   if (error) return `Error! ${error.message}`;
@@ -57,9 +47,6 @@ const AddCompany = () => {
       form.resetFields();
     });
     console.log('success', value);
-  };
-  const onChange = (e) => {
-    console.log(e);
   };
   const uploadImage = {
     name: 'file',

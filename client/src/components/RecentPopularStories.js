@@ -74,7 +74,7 @@ const RecentPopularStories = () => {
                   <div style={{ marginTop: '20px' }}>
                     <h1 className="popular-title">{res.title}</h1>
                     <p className="popular-text">
-                      {parse(res.describtion.substring(0, 200))}...
+                      {parse(res.describtion.substring(0, 200) + '....')}
                     </p>
                     <div className="popular-user-date">
                       <img className="avatar-popular" src={res.avatar} />

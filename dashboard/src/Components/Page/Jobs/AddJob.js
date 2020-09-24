@@ -57,9 +57,7 @@ const AddJob = () => {
     console.log(value);
     setSkill(value);
   };
-  function handleChange(value) {
-    console.log(`selected ${value}`);
-  }
+
   const onFinishFailed = (errorInfo) => {
     console.log('Failed:', errorInfo);
   };

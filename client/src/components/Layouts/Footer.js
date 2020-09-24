@@ -1,27 +1,20 @@
-import React, { useState } from 'react';
-import { Row, Col, Input, Form, Button } from 'antd';
-import {
-  SettingOutlined,
-  InstagramFilled,
-  FacebookFilled,
-  LinkedinFilled,
-} from '@ant-design/icons';
+import React from 'react';
+import { Row, Col } from 'antd';
+
+import { Link } from 'react-router-dom';
 
 const Footer = () => {
-  const onFinish = (values) => {
-    console.log('Success:', values);
-  };
-  const onFinishFailed = (errorInfo) => {
-    console.log('Failed:', errorInfo);
-  };
-
   return (
     <React.Fragment>
       <div className="footer">
         <Row gutter={[50, 0]} className="footer-container">
           <Col xs={24} sm={24} md={12} lg={6}>
             {/* <h1 style={{ color: '#FFFFFF' }}> */}
-            <img style={{ height: '40px' }} src="/img/transparent back-0.png" />
+            <img
+              alt="img"
+              style={{ height: '40px' }}
+              src="/img/transparent back-0.png"
+            />
             {/* </h1> */}
 
             <p style={{ marginTop: '20px', color: 'rgb(179, 174, 174)' }}>
@@ -32,18 +25,27 @@ const Footer = () => {
           <Col xs={24} sm={24} md={12} lg={6}>
             <h2 style={{ color: '#fff' }}>Information</h2>
             <div style={{ lineHeight: '30px' }}>
-              <span style={{ color: 'rgb(179, 174, 174)', fontWeight: '600' }}>
+              <Link
+                to="/about"
+                style={{ color: 'rgb(179, 174, 174)', fontWeight: '600' }}
+              >
                 About us
-              </span>
+              </Link>
               <br></br>
-              <span style={{ color: 'rgb(179, 174, 174)', fontWeight: '600' }}>
+              <Link
+                to="/event"
+                style={{ color: 'rgb(179, 174, 174)', fontWeight: '600' }}
+              >
                 {' '}
                 Event
-              </span>
+              </Link>
               <br></br>
-              <span style={{ color: 'rgb(179, 174, 174)', fontWeight: '600' }}>
+              <Link
+                to="/knowledge"
+                style={{ color: 'rgb(179, 174, 174)', fontWeight: '600' }}
+              >
                 knowledge
-              </span>
+              </Link>
               <br></br>
               <span style={{ color: 'rgb(179, 174, 174)', fontWeight: '600' }}>
                 Advertice
@@ -74,7 +76,7 @@ const Footer = () => {
           <Col xs={24} sm={24} md={12} lg={6}>
             <h2 style={{ color: '#fff' }}>Contact Us</h2>
             <div style={{ display: 'flex' }}>
-              <img style={{ width: '22px' }} src="/img/phone.svg" />
+              <img alt="img" style={{ width: '22px' }} src="/img/phone.svg" />
               <span
                 style={{
                   color: 'rgb(179, 174, 174)',
@@ -87,7 +89,7 @@ const Footer = () => {
             </div>
             <br></br>
             <div style={{ display: 'flex' }}>
-              <img style={{ width: '22px' }} src="/img/mail.svg" />
+              <img alt="img" style={{ width: '22px' }} src="/img/mail.svg" />
               <span
                 style={{
                   color: 'rgb(179, 174, 174)',
@@ -103,18 +105,24 @@ const Footer = () => {
         <center style={{ marginTop: '20px' }}>
           {' '}
           <img
+            alt="img"
             style={{ color: 'red', height: '40px', paddingRight: '16px' }}
             src="/img/facebook.svg"
           />
           <img
+            alt="img"
             style={{ height: '40px', paddingRight: '16px' }}
             src="/img/instagram.svg"
           />
           <img
+            alt="img"
             style={{ height: '40px', paddingRight: '16px' }}
             src="/img/twitter.svg"
           />
-          <img src="https://img.icons8.com/fluent/48/000000/telegram-app.png" />
+          <img
+            alt="img"
+            src="https://img.icons8.com/fluent/48/000000/telegram-app.png"
+          />
           <div style={{ marginTop: '20px' }}>
             <h3 style={{ color: 'rgba(211, 203, 203, 0.85)' }}>
               COMPANY © 2020 All Rights Reserved

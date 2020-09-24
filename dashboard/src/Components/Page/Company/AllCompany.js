@@ -1,17 +1,13 @@
 import React from 'react';
 import { Layout, Space, Table, Tag, Divider, Popconfirm, message } from 'antd';
-import {
-  EditOutlined,
-  DeleteOutlined,
-  ArrowLeftOutlined,
-} from '@ant-design/icons';
+import { EditOutlined, DeleteOutlined } from '@ant-design/icons';
 import loadingPage from '../../../asset/img/Wedges-3s-200px.svg';
 import LeftNavbar from '../../Layout/LeftNavbar';
 import Navbar from '../../Layout/Navbar';
 import { useQuery, useMutation } from '@apollo/client';
 import { GET_COMPANIES } from '../../../graphql/query';
 import { DELETE_COMPANY } from '../../../graphql/mutation';
-import { NavLink, Link } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import moment from 'moment';
 import parse from 'html-react-parser';
 
@@ -32,6 +28,7 @@ const AllCompany = () => {
       render: (data) => {
         return (
           <img
+            alt="img"
             src={'http://localhost:8080/' + data}
             height="40px"
             width="40px"
@@ -126,6 +123,7 @@ const AllCompany = () => {
       return (
         <center>
           <img
+            alt="img"
             style={{ height: '80px', marginTop: '200px' }}
             src={loadingPage}
           />

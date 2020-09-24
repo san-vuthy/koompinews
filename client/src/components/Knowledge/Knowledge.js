@@ -1,9 +1,8 @@
-import React, { useState } from 'react';
+import React from 'react';
 import Navbar from '../Layouts/Navbar';
 import Subnavbar from '../Layouts/Subnavbar';
 import Footer from '../Layouts/Footer';
 import { Input, Card, Row, Col, Avatar, Spin, Layout } from 'antd';
-import { AudioOutlined, UserOutlined } from '@ant-design/icons';
 import { useQuery } from '@apollo/client';
 import {
   GET_KNOWLEDGE,
@@ -42,14 +41,7 @@ const Knowledge = () => {
 
   console.log(data1);
   if (error1) return `Error! ${error1.message}`;
-  const suffix = (
-    <AudioOutlined
-      style={{
-        fontSize: 16,
-        color: '#1890ff',
-      }}
-    />
-  );
+
   return (
     <React.Fragment>
       <Navbar />
@@ -60,15 +52,14 @@ const Knowledge = () => {
             {data1.allBannerByPage.slice(-1).map((ress, index) => {
               return (
                 <div
-                  // style={{
-                  //   backgroundImage: `url("http://localhost:8080/${ress.banner}")`,
-                  // }}
+                  style={{
+                    backgroundImage: `url("http://localhost:8080/${ress.banner}")`,
+                  }}
                   className="banner-knowledge"
                 >
                   <div className="container-Knowledge">
                     <center>
                       <h1 style={{ color: '#fff', fontSize: '50px' }}>
-                        {/* HOW CAN WE HELP? */}
                         {res.maintitle}
                       </h1>
                       <Search
@@ -104,23 +95,13 @@ const Knowledge = () => {
                         <center>
                           <h1>FAQs</h1>
                         </center>
-                        <p>
-                          {/* {' '}
-                          Lorem ipsum dolor sit amet, consectetur adipiscing
-                          elit. Lorem ipsum dolor sit amet, consectetur
-                          adipiscing elit. */}
-                          {res.faq}
-                        </p>
+                        <p>{res.faq}</p>
                       </Card>
                     </div>
                   </Col>
                   <Col md={8} lg={8}>
                     <div className="site-card-border-less-wrapper">
-                      <Card
-                        className="card-knowledge"
-                        bordered={false}
-                        //   style={{ width: 300 }}
-                      >
+                      <Card className="card-knowledge" bordered={false}>
                         <div
                           style={{ textAlign: 'center', marginTop: '-50px' }}
                         >
@@ -138,11 +119,7 @@ const Knowledge = () => {
                   </Col>
                   <Col md={8} lg={8}>
                     <div className="site-card-border-less-wrapper">
-                      <Card
-                        className="card-knowledge"
-                        bordered={false}
-                        //   style={{ width: 300 }}
-                      >
+                      <Card className="card-knowledge" bordered={false}>
                         <div
                           style={{ textAlign: 'center', marginTop: '-50px' }}
                         >
@@ -166,11 +143,9 @@ const Knowledge = () => {
                 <Row gutter={[16, 16]}>
                   <Col sm={24} md={12} lg={12}>
                     <Card
-                      // width={500}
                       bordered={false}
                       title="Lasted Knowledge Base"
                       style={{
-                        // width: '500px',
                         height: '500px',
                         background: '#FFFFFF',
                         border: ' 1px solid #8F8E8E',
@@ -183,11 +158,9 @@ const Knowledge = () => {
                   </Col>
                   <Col sm={24} md={12} lg={12}>
                     <Card
-                      // width={500}
                       bordered={false}
                       title="Recent Topic"
                       style={{
-                        // width: '500px',
                         height: '500px',
                         background: '#FFFFFF',
                         border: ' 1px solid #8F8E8E',

@@ -8,7 +8,6 @@ import {
   Input,
   Upload,
   Select,
-  Checkbox,
   message,
 } from 'antd';
 import buttonLoading from '../../../asset/img/three-dots.svg';
@@ -26,7 +25,7 @@ const AddNewspage = () => {
   const [loading1, setLoading] = useState(false);
   const [image, setImage] = useState('');
   const [desc, setDesc] = useState('');
-  const [addNews, { data }] = useMutation(ADD_NEWS);
+  const [addNews] = useMutation(ADD_NEWS);
 
   const onFinishFailed = (errorInfo) => {
     console.log('Failed:', errorInfo);
@@ -57,9 +56,6 @@ const AddNewspage = () => {
     console.log(value);
     setDesc(value);
   };
-  function handleChange(value) {
-    console.log(`selected ${value}`);
-  }
 
   const uploadImage = {
     name: 'file',

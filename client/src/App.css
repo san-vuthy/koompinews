@@ -714,6 +714,18 @@ News Aticle */
 }
 
 @media only screen and (max-width: 576px) {
+  .title-news-article {
+    font-size: 20px !important;
+  }
+  .des-news-article {
+    font-size: 15px !important;
+  }
+  .tag-time-news-article {
+    font-size: 11px;
+    padding: 0px;
+    width: 66px;
+    text-align: center;
+  }
   /* .news-col {
     padding: 0 !important;
   } */

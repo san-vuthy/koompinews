@@ -1,15 +1,5 @@
 import React, { useState } from 'react';
-import {
-  Col,
-  Row,
-  Layout,
-  Form,
-  Button,
-  Input,
-  Upload,
-  message,
-  Select,
-} from 'antd';
+import { Layout, Form, Button, Upload, message, Select } from 'antd';
 import buttonLoading from '../../../asset/img/three-dots.svg';
 import LeftNavbar from '../../Layout/LeftNavbar';
 import Navbar from '../../Layout/Navbar';

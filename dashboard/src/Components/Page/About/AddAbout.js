@@ -36,9 +36,7 @@ const AddAbout = () => {
     });
     console.log('success', value, desc);
   };
-  const onChange = (e) => {
-    console.log(e);
-  };
+
   const handleDescChange = (value) => {
     console.log(value);
     setDesc(value);

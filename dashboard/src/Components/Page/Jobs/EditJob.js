@@ -25,7 +25,7 @@ const { Option } = Select;
 
 const AddJob = (props) => {
   const { id } = useParams();
-  const { loading, error, data, refetch } = useQuery(GET_JOBS);
+  const { refetch } = useQuery(GET_JOBS);
   const { loading: JobLoading, data: JobsData, refetch: Jobrefetch } = useQuery(
     GET_A_JOB,
     {
@@ -67,9 +67,7 @@ const AddJob = (props) => {
     console.log(value);
     setReqSkill(value);
   };
-  function handleChange(value) {
-    console.log(`selected ${value}`);
-  }
+
   const onFinishFailed = (errorInfo) => {
     console.log('Failed:', errorInfo);
   };
@@ -140,7 +138,11 @@ const AddJob = (props) => {
   if (JobLoading) {
     return (
       <center>
-        <img style={{ height: '80px', marginTop: '200px' }} src={loadingPage} />
+        <img
+          alt="loaidng"
+          style={{ height: '80px', marginTop: '200px' }}
+          src={loadingPage}
+        />
       </center>
     );
   }

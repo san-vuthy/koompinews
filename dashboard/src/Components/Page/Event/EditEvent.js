@@ -1,16 +1,5 @@
 import React, { useState } from 'react';
-import {
-  Col,
-  Row,
-  Layout,
-  Form,
-  Button,
-  Input,
-  Upload,
-  Select,
-  Checkbox,
-  message,
-} from 'antd';
+import { Col, Row, Layout, Form, Button, Input, Upload, message } from 'antd';
 import loadingPage from '../../../asset/img/Wedges-3s-200px.svg';
 import LeftNavbar from '../../Layout/LeftNavbar';
 import Navbar from '../../Layout/Navbar';
@@ -22,7 +11,6 @@ import { useParams } from 'react-router-dom';
 import buttonLoading from '../../../asset/img/three-dots.svg';
 
 const { Content } = Layout;
-const { Option } = Select;
 const EditEvent = (props) => {
   const { id } = useParams();
   const [updateEvent] = useMutation(UPDATE_EVENT);
@@ -56,9 +44,7 @@ const EditEvent = (props) => {
     });
     console.log('success', value, desc);
   };
-  const onChange = (e) => {
-    console.log(e);
-  };
+
   const handleDescChange = (value) => {
     console.log(value);
     setDesc(value);
@@ -85,7 +71,11 @@ const EditEvent = (props) => {
   if (loading) {
     return (
       <center>
-        <img style={{ height: '80px', marginTop: '200px' }} src={loadingPage} />
+        <img
+          alt="img"
+          style={{ height: '80px', marginTop: '200px' }}
+          src={loadingPage}
+        />
       </center>
     );
   }
@@ -141,11 +131,7 @@ const EditEvent = (props) => {
                       htmlType="submit"
                     >
                       {loading1 ? (
-                        <img
-                          src={buttonLoading}
-                          alt="btn-loading"
-                          height="10"
-                        />
+                        <img src={buttonLoading} alt="btnloading" height="10" />
                       ) : (
                         'UPDATE'
                       )}

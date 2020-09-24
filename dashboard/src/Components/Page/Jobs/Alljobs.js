@@ -27,6 +27,7 @@ const Alljobs = () => {
       render: (data) => {
         return (
           <img
+            alt="img"
             src={'http://localhost:8080/' + data}
             height="40px"
             width="40px"
@@ -131,6 +132,7 @@ const Alljobs = () => {
       return (
         <center>
           <img
+            alt="img"
             style={{ height: '80px', marginTop: '200px' }}
             src={loadingPage}
           />

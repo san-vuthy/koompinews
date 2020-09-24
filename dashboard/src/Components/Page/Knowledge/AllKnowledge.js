@@ -3,7 +3,6 @@ import moment from 'moment';
 import loadingPage from '../../../asset/img/Wedges-3s-200px.svg';
 import { Layout, Table, Tag, message, Popconfirm, Divider } from 'antd';
 import { EditOutlined, DeleteOutlined } from '@ant-design/icons';
-import parse from 'html-react-parser';
 import LeftNavbar from '../../Layout/LeftNavbar';
 import Navbar from '../../Layout/Navbar';
 import { Link } from 'react-router-dom';
@@ -19,19 +18,27 @@ const AllKnowledge = () => {
   console.log(data);
   if (error) return `Error! ${error.message}`;
   const columns = [
-    {
-      title: 'Avatar',
-      dataIndex: 'avarta',
-      key: 'image',
+    // {
+    //   title: 'Avatar',
+    //   dataIndex: 'avarta',
+    //   key: 'image',
 
+    //   render: (data) => {
+    //     return (
+    //       <img
+    //         src={'http://localhost:8080/' + data}
+    //         height="40px"
+    //         width="40px"
+    //       />
+    //     );
+    //   },
+    // },
+    {
+      title: 'MainTitle',
+      dataIndex: 'maintitle',
+      key: 'maintitle',
       render: (data) => {
-        return (
-          <img
-            src={'http://localhost:8080/' + data}
-            height="40px"
-            width="40px"
-          />
-        );
+        return data;
       },
     },
 
@@ -97,6 +104,7 @@ const AllKnowledge = () => {
       return (
         <center>
           <img
+            alt="img"
             style={{ height: '80px', marginTop: '200px' }}
             src={loadingPage}
           />

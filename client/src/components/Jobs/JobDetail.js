@@ -1,8 +1,8 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import Navbar from '../Layouts/Navbar';
 import SubNavbar from '../Layouts/Subnavbar';
 import moment from 'moment';
-import JobData from '../data/JobData';
+
 import Footer from '../Layouts/Footer';
 import { useParams } from 'react-router-dom';
 import { useQuery, useMutation } from '@apollo/client';
@@ -21,6 +21,8 @@ import {
   Input,
   Upload,
   message,
+  Layout,
+  Spin,
 } from 'antd';
 import {
   DollarOutlined,
@@ -30,7 +32,8 @@ import {
   UploadOutlined,
 } from '@ant-design/icons';
 
-const JobDetail = (props) => {
+const { Content } = Layout;
+const JobDetail = () => {
   const [addCv] = useMutation(ADD_CV);
   const [file, setFile] = useState('');
   const [loading1, setLoading] = useState(false);
@@ -90,10 +93,17 @@ const JobDetail = (props) => {
   // console.log(props.match.params.id);
   // let jobs = JobData.job.find((x) => x._id == props.match.params.id);
   const { id } = useParams();
-  const { loading, error, data, refetch } = useQuery(GET_A_JOB, {
+  const { loading, error, data } = useQuery(GET_A_JOB, {
     variables: { id },
   });
-  if (loading) return 'loading......';
+  if (loading)
+    return (
+      <Content style={{ marginTop: '15px' }}>
+        <center>
+          <Spin tip="Loading..."></Spin>
+        </center>
+      </Content>
+    );
   console.log(data);
   if (error) return `Error! ${error.message}`;
   return (

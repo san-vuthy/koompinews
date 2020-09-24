@@ -1,16 +1,5 @@
 import React, { useState } from 'react';
-import {
-  Col,
-  Row,
-  Layout,
-  Form,
-  Button,
-  Input,
-  Upload,
-  Select,
-  Checkbox,
-  message,
-} from 'antd';
+import { Col, Row, Layout, Form, Button, Input, Upload, message } from 'antd';
 import LeftNavbar from '../../Layout/LeftNavbar';
 import loadingPage from '../../../asset/img/Wedges-3s-200px.svg';
 import Navbar from '../../Layout/Navbar';
@@ -35,7 +24,6 @@ const EditKnowledge = (props) => {
   const [imagesf, setImagesf] = useState('');
   const [imagefaq, setImagefaq] = useState('');
   const [imageklb, setImageklb] = useState('');
-  const [image, setImage] = useState(null);
   const [desc, setDesc] = useState('');
   const [desc1, setDesc1] = useState('');
 
@@ -77,10 +65,6 @@ const EditKnowledge = (props) => {
     console.log(value);
     setDesc1(value);
   };
-  function handleChange(value) {
-    console.log(`selected ${value}`);
-  }
-
   const uploadFaqs = {
     name: 'file',
     multiple: false,
@@ -142,7 +126,11 @@ const EditKnowledge = (props) => {
   if (loading) {
     return (
       <center>
-        <img style={{ height: '80px', marginTop: '200px' }} src={loadingPage} />
+        <img
+          alt="laoding"
+          style={{ height: '80px', marginTop: '200px' }}
+          src={loadingPage}
+        />
       </center>
     );
   }

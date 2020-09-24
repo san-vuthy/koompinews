@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
-import { Layout, Menu, Breadcrumb } from 'antd';
-import { Input, Popover, Drawer, Button, Radio, Space, Affix } from 'antd';
-import { AudioOutlined, DownOutlined, MenuOutlined } from '@ant-design/icons';
+import { Menu } from 'antd';
+import { Input, Drawer, Affix } from 'antd';
+import { MenuOutlined } from '@ant-design/icons';
 import { NavLink, Link } from 'react-router-dom';
 
 const Navbar = () => {
@@ -23,22 +23,6 @@ const Navbar = () => {
 
   const { Search } = Input;
 
-  const content = (
-    <div style={{ cursor: 'pointer' }}>
-      <p>
-        <NavLink to="/sport">Sport</NavLink>
-      </p>
-      <p>
-        <NavLink to="/news">Social</NavLink>
-      </p>
-      <p>
-        <NavLink to="/news">Science</NavLink>
-      </p>
-      <p>
-        <NavLink to="/news">Life Style</NavLink>
-      </p>
-    </div>
-  );
   return (
     <React.Fragment>
       <div className="subNavbar">
@@ -141,6 +125,7 @@ const Navbar = () => {
             {/* <center> */}
             <Link to="/">
               <img
+                alt="img"
                 className="logo"
                 style={{ height: '40px' }}
                 src="/img/transparent back-0.png"

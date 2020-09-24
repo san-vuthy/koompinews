@@ -22,6 +22,7 @@ const LeftNavbar = () => {
       <Sider collapsed={collapsed} onCollapse={onCollapse}>
         <div className="logo">
           <img
+            alt="img"
             style={{
               height: '40px',
               width: '70%',
@@ -40,6 +41,7 @@ const LeftNavbar = () => {
             key="/admin/allnews"
             icon={
               <img
+                alt="img"
                 style={{ color: '#fff', width: '30px', paddingRight: '7px' }}
                 src={news}
               />
@@ -57,6 +59,7 @@ const LeftNavbar = () => {
             key="/admin/alljobs"
             icon={
               <img
+                alt="img"
                 style={{ color: '#fff', width: '25px', paddingRight: '7px' }}
                 src={feet}
               />
@@ -77,6 +80,7 @@ const LeftNavbar = () => {
             key="5"
             icon={
               <img
+                alt="img"
                 style={{ color: '#fff', width: '28px', paddingRight: '7px' }}
                 src={company}
               />
@@ -94,6 +98,7 @@ const LeftNavbar = () => {
             key="6"
             icon={
               <img
+                alt="img"
                 style={{ color: '#fff', width: '30px', paddingRight: '7px' }}
                 src={event}
               />
@@ -111,6 +116,7 @@ const LeftNavbar = () => {
             key="7"
             icon={
               <img
+                alt="img"
                 style={{ color: '#fff', width: '30px', paddingRight: '7px' }}
                 src={about}
               />
@@ -128,6 +134,7 @@ const LeftNavbar = () => {
             key="8"
             icon={
               <img
+                alt="img"
                 style={{ color: '#fff', width: '30px', paddingRight: '7px' }}
                 src={Knowledge}
               />
@@ -145,6 +152,7 @@ const LeftNavbar = () => {
             key="9"
             icon={
               <img
+                alt="img"
                 style={{ color: '#fff', width: '30px', paddingRight: '7px' }}
                 src={Knowledge}
               />
@@ -162,6 +170,7 @@ const LeftNavbar = () => {
             key="10"
             icon={
               <img
+                alt="img"
                 style={{ color: '#fff', width: '30px', paddingRight: '7px' }}
                 src={Knowledge}
               />
@@ -179,6 +188,7 @@ const LeftNavbar = () => {
             key="11"
             icon={
               <img
+                alt="img"
                 style={{ color: '#fff', width: '30px', paddingRight: '7px' }}
                 src={Knowledge}
               />

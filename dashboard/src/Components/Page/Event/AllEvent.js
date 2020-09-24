@@ -6,7 +6,7 @@ import loadingPage from '../../../asset/img/Wedges-3s-200px.svg';
 import parse from 'html-react-parser';
 import LeftNavbar from '../../Layout/LeftNavbar';
 import Navbar from '../../Layout/Navbar';
-import { NavLink, Link } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { useMutation, useQuery } from '@apollo/client';
 import { GET_EVENT } from '../../../graphql/query';
 import { DELETE_EVENT } from '../../../graphql/mutation';
@@ -27,6 +27,7 @@ const AllEvent = () => {
       render: (data) => {
         return (
           <img
+            alt="img"
             src={'http://localhost:8080/' + data}
             height="40px"
             width="40px"
@@ -115,6 +116,7 @@ const AllEvent = () => {
       return (
         <center>
           <img
+            alt="img"
             style={{ height: '80px', marginTop: '200px' }}
             src={loadingPage}
           />

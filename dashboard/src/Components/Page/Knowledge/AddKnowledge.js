@@ -12,7 +12,7 @@ const { TextArea } = Input;
 const { Content } = Layout;
 const AddKnowledge = () => {
   const [form] = Form.useForm();
-  const [addKnowledge, { data }] = useMutation(ADD_KNOWLEDGE);
+  const [addKnowledge] = useMutation(ADD_KNOWLEDGE);
 
   const [loading1, setLoading] = useState(false);
   const [imagesf, setImagesf] = useState('');
@@ -58,9 +58,6 @@ const AddKnowledge = () => {
     console.log(value);
     setDesc1(value);
   };
-  function handleChange(value) {
-    console.log(`selected ${value}`);
-  }
 
   const uploadFaqs = {
     name: 'file',

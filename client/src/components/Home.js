@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Row, Col, Spin, Layout, Card, Tag } from 'antd';
 import Navbar from './Layouts/Navbar';
 import moment from 'moment';
@@ -53,6 +53,7 @@ const Home = () => {
                           // style={{ display: 'flex' }}
                         >
                           <img
+                            alt="img"
                             style={{ height: '105px', width: '190px' }}
                             src={'http://localhost:8080/' + res.image}
                           />
@@ -128,6 +129,7 @@ const Home = () => {
                       <Card className="Card">
                         <div className="Card-internal-syle">
                           <img
+                            alt="img"
                             style={{ height: '105px', width: '190px' }}
                             src={'http://localhost:8080/' + res.image}
                           />

@@ -1,15 +1,5 @@
 import React, { useState } from 'react';
-import {
-  Col,
-  Row,
-  Layout,
-  Form,
-  Button,
-  Input,
-  Upload,
-  message,
-  Select,
-} from 'antd';
+import { Layout, Form, Button, Upload, message, Select } from 'antd';
 import buttonLoading from '../../../asset/img/three-dots.svg';
 import loadingPage from '../../../asset/img/Wedges-3s-200px.svg';
 import LeftNavbar from '../../Layout/LeftNavbar';
@@ -28,7 +18,7 @@ const { Option } = Select;
 const EditBanner = (props) => {
   const { id } = useParams();
   const [updateBanner] = useMutation(UPDATE_BANNER);
-  const { loading, error, data, refetch } = useQuery(GET_ALL_BANNER);
+  const { refetch } = useQuery(GET_ALL_BANNER);
   const {
     loading: bannerLoading,
     data: BannerData,
@@ -125,7 +115,11 @@ const EditBanner = (props) => {
   if (bannerLoading) {
     return (
       <center>
-        <img style={{ height: '80px', marginTop: '200px' }} src={loadingPage} />
+        <img
+          alt="img"
+          style={{ height: '80px', marginTop: '200px' }}
+          src={loadingPage}
+        />
       </center>
     );
   }

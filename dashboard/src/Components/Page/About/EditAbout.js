@@ -1,15 +1,5 @@
 import React, { useState } from 'react';
-import {
-  Col,
-  Row,
-  Layout,
-  Form,
-  Button,
-  Input,
-  Upload,
-  Select,
-  message,
-} from 'antd';
+import { Col, Row, Layout, Form, Button, Input, Upload, message } from 'antd';
 import buttonLoading from '../../../asset/img/three-dots.svg';
 import loadingPage from '../../../asset/img/Wedges-3s-200px.svg';
 import { useParams } from 'react-router-dom';
@@ -54,9 +44,6 @@ const EditAbout = (props) => {
     });
     console.log('success', value, desc);
   };
-  const onChange = (e) => {
-    console.log(e);
-  };
   const handleDescChange = (value) => {
     console.log(value);
     setDesc(value);
@@ -83,7 +70,11 @@ const EditAbout = (props) => {
   if (loading) {
     return (
       <center>
-        <img style={{ height: '80px', marginTop: '200px' }} src={loadingPage} />
+        <img
+          alt="img"
+          style={{ height: '80px', marginTop: '200px' }}
+          src={loadingPage}
+        />
       </center>
     );
   }

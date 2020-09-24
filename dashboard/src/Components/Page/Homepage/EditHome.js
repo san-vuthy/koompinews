@@ -51,9 +51,7 @@ const EditHome = (props) => {
     form.resetFields();
     console.log('success', value, desc);
   };
-  const onChange = (e) => {
-    console.log(e);
-  };
+
   const handleDescChange = (value) => {
     console.log(value);
     setDesc(value);
@@ -80,7 +78,11 @@ const EditHome = (props) => {
   if (HomeLoading) {
     return (
       <center>
-        <img style={{ height: '80px', marginTop: '200px' }} src={loadingPage} />
+        <img
+          alt="img"
+          style={{ height: '80px', marginTop: '200px' }}
+          src={loadingPage}
+        />
       </center>
     );
   }

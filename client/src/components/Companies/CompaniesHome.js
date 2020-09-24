@@ -8,11 +8,10 @@ import InfiniteScroll from 'react-infinite-scroll-component';
 import { Link } from 'react-router-dom';
 import { Breadcrumb, Avatar, Row, Col, Spin, Layout } from 'antd';
 import Footer from '../Layouts/Footer';
-import CompanyData from '../data/CompanyData';
 
-const { Sider, Content } = Layout;
+const { Content } = Layout;
 const CompaniesHome = () => {
-  const [state, setState] = useState(3);
+  // const [state, setState] = useState(3);
   const [hasMoreItems, setHasMoreItems] = useState(true);
   const { loading, error, data, fetchMore } = useQuery(GET_COMPANIES, {
     variables: { limit: 6, offset: 0 },
@@ -28,9 +27,6 @@ const CompaniesHome = () => {
   console.log(data);
   if (error) return `Error! ${error.message}`;
 
-  const handleChange = (state) => {
-    setState(state);
-  };
   const DisplayBanner = () => {
     const { loading, data, error } = useQuery(GET_BANNER_BY_COMPANYPAGE);
     if (loading || !data) return 'loading......';
@@ -151,7 +147,11 @@ const CompaniesHome = () => {
           hasMore={hasMoreItems}
           loader={
             <center>
-              <img style={{ height: '60px' }} src="/img/Spinner-1s-200px.svg" />
+              <img
+                alt="img"
+                style={{ height: '60px' }}
+                src="/img/Spinner-1s-200px.svg"
+              />
             </center>
           }
           endMessage={null}

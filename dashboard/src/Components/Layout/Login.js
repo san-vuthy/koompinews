@@ -1,7 +1,8 @@
 import React from 'react';
 
-import { Form, Input, Button, Checkbox } from 'antd';
+import { Form, Input, Button } from 'antd';
 import { UserOutlined, LockOutlined } from '@ant-design/icons';
+import { Link } from 'react-router-dom';
 const Login = () => {
   const onFinish = (values) => {
     console.log('Received values of form: ', values);
@@ -18,7 +19,7 @@ const Login = () => {
         onFinish={onFinish}
       >
         <center className="avatar-login">
-          <img src="/img/undraw_profile_pic_ic5t.svg" />
+          <img alt="img" src="/img/undraw_profile_pic_ic5t.svg" />
         </center>
         <Form.Item
           name="email"
@@ -66,7 +67,7 @@ const Login = () => {
           >
             Log in
           </Button>
-          Or <a href="">register now!</a>
+          Or <Link to="">register now!</Link>
         </Form.Item>
       </Form>
     </div>

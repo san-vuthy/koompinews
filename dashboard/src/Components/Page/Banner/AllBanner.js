@@ -1,15 +1,6 @@
 import React from 'react';
 import moment from 'moment';
-import {
-  Layout,
-  Space,
-  Table,
-  Tag,
-  message,
-  Popconfirm,
-  Button,
-  Divider,
-} from 'antd';
+import { Layout, Table, Tag, message, Popconfirm, Divider } from 'antd';
 import { EditOutlined, DeleteOutlined } from '@ant-design/icons';
 import loadingPage from '../../../asset/img/Wedges-3s-200px.svg';
 import LeftNavbar from '../../Layout/LeftNavbar';
@@ -33,6 +24,7 @@ const AllBanner = () => {
       render: (data) => {
         return (
           <img
+            alt="img"
             src={'http://localhost:8080/' + data}
             height="40px"
             width="40px"
@@ -111,6 +103,7 @@ const AllBanner = () => {
       return (
         <center>
           <img
+            alt="img"
             style={{ height: '80px', marginTop: '200px' }}
             src={loadingPage}
           />

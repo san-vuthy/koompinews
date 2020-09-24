@@ -10,7 +10,7 @@ import Footer from '../Layouts/Footer';
 import parse from 'html-react-parser';
 import { Link } from 'react-router-dom';
 
-const { Sider, Content } = Layout;
+const { Content } = Layout;
 const EventHome = () => {
   const [hasMoreItems, setHasMoreItems] = useState(true);
   const { loading, error, data, fetchMore } = useQuery(GET_EVENT, {
@@ -134,7 +134,11 @@ const EventHome = () => {
           hasMore={hasMoreItems}
           loader={
             <center>
-              <img style={{ height: '60px' }} src="/img/Spinner-1s-200px.svg" />
+              <img
+                alt="img"
+                style={{ height: '60px' }}
+                src="/img/Spinner-1s-200px.svg"
+              />
             </center>
           }
           endMessage={null}

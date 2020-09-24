@@ -8,7 +8,6 @@ import {
   Input,
   Upload,
   Select,
-  Checkbox,
   message,
 } from 'antd';
 import loadingPage from '../../../asset/img/Wedges-3s-200px.svg';
@@ -170,7 +169,11 @@ const EditNews = (props) => {
   if (NewsLoading) {
     return (
       <center>
-        <img style={{ height: '80px', marginTop: '200px' }} src={loadingPage} />
+        <img
+          alt="img"
+          style={{ height: '80px', marginTop: '200px' }}
+          src={loadingPage}
+        />
       </center>
     );
   }

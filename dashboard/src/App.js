@@ -1,7 +1,7 @@
 import React from 'react';
 import 'antd/dist/antd.css';
 import './App.css';
-import Dashboard from './Components/Dashboard';
+// import Dashboard from './Components/Dashboard';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 // import AllPage from './Components/Page/AllPage';
 // import AllNews from './Components/Page/Homepage/AllNews';

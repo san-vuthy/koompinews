@@ -1,20 +1,7 @@
 import React from 'react';
-import {
-  Layout,
-  Card,
-  Form,
-  Button,
-  Input,
-  Select,
-  Space,
-  Tag,
-  Table,
-  message,
-  Popconfirm,
-  Divider,
-} from 'antd';
+import { Layout, Card } from 'antd';
 import loadingPage from '../../../asset/img/Wedges-3s-200px.svg';
-import { useQuery, useMutation } from '@apollo/client';
+import { useQuery } from '@apollo/client';
 import { GET_A_CV } from '../../../graphql/query';
 import LeftNavbar from '../../Layout/LeftNavbar';
 import Navbar from '../../Layout/Navbar';
@@ -23,13 +10,17 @@ import { useParams } from 'react-router-dom';
 const { Content } = Layout;
 const PreviewCv = () => {
   const { id } = useParams();
-  const { loading, data, refetch } = useQuery(GET_A_CV, {
+  const { loading, data } = useQuery(GET_A_CV, {
     variables: { id },
   });
   if (loading) {
     return (
       <center>
-        <img style={{ height: '80px', marginTop: '200px' }} src={loadingPage} />
+        <img
+          alt="img"
+          style={{ height: '80px', marginTop: '200px' }}
+          src={loadingPage}
+        />
       </center>
     );
   }
@@ -93,6 +84,7 @@ const PreviewCv = () => {
               <Card type="inner" style={{ marginTop: '12px' }} title="CV">
                 <div>
                   <img
+                    alt="img"
                     style={{ height: '100px' }}
                     src={'http://localhost:8080/' + data.aCv.file}
                   />

@@ -1,23 +1,30 @@
-import React, { useState } from 'react';
-import NewsData from '../data/NewsData';
+import React from 'react';
+
 import parse from 'html-react-parser';
 import moment from 'moment';
 import Navbar from '../Layouts/Navbar';
 import SubNavbar from '../Layouts/Subnavbar';
 import Footer from '../Layouts/Footer';
-import { Card, Tag, Divider, Row, Col, Avatar } from 'antd';
+import { Card, Tag, Spin, Layout } from 'antd';
 import { useParams } from 'react-router-dom';
-import Data from '../data/NewsData';
+
 import { useQuery } from '@apollo/client';
 import { GET_A_EVENT } from '../../graphql/query';
 
-const { Meta } = Card;
-const EventAticle = (props) => {
+const { Content } = Layout;
+const EventAticle = () => {
   const { id } = useParams();
-  const { loading, error, data, refetch } = useQuery(GET_A_EVENT, {
+  const { loading, error, data } = useQuery(GET_A_EVENT, {
     variables: { id },
   });
-  if (loading) return 'loading......';
+  if (loading || !data)
+    return (
+      <Content style={{ marginTop: '15px' }}>
+        <center>
+          <Spin tip="Loading..."></Spin>
+        </center>
+      </Content>
+    );
   console.log(data);
   if (error) return `Error! ${error.message}`;
   // console.log(props.match.params.id);

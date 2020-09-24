@@ -1,15 +1,15 @@
-import React, { useState } from 'react';
+import React from 'react';
 import moment from 'moment';
 import { Link } from 'react-router-dom';
-import { Avatar, Card, Input, Tag, Affix } from 'antd';
+import { Avatar, Card, Input } from 'antd';
 import { useQuery } from '@apollo/client';
 import { GET_NEWS_BY_MOSTPOPULAR, GET_ALLJOBS } from '../../graphql/query';
 
 const RightSiteNewspage = () => {
   const DisplayJobs = () => {
-    const { loading, error, data, refetch } = useQuery(GET_ALLJOBS);
+    const { loading, error, data } = useQuery(GET_ALLJOBS);
     if (loading) {
-      return 'laoding....';
+      return '';
     }
     console.log(data);
     if (error) return `Error! ${error.message}`;
@@ -58,9 +58,9 @@ const RightSiteNewspage = () => {
       </div>
     );
   };
-  const { loading, error, data, refetch } = useQuery(GET_NEWS_BY_MOSTPOPULAR);
+  const { loading, error, data } = useQuery(GET_NEWS_BY_MOSTPOPULAR);
   if (loading) {
-    return 'laoding....';
+    return '';
   }
   console.log(data);
   if (error) return `Error! ${error.message}`;

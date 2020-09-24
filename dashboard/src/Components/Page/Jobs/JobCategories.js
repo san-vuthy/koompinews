@@ -4,7 +4,6 @@ import {
   Form,
   Button,
   Input,
-  Select,
   Space,
   Tag,
   Table,
@@ -24,13 +23,12 @@ import {
   UPDATE_JOB_CATEGORY,
 } from '../../../graphql/mutation';
 import { GET_JOB_CATEGORY, GET_A_JOB_CATEGORY } from '../../../graphql/query';
-import { useParams } from 'react-router-dom';
 
 const { Content } = Layout;
 
 const JobCategories = () => {
   const [id, setId] = useState('');
-  const [dat, setdata1] = useState('');
+  // const [dat, setdata1] = useState('');
   const [loading2, setLoading2] = useState(false);
 
   const [form] = Form.useForm();
@@ -126,7 +124,7 @@ const JobCategories = () => {
               onClick={() => {
                 setEdit(true);
                 setId(`${id}`);
-                setdata1(`{data1}`);
+                // setdata1(`{data1}`);
               }}
               style={{ cursor: 'pointer' }}
               color="rgb(1, 100, 145)"

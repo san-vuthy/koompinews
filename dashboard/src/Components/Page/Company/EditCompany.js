@@ -1,15 +1,5 @@
 import React, { useState } from 'react';
-import {
-  Col,
-  Row,
-  Layout,
-  Form,
-  Button,
-  Input,
-  Upload,
-  Select,
-  message,
-} from 'antd';
+import { Col, Row, Layout, Form, Button, Input, Upload, message } from 'antd';
 import buttonLoading from '../../../asset/img/three-dots.svg';
 import loadingPage from '../../../asset/img/Wedges-3s-200px.svg';
 import LeftNavbar from '../../Layout/LeftNavbar';
@@ -64,9 +54,6 @@ const EditCompany = (props) => {
     });
     console.log('success', value);
   };
-  const onChange = (e) => {
-    console.log(e);
-  };
   const uploadImage = {
     name: 'file',
     multiple: false,
@@ -89,7 +76,11 @@ const EditCompany = (props) => {
   if (loading) {
     return (
       <center>
-        <img style={{ height: '80px', marginTop: '200px' }} src={loadingPage} />
+        <img
+          alt="img"
+          style={{ height: '80px', marginTop: '200px' }}
+          src={loadingPage}
+        />
       </center>
     );
   }
