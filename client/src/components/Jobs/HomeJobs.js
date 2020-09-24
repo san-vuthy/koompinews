@@ -11,7 +11,7 @@ import {
   Select,
   Radio,
   Calendar,
-  Typography,
+  Collapse,
   Spin,
 } from 'antd';
 import Navbar from '../Layouts/Navbar';
@@ -23,7 +23,8 @@ import { GET_JOB_CATEGORY } from '../../graphql/query';
 import { Link } from 'react-router-dom';
 import NProgress from 'nprogress';
 // import { NProgress } from '@tanem/react-nprogress';
-
+const { Option } = Select;
+const { Panel } = Collapse;
 const { Sider, Content } = Layout;
 const HomeJobs = () => {
   const [showMore, setShowMore] = useState(true);
@@ -45,13 +46,38 @@ const HomeJobs = () => {
   const onPanelChange = (value, mode) => {
     console.log(value, mode);
   };
-
-  // if (loading1) return ' loading....';
+  const onChange = (e) => {
+    console.log(e);
+  };
   return (
     <React.Fragment>
       <Navbar />
       <SubNavbar />
+
       <div style={{ marginTop: '40px' }} className="container-home-job">
+        {/* Mobile Show Job Category */}
+
+        <Collapse className="Collosape" accordion>
+          <Panel header="Job Category" key="1">
+            {data.allJobCategories.map((res, index) => {
+              return (
+                <div>
+                  <Link to={`/jobcategory/${res.id}`}>
+                    <div className="listJobCate" style={{ padding: '12px' }}>
+                      <span
+                        key={res.id}
+                        style={{ color: 'rgba(0, 0, 0, 0.65)' }}
+                      >
+                        {res.name}
+                      </span>
+                    </div>
+                  </Link>
+                </div>
+              );
+            })}
+          </Panel>
+        </Collapse>
+
         <Content>
           <Layout>
             <Sider
@@ -66,20 +92,28 @@ const HomeJobs = () => {
                   padding: '0 !important',
                 }}
               >
-                {data.allJobCategories.map((res, index) => {
-                  return (
-                    <Link to={`/jobcategory/${res.id}`}>
-                      <div className="listJobCate" style={{ padding: '12px' }}>
-                        <span
-                          key={res.id}
-                          style={{ color: 'rgba(0, 0, 0, 0.65)' }}
+                <div
+                  className="scroll-jobcate"
+                  // style={{ overflowY: 'scroll', height: '200px' }}
+                >
+                  {data.allJobCategories.map((res, index) => {
+                    return (
+                      <Link to={`/jobcategory/${res.id}`}>
+                        <div
+                          className="listJobCate"
+                          style={{ padding: '12px' }}
                         >
-                          {res.name}
-                        </span>
-                      </div>
-                    </Link>
-                  );
-                })}
+                          <span
+                            key={res.id}
+                            style={{ color: 'rgba(0, 0, 0, 0.65)' }}
+                          >
+                            {res.name}
+                          </span>
+                        </div>
+                      </Link>
+                    );
+                  })}
+                </div>
               </Card>
               {/* {showMore ? (
                 <Card

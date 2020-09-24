@@ -371,8 +371,24 @@ const GET_JOB_BY_CATE = gql`
     }
   }
 `;
+const GET_ALL_HOME = gql`
+  query {
+    allHome {
+      id
+      title
+      subtitle
+      image
+      des
+      createAt
+      user {
+        name
+      }
+    }
+  }
+`;
 
 export {
+  GET_ALL_HOME,
   GET_BANNER_BY_HOMEEPAGE,
   GET_BANNER_BY_ABOUTPAGE,
   GET_BANNER_BY_KNOWLEDGEPAGE,

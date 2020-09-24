@@ -59,20 +59,14 @@ const About = () => {
       {data.allAbout.map((res, index) => {
         if (index % 2 === 0) {
           return (
-            <div className="about-container">
-              <Row>
-                <Col lg={12}>
-                  <div>
-                    <div style={{ marginTop: '120px' }}>
-                      <center>
-                        <h1 style={{ textDecoration: 'underline' }}>
-                          {res.title}
-                        </h1>
-                      </center>
-                    </div>
+            <div>
+              <Row gutter={[32, 32]} className="about-container ">
+                <Col xs={24} sm={24} md={12} lg={12}>
+                  <div className="about-margin" style={{ marginTop: '120px' }}>
+                    <h1 style={{ textDecoration: 'underline' }}>{res.title}</h1>
                   </div>
                 </Col>
-                <Col lg={12}>
+                <Col xs={24} sm={24} md={12} lg={12}>
                   <div style={{ marginTop: '60px' }}>
                     <Card
                       className="card-knowledge"
@@ -95,9 +89,9 @@ const About = () => {
           );
         } else {
           return (
-            <div className="about-container">
-              <Row>
-                <Col lg={12}>
+            <div>
+              <Row gutter={[32, 32]} className="about-container column-reverse">
+                <Col xs={24} sm={24} md={12} lg={12}>
                   <div style={{ marginTop: '60px' }}>
                     <Card
                       className="card-knowledge"
@@ -115,14 +109,15 @@ const About = () => {
                     </Card>
                   </div>
                 </Col>
-                <Col lg={12}>
+                <Col xs={24} sm={24} md={12} lg={12}>
                   <div>
-                    <div style={{ marginTop: '120px' }}>
-                      <center>
-                        <h1 style={{ textDecoration: 'underline' }}>
-                          {res.title}
-                        </h1>
-                      </center>
+                    <div
+                      className="about-margin"
+                      style={{ marginTop: '120px' }}
+                    >
+                      <h1 style={{ textDecoration: 'underline' }}>
+                        {res.title}
+                      </h1>
                     </div>
                   </div>
                 </Col>

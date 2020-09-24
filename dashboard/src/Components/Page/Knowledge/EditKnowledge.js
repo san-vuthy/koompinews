@@ -20,6 +20,7 @@ import { UPDATE_KNOWLEDGE } from '../../../graphql/mutation';
 import { GET_KNOWLEDGE, GET_A_KNOWLEDGE } from '../../../graphql/query';
 import { useQuery, useMutation } from '@apollo/client';
 import buttonLoading from '../../../asset/img/three-dots.svg';
+import { UploadOutlined } from '@ant-design/icons';
 
 const { TextArea } = Input;
 const { Content } = Layout;
@@ -31,6 +32,9 @@ const EditKnowledge = (props) => {
     variables: { id },
   });
   const [loading1, setLoading] = useState(false);
+  const [imagesf, setImagesf] = useState('');
+  const [imagefaq, setImagefaq] = useState('');
+  const [imageklb, setImageklb] = useState('');
   const [image, setImage] = useState(null);
   const [desc, setDesc] = useState('');
   const [desc1, setDesc1] = useState('');
@@ -45,7 +49,10 @@ const EditKnowledge = (props) => {
         ...value,
         lastbase: desc === '' ? null : desc,
         recentbase: desc1 === '' ? null : desc1,
-        avarta: image === null ? data.aKnowledge.avarta : image,
+        klbavatar: imageklb === '' ? data.aKnowledge.klbavatar : imageklb,
+        faqavatar: imagefaq === '' ? data.aKnowledge.faqavatar : imagefaq,
+        sfavatar: imagesf === '' ? data.aKnowledge.sfavatar : imagesf,
+        // avarta: image === null ? data.aKnowledge.avarta : image,
         userId: '5f324067aeef78b4df13ca54',
       },
     }).then(async (res) => {
@@ -74,19 +81,58 @@ const EditKnowledge = (props) => {
     console.log(`selected ${value}`);
   }
 
-  const uploadImage = {
+  const uploadFaqs = {
     name: 'file',
     multiple: false,
     action: 'http://localhost:8080/upload',
     // listType: 'picture',
-    defaultFileList: image,
+    // defaultFileList: image,
     onChange(info) {
       const { status } = info.file;
       if (status !== 'uploading') {
         console.log(info.file, info.fileList);
       }
       if (status === 'done') {
-        setImage(info.file.name.replace(/\s+/g, '-').toLowerCase());
+        setImagefaq(info.file.name.replace(/\s+/g, '-').toLowerCase());
+        message.success(`${info.file.name} file uploaded successfully.`);
+      } else if (status === 'error') {
+        message.error(`${info.file.name} file upload failed.`);
+      }
+    },
+  };
+  const uploadKnowledgeBase = {
+    name: 'file',
+    multiple: false,
+    action: 'http://localhost:8080/upload',
+    // listType: 'picture',
+    // defaultFileList: image,
+    onChange(info) {
+      const { status } = info.file;
+      if (status !== 'uploading') {
+        console.log(info.file, info.fileList);
+      }
+      if (status === 'done') {
+        setImageklb(info.file.name.replace(/\s+/g, '-').toLowerCase());
+        message.success(`${info.file.name} file uploaded successfully.`);
+      } else if (status === 'error') {
+        message.error(`${info.file.name} file upload failed.`);
+      }
+    },
+  };
+
+  const uploadSupportForum = {
+    name: 'file',
+    multiple: false,
+    action: 'http://localhost:8080/upload',
+    // listType: 'picture',
+    // defaultFileList: image,
+    onChange(info) {
+      const { status } = info.file;
+      if (status !== 'uploading') {
+        console.log(info.file, info.fileList);
+      }
+      if (status === 'done') {
+        setImagesf(info.file.name.replace(/\s+/g, '-').toLowerCase());
         message.success(`${info.file.name} file uploaded successfully.`);
       } else if (status === 'error') {
         message.error(`${info.file.name} file upload failed.`);
@@ -172,7 +218,7 @@ const EditKnowledge = (props) => {
                     </Row>
                   </Col>
                   <Col span={8}>
-                    <Form.Item
+                    {/* <Form.Item
                       label="Title"
                       initialValue={data.aKnowledge.title}
                       name="title"
@@ -189,8 +235,112 @@ const EditKnowledge = (props) => {
                         allowClear
                         onChange={onChange}
                       />
+                    </Form.Item> */}
+                    <Form.Item
+                      initialValue={data.aKnowledge.faq}
+                      label="FAQs"
+                      name="faq"
+                      rules={[
+                        {
+                          required: true,
+                          message: 'Please input Describtion!',
+                        },
+                      ]}
+                    >
+                      <TextArea
+                        // placeholder="textarea with clear icon"
+                        allowClear
+                        onChange={onChange}
+                      />
                     </Form.Item>
                     <Form.Item
+                      label="Knowledge Base"
+                      initialValue={data.aKnowledge.klb}
+                      name="klb"
+                      rules={[
+                        {
+                          required: true,
+                          message: 'Please input Knowledge Base!',
+                        },
+                      ]}
+                    >
+                      <TextArea
+                        // placeholder="textarea with clear icon"
+                        allowClear
+                        onChange={onChange}
+                      />
+                    </Form.Item>
+                    <Form.Item
+                      label="Support Forum"
+                      initialValue={data.aKnowledge.sf}
+                      name="sf"
+                      rules={[
+                        {
+                          required: true,
+                          message: 'Please input Support Forum!',
+                        },
+                      ]}
+                    >
+                      <TextArea
+                        // placeholder="textarea with clear icon"
+                        allowClear
+                        onChange={onChange}
+                      />
+                    </Form.Item>
+                    <Row>
+                      <Col span={8}>
+                        <Form.Item
+                          initialValue={data.aKnowledge.faqavatar}
+                          label="FAQs Avarta"
+                          name="faqavatar"
+                          rules={[
+                            {
+                              required: true,
+                              message: 'Please input FAQs Avarta!',
+                            },
+                          ]}
+                        >
+                          <Upload {...uploadFaqs}>
+                            <Button icon={<UploadOutlined />}>Upload</Button>
+                          </Upload>
+                        </Form.Item>
+                      </Col>
+                      <Col span={8}>
+                        <Form.Item
+                          initialValue={data.aKnowledge.klbavatar}
+                          label="Knowledge"
+                          name="klbavatar"
+                          rules={[
+                            {
+                              required: true,
+                              message: 'Please input Knowledge Avarta!',
+                            },
+                          ]}
+                        >
+                          <Upload {...uploadKnowledgeBase}>
+                            <Button icon={<UploadOutlined />}>Upload</Button>
+                          </Upload>
+                        </Form.Item>
+                      </Col>
+                      <Col span={8}>
+                        <Form.Item
+                          initialValue={data.aKnowledge.sfavatar}
+                          label="Support Forum"
+                          name="sfavatar"
+                          rules={[
+                            {
+                              required: true,
+                              message: 'Please input Support Forum Avarta!',
+                            },
+                          ]}
+                        >
+                          <Upload {...uploadSupportForum}>
+                            <Button icon={<UploadOutlined />}>Upload</Button>
+                          </Upload>
+                        </Form.Item>
+                      </Col>
+                    </Row>
+                    {/* <Form.Item
                       label="Avarta"
                       name="avarta"
                       initialValue={data.aKnowledge.avarta}
@@ -213,7 +363,7 @@ const EditKnowledge = (props) => {
                           />
                         )}
                       </Upload.Dragger>
-                    </Form.Item>
+                    </Form.Item> */}
                   </Col>
                 </Row>
               </Form>

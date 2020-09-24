@@ -336,20 +336,26 @@ const ADD_KNOWLEDGE = gql`
 const UPDATE_KNOWLEDGE = gql`
   mutation(
     $id: String!
-    $title: String!
+    $faq: String!
+    $klb: String!
+    $sf: String!
     $userId: String!
-    $des: String!
-    $avarta: String!
+    $faqavatar: String!
+    $klbavatar: String!
+    $sfavatar: String!
     $maintitle: String
     $lastbase: String
     $recentbase: String
   ) {
     updateKnowledge(
       id: $id
-      title: $title
       userId: $userId
-      des: $des
-      avarta: $avarta
+      klb: $klb
+      sf: $sf
+      faq: $faq
+      faqavatar: $faqavatar
+      klbavatar: $klbavatar
+      sfavatar: $sfavatar
       maintitle: $maintitle
       lastbase: $lastbase
       recentbase: $recentbase

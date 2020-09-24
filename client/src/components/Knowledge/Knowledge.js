@@ -60,9 +60,9 @@ const Knowledge = () => {
             {data1.allBannerByPage.slice(-1).map((ress, index) => {
               return (
                 <div
-                  style={{
-                    backgroundImage: `url("http://localhost:8080/${ress.banner}")`,
-                  }}
+                  // style={{
+                  //   backgroundImage: `url("http://localhost:8080/${ress.banner}")`,
+                  // }}
                   className="banner-knowledge"
                 >
                   <div className="container-Knowledge">
@@ -72,6 +72,7 @@ const Knowledge = () => {
                         {res.maintitle}
                       </h1>
                       <Search
+                        className="search-knowledge"
                         placeholder="Search the knowledge Base"
                         onSearch={(value) => console.log(value)}
                         style={{ width: 500, height: 50, borderRadius: 48 }}
@@ -85,7 +86,7 @@ const Knowledge = () => {
             <div className="container-Knowledge">
               <div style={{ justifyContent: 'center', marginTop: '-84px' }}>
                 <Row gutter={[32, 32]}>
-                  <Col lg={8}>
+                  <Col md={8} lg={8}>
                     <div className="site-card-border-less-wrapper">
                       <Card
                         className="card-knowledge"
@@ -113,7 +114,7 @@ const Knowledge = () => {
                       </Card>
                     </div>
                   </Col>
-                  <Col lg={8}>
+                  <Col md={8} lg={8}>
                     <div className="site-card-border-less-wrapper">
                       <Card
                         className="card-knowledge"
@@ -135,7 +136,7 @@ const Knowledge = () => {
                       </Card>
                     </div>
                   </Col>
-                  <Col lg={8}>
+                  <Col md={8} lg={8}>
                     <div className="site-card-border-less-wrapper">
                       <Card
                         className="card-knowledge"

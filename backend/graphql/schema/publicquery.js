@@ -319,7 +319,7 @@ const RootQuery = new GraphQLObjectType({
       },
     },
     allHome: {
-      type: HomeType,
+      type: new GraphQLList(HomeType),
       resolve: (parent, args) => {
         return Home.find().sort({ createAt: -1 });
       },

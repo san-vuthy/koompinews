@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Layout, Menu, Breadcrumb } from 'antd';
 import { Input, Popover, Drawer, Button, Radio, Space, Affix } from 'antd';
 import { AudioOutlined, DownOutlined, MenuOutlined } from '@ant-design/icons';
-import { NavLink, NavNavLNavLink } from 'react-router-dom';
+import { NavLink, Link } from 'react-router-dom';
 
 const Navbar = () => {
   const [state, setState] = useState({
@@ -138,6 +138,15 @@ const Navbar = () => {
             <Menu.Item onClick={showDrawer}>
               <MenuOutlined />
             </Menu.Item>
+            {/* <center> */}
+            <Link to="/">
+              <img
+                className="logo"
+                style={{ height: '40px' }}
+                src="/img/transparent back-0.png"
+              />
+            </Link>
+            {/* </center> */}
           </Menu>
         </div>
         <Drawer

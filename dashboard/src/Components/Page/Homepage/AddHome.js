@@ -148,16 +148,7 @@ const AddHome = () => {
                     >
                       <Input size="large" />
                     </Form.Item>
-                    <Form.Item
-                      label="Image"
-                      name="image"
-                      rules={[
-                        {
-                          required: true,
-                          message: 'Please input image!',
-                        },
-                      ]}
-                    >
+                    <Form.Item label="Image" name="image">
                       <Upload.Dragger {...uploadImage}>
                         {image === '' ? (
                           <img

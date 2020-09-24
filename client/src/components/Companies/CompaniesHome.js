@@ -87,7 +87,7 @@ const CompaniesHome = () => {
                       </div>
                     </div>
                     <Row>
-                      <Col lg={8}>
+                      <Col xs={24} sm={24} md={8} lg={8}>
                         <div style={{ marginTop: '10px' }}>
                           <h4 style={{ marginBottom: '-5px' }}>Location</h4>
                           <span style={{ color: '#797878' }}>
@@ -95,13 +95,13 @@ const CompaniesHome = () => {
                           </span>
                         </div>
                       </Col>
-                      <Col lg={8}>
+                      <Col xs={24} sm={24} md={8} lg={8}>
                         <div style={{ marginTop: '10px' }}>
                           <h4 style={{ marginBottom: '-5px' }}>Contact</h4>
                           <span style={{ color: '#797878' }}>{res.email}</span>
                         </div>
                       </Col>
-                      <Col lg={8}>
+                      <Col xs={24} sm={24} md={8} lg={8}>
                         <div style={{ marginTop: '10px' }}>
                           <h4 style={{ marginBottom: '-5px' }}>Company</h4>
                           <span style={{ color: '#797878' }}>{res.type}</span>

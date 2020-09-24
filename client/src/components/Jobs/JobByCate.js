@@ -113,6 +113,7 @@ import {
   Typography,
   Tag,
   Spin,
+  Collapse,
 } from 'antd';
 import moment from 'moment';
 import {
@@ -130,6 +131,7 @@ import { GET_JOB_CATEGORY, GET_JOB_BY_CATE } from '../../graphql/query';
 import { Link } from 'react-router-dom';
 import { useParams } from 'react-router-dom';
 
+const { Panel } = Collapse;
 const { Sider, Content } = Layout;
 const JobByCate = () => {
   const [showMore, setShowMore] = useState(true);
@@ -237,6 +239,26 @@ const JobByCate = () => {
       <Navbar />
       <SubNavbar />
       <div style={{ marginTop: '40px' }} className="container-home-job">
+        <Collapse accordion>
+          <Panel header="Job Category" key="1">
+            {data.allJobCategories.map((res, index) => {
+              return (
+                <div>
+                  <Link to={`/jobcategory/${res.id}`}>
+                    <div className="listJobCate" style={{ padding: '12px' }}>
+                      <span
+                        key={res.id}
+                        style={{ color: 'rgba(0, 0, 0, 0.65)' }}
+                      >
+                        {res.name}
+                      </span>
+                    </div>
+                  </Link>
+                </div>
+              );
+            })}
+          </Panel>
+        </Collapse>
         <Content>
           <Layout>
             <Sider

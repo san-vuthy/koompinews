@@ -22,7 +22,6 @@ const Navbar = () => {
                   style={{ height: '40px' }}
                   src="/img/transparent back-0.png"
                 />
-                {/* logo */}
               </Link>
             </Menu.Item>
             <Menu.Item style={{ float: 'right' }}>Login</Menu.Item>
