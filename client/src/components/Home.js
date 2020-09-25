@@ -179,9 +179,11 @@ const Home = () => {
       {data.allBannerByPage.slice(-1).map((res, index) => {
         return (
           <div
-            // style={{
-            //   backgroundImage: `url("http://localhost:8080/${res.banner}")`,
-            // }}
+            style={{
+              backgroundImage: `url("http://localhost:8080/${res.banner}")`,
+              //   background:
+              //     ' linear-gradient(rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.8))',
+            }}
             className="banner-homepage"
           >
             <div className="text-banner-container">

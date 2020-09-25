@@ -1,8 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { Layout, Menu, Breadcrumb } from 'antd';
-const { SubMenu } = Menu;
-const { Header, Content, Footer, Sider } = Layout;
+import { Menu } from 'antd';
 
 const Navbar = () => {
   return (
@@ -19,6 +17,7 @@ const Navbar = () => {
             <Menu.Item style={{ float: 'left' }}>
               <Link to="/">
                 <img
+                  alt="img"
                   style={{ height: '40px' }}
                   src="/img/transparent back-0.png"
                 />

@@ -425,8 +425,18 @@ const UPDATE_HOME = gql`
     }
   }
 `;
+const LOG_IN = gql`
+  mutation($email: String!, $password: String!) {
+    login(email: $email, password: $password) {
+      message
+      token
+      id
+    }
+  }
+`;
 
 export {
+  LOG_IN,
   UPDATE_HOME,
   ADD_HOME,
   DELETE_HOME,

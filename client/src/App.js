@@ -14,8 +14,21 @@ import About from './components/About';
 import Sport from './components/NewsPage/Sport/Sport';
 import JobByCate from './components/Jobs/JobByCate';
 import EventAticle from './components/Event/EvenAticle';
+import { BackTop } from 'antd';
+import { UpCircleTwoTone } from '@ant-design/icons';
 
 function App() {
+  const style = {
+    height: 90,
+    width: 40,
+    lineHeight: '40px',
+    borderRadius: 4,
+    // backgroundColor: '#1088e9',
+    // backgroundColor: '#1890ff !important',
+    color: '#fff',
+    textAlign: 'center',
+    fontSize: 40,
+  };
   return (
     <React.Fragment>
       <Router>
@@ -35,6 +48,10 @@ function App() {
           <Route path="/event/:id" exact={true} component={EventAticle} />
         </Switch>
       </Router>
+      <BackTop>
+        {/* <div style={style}>UP</div> */}
+        <UpCircleTwoTone style={style} />
+      </BackTop>
     </React.Fragment>
   );
 }

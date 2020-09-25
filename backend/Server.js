@@ -58,6 +58,7 @@ app.post('/upload', async (req, res) => {
 
 app.use(
   '/api',
+  // auth,
   graphqlHTTP({
     schema: publicschema,
     graphiql: true,

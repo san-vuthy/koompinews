@@ -1,48 +1,13 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { useQuery } from '@apollo/client';
 import { GET_NEWS_BY_RECENT } from '../graphql/query';
-import { Row, Col, Spin, Layout } from 'antd';
+import { Spin, Layout } from 'antd';
 import { Link } from 'react-router-dom';
 import parse from 'html-react-parser';
-import { ConfigContext } from 'antd/lib/config-provider';
 
 const { Content } = Layout;
 const RecentPopularStories = () => {
-  const [popular, setPopular] = useState([
-    {
-      img: '/img/news.png',
-      title: 'Sequoia secures $1.4b for two new fundsin India, Southeast Asia',
-      text:
-        'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur tempor magna eget elit efficitur, at accumsan sem placerat. Nulla tellus libero',
-      avatar: '/img/Den.png',
-      date: '7/29/2020',
-    },
-    {
-      img: '/img/news.png',
-      title: 'Sequoia secures $1.4b for two new fundsin India, Southeast Asia',
-      text:
-        'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur tempor magna eget elit efficitur, at accumsan sem placerat. Nulla tellus libero',
-      avatar: '/img/Den.png',
-      date: '7/29/2020',
-    },
-    {
-      img: '/img/news.png',
-      title: 'Sequoia secures $1.4b for two new fundsin India, Southeast Asia',
-      text:
-        'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur tempor magna eget elit efficitur, at accumsan sem placerat. Nulla tellus libero',
-      avatar: '/img/Den.png',
-      date: '7/29/2020',
-    },
-    {
-      img: '/img/news.png',
-      title: 'Sequoia secures $1.4b for two new fundsin India, Southeast Asia',
-      text:
-        'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur tempor magna eget elit efficitur, at accumsan sem placerat. Nulla tellus libero',
-      avatar: '/img/Den.png',
-      date: '7/29/2020',
-    },
-  ]);
-  const { loading, error, data, refetch } = useQuery(GET_NEWS_BY_RECENT);
+  const { loading, data } = useQuery(GET_NEWS_BY_RECENT);
 
   if (loading)
     return (
@@ -67,6 +32,7 @@ const RecentPopularStories = () => {
                 <div className="popular">
                   <div>
                     <img
+                      alt="img"
                       className="image-popular"
                       src={'http://localhost:8080/' + res.image}
                     />
@@ -77,7 +43,11 @@ const RecentPopularStories = () => {
                       {parse(res.describtion.substring(0, 200) + '....')}
                     </p>
                     <div className="popular-user-date">
-                      <img className="avatar-popular" src={res.avatar} />
+                      <img
+                        alt="img"
+                        className="avatar-popular"
+                        src={res.avatar}
+                      />
                       <span style={{ paddingLeft: '15px' }}>{res.date}</span>
                     </div>
                   </div>

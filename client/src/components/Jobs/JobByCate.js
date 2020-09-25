@@ -161,7 +161,7 @@ const JobByCate = () => {
               className="site-layout-background"
               style={{ padding: '0 24px' }}
             >
-              <Card
+              {/* <Card
                 title="Job Category"
                 style={{
                   width: '300px',
@@ -183,7 +183,37 @@ const JobByCate = () => {
                     </Link>
                   );
                 })}
-              </Card>
+              </Card> */}
+              <h1 className="jobcatefix">Job Category</h1>
+              <div
+                className="scroll-jobcate"
+                // title="Job Category"
+                style={{
+                  width: '300px',
+                  border: '1px solid rgba(4, 47, 130, 0.3)',
+                  padding: '0 !important',
+                }}
+              >
+                <div>
+                  {data.allJobCategories.map((res, index) => {
+                    return (
+                      <Link to={`/jobcategory/${res.id}`}>
+                        <div
+                          className="listJobCate"
+                          style={{ padding: '12px' }}
+                        >
+                          <span
+                            key={res.id}
+                            style={{ color: 'rgba(0, 0, 0, 0.65)' }}
+                          >
+                            {res.name}
+                          </span>
+                        </div>
+                      </Link>
+                    );
+                  })}
+                </div>
+              </div>
               {/* {showMore ? (
                 <Card
                   title="Job Category"

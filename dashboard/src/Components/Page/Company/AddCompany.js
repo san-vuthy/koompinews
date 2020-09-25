@@ -8,6 +8,8 @@ import { GET_COMPANIES } from '../../../graphql/query';
 import { useMutation, useQuery } from '@apollo/client';
 import buttonLoading from '../../../asset/img/three-dots.svg';
 
+const id = localStorage.getItem('id');
+console.log(id);
 const { Content } = Layout;
 const AddCompany = () => {
   const [form] = Form.useForm();
@@ -19,6 +21,7 @@ const AddCompany = () => {
   const { loading, data, error } = useQuery(GET_COMPANIES);
   if (loading) return 'Loading...';
   console.log(data);
+
   if (error) return `Error! ${error.message}`;
 
   const handleDescChange = (value) => {
@@ -30,10 +33,11 @@ const AddCompany = () => {
   const onFinish = (value) => {
     addCompany({
       variables: {
+        userId: id,
         ...value,
         des: desc,
         image: image,
-        userId: '5f3e65128c70fe65b27d5c7f',
+        // userId: '5f3e65128c70fe65b27d5c7f',
       },
     }).then(async (res) => {
       setLoading(true);

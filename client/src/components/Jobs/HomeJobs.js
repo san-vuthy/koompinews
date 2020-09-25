@@ -1,18 +1,15 @@
-import React, { useState } from 'react';
+import React from 'react';
 import {
   Layout,
   Row,
   Col,
-  Avatar,
-  Carousel,
-  List,
-  Badge,
   Card,
   Select,
   Radio,
   Calendar,
   Collapse,
   Spin,
+  Table,
 } from 'antd';
 import Navbar from '../Layouts/Navbar';
 import SubNavbar from '../Layouts/Subnavbar';
@@ -21,14 +18,11 @@ import Footer from '../Layouts/Footer';
 import { useQuery } from '@apollo/client';
 import { GET_JOB_CATEGORY } from '../../graphql/query';
 import { Link } from 'react-router-dom';
-import NProgress from 'nprogress';
-// import { NProgress } from '@tanem/react-nprogress';
-const { Option } = Select;
 const { Panel } = Collapse;
 const { Sider, Content } = Layout;
 const HomeJobs = () => {
-  const [showMore, setShowMore] = useState(true);
-  const { loading, error, data, refetch } = useQuery(GET_JOB_CATEGORY);
+  // const [showMore, setShowMore] = useState(true);
+  const { loading, error, data } = useQuery(GET_JOB_CATEGORY);
 
   if (loading || !data) {
     return (
@@ -46,9 +40,38 @@ const HomeJobs = () => {
   const onPanelChange = (value, mode) => {
     console.log(value, mode);
   };
-  const onChange = (e) => {
-    console.log(e);
-  };
+  // const columns = [
+  //   {
+  //     title: 'Page',
+  //     dataIndex: 'name',
+  //     // key: 'banner',
+  //     render: (data) => {
+  //       const { id, name } = data;
+  //       console.log('name', name);
+  //       return (
+  //         <Link to={`/jobcategory/${id}`}>
+  //           <div className="listJobCate" style={{ padding: '12px' }}>
+  //             <span key={id} style={{ color: 'rgba(0, 0, 0, 0.65)' }}>
+  //               {name}
+  //             </span>
+  //           </div>
+  //         </Link>
+  //       );
+  //     },
+  //   },
+  // ];
+
+  // const Display = () => {
+  //   if (loading) return 'loading...';
+  //   return (
+  //     <Table
+  //       pagination={false}
+  //       columns={columns}
+  //       dataSource={data.allJobCategories}
+  //       scroll={{ y: 240 }}
+  //     />
+  //   );
+  // };
   return (
     <React.Fragment>
       <Navbar />
@@ -84,18 +107,18 @@ const HomeJobs = () => {
               className="site-layout-background"
               style={{ padding: '0 24px' }}
             >
-              <Card
-                title="Job Category"
+              {/* <Display /> */}
+              <h1 className="jobcatefix">Job Category</h1>
+              <div
+                className="scroll-jobcate"
+                // title="Job Category"
                 style={{
                   width: '300px',
                   border: '1px solid rgba(4, 47, 130, 0.3)',
                   padding: '0 !important',
                 }}
               >
-                <div
-                  className="scroll-jobcate"
-                  // style={{ overflowY: 'scroll', height: '200px' }}
-                >
+                <div>
                   {data.allJobCategories.map((res, index) => {
                     return (
                       <Link to={`/jobcategory/${res.id}`}>
@@ -114,7 +137,7 @@ const HomeJobs = () => {
                     );
                   })}
                 </div>
-              </Card>
+              </div>
               {/* {showMore ? (
                 <Card
                   title="Job Category"
@@ -175,7 +198,6 @@ const HomeJobs = () => {
                   })}
                 </Card>
               )} */}
-
               <div className="site-calendar-demo-card">
                 <div
                   className="site-calendar-customize-header-wrapper "

@@ -14,7 +14,7 @@ const CompaniesHome = () => {
   // const [state, setState] = useState(3);
   const [hasMoreItems, setHasMoreItems] = useState(true);
   const { loading, error, data, fetchMore } = useQuery(GET_COMPANIES, {
-    variables: { limit: 6, offset: 0 },
+    variables: { limit: 8, offset: 0 },
   });
   if (loading || !data)
     return (
@@ -29,7 +29,7 @@ const CompaniesHome = () => {
 
   const DisplayBanner = () => {
     const { loading, data, error } = useQuery(GET_BANNER_BY_COMPANYPAGE);
-    if (loading || !data) return 'loading......';
+    if (loading || !data) return '';
     console.log(data);
     if (error) return `Error! ${error.message}`;
     return (

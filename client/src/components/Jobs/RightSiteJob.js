@@ -4,16 +4,14 @@ import moment from 'moment';
 import { Avatar, Tag, List, Spin, Layout } from 'antd';
 import InfiniteScroll from 'react-infinite-scroll-component';
 
-import JobData from '../data/JobData';
 import { useQuery } from '@apollo/client';
 import { GET_JOBS } from '../../graphql/query';
 import {
-  DollarCircleTwoTone,
   DollarOutlined,
   CalendarOutlined,
   AimOutlined,
 } from '@ant-design/icons';
-const { Sider, Content } = Layout;
+const { Content } = Layout;
 const RightSiteJob = () => {
   const [hasMoreItems, setHasMoreItems] = useState(true);
   const { loading, error, data, fetchMore } = useQuery(GET_JOBS, {
@@ -120,7 +118,11 @@ const RightSiteJob = () => {
         hasMore={hasMoreItems}
         loader={
           <center>
-            <img style={{ height: '60px' }} src="/img/Spinner-1s-200px.svg" />
+            <img
+              alt="img"
+              style={{ height: '60px' }}
+              src="/img/Spinner-1s-200px.svg"
+            />
           </center>
         }
         endMessage={null}

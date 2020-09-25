@@ -38,6 +38,9 @@ import EditBanner from './Components/Page/Banner/EditBanner';
 import AllHome from './Components/Page/Homepage/AllHome';
 import AddHome from './Components/Page/Homepage/AddHome';
 import EditHome from './Components/Page/Homepage/EditHome';
+import PrivateRoute from './PrivateRoute';
+import PublicRoute from './PublicRoute';
+import Logout from './Components/Layout/Logout';
 
 function App() {
   return (
@@ -60,42 +63,79 @@ function App() {
           /> */}
 
           {/* //ok */}
-          <Route exact path="/admin/addnewspage" component={AddNewspage} />
-          <Route exact path="/admin/allnews" component={AllNewspage} />
-          <Route exact path="/admin/alljobs" component={Alljobs} />
-          <Route exact path="/admin/addjobs" component={AddJob} />
-          <Route exact path="/admin/jobcategories" component={JobCategories} />
-          <Route exact path="/admin/editnews/:id" component={EditNews} />
-          <Route exact path="/admin/editjob/:id" component={EditJob} />
-          <Route exact path="/admin/show" component={Show} />
-          <Route exact path="/admin/addcompany" component={AddCompany} />
-          <Route exact path="/admin/allcompanies" component={AllCompany} />
-          <Route exact path="/admin/editcompany/:id" component={EditCompany} />
-          <Route exact path="/admin/addevent/" component={AddEvent} />
-          <Route exact path="/admin/editevent/:id" component={EditEvent} />
-          <Route exact path="/admin/allevent/" component={AllEvent} />
-          <Route exact path="/admin/allabout/" component={AllAbout} />
-          <Route exact path="/admin/addabout/" component={AddAbout} />
-          <Route exact path="/admin/editabout/:id" component={EditAbout} />
-          <Route exact path="/admin/allknowledge/" component={AllKnowledge} />
-          <Route exact path="/admin/addknowledge/" component={AddKnowledge} />
-          <Route
+          <PrivateRoute
+            exact
+            path="/admin/addnewspage"
+            component={AddNewspage}
+          />
+          <PrivateRoute exact path="/admin/allnews" component={AllNewspage} />
+          <PrivateRoute exact path="/admin/alljobs" component={Alljobs} />
+          <PrivateRoute exact path="/admin/addjobs" component={AddJob} />
+          <PrivateRoute
+            exact
+            path="/admin/jobcategories"
+            component={JobCategories}
+          />
+          <PrivateRoute exact path="/admin/editnews/:id" component={EditNews} />
+          <PrivateRoute exact path="/admin/editjob/:id" component={EditJob} />
+          <PrivateRoute exact path="/admin/show" component={Show} />
+          <PrivateRoute exact path="/admin/addcompany" component={AddCompany} />
+          <PrivateRoute
+            exact
+            path="/admin/allcompanies"
+            component={AllCompany}
+          />
+          <PrivateRoute
+            exact
+            path="/admin/editcompany/:id"
+            component={EditCompany}
+          />
+          <PrivateRoute exact path="/admin/addevent/" component={AddEvent} />
+          <PrivateRoute
+            exact
+            path="/admin/editevent/:id"
+            component={EditEvent}
+          />
+          <PrivateRoute exact path="/admin/allevent/" component={AllEvent} />
+          <PrivateRoute exact path="/admin/allabout/" component={AllAbout} />
+          <PrivateRoute exact path="/admin/addabout/" component={AddAbout} />
+          <PrivateRoute
+            exact
+            path="/admin/editabout/:id"
+            component={EditAbout}
+          />
+          <PrivateRoute
+            exact
+            path="/admin/allknowledge/"
+            component={AllKnowledge}
+          />
+          <PrivateRoute
+            exact
+            path="/admin/addknowledge/"
+            component={AddKnowledge}
+          />
+          <PrivateRoute
             exact
             path="/admin/editknowledge/:id"
             component={EditKnowledge}
           />
-          <Route exact path="/admin/allcv/" component={AllCv} />
-          <Route exact path="/admin/acv/:id" component={PreviewCv} />
-          <Route exact path="/admin/allbanner" component={AllBanner} />
-          <Route exact path="/admin/addbanner" component={AddBanner} />
-          <Route exact path="/admin/editbanner/:id" component={EditBanner} />
-          <Route exact path="/admin/allhome" component={AllHome} />
-          <Route exact path="/admin/addhome" component={AddHome} />
-          <Route exact path="/admin/edithome/:id" component={EditHome} />
-          <Route exact path="/login" component={Login} />
+          <PrivateRoute exact path="/admin/allcv/" component={AllCv} />
+          <PrivateRoute exact path="/admin/acv/:id" component={PreviewCv} />
+          <PrivateRoute exact path="/admin/allbanner" component={AllBanner} />
+          <PrivateRoute exact path="/admin/addbanner" component={AddBanner} />
+          <PrivateRoute
+            exact
+            path="/admin/editbanner/:id"
+            component={EditBanner}
+          />
+          <PrivateRoute exact path="/admin/allhome" component={AllHome} />
+          <PrivateRoute exact path="/admin/addhome" component={AddHome} />
+          <PrivateRoute exact path="/admin/edithome/:id" component={EditHome} />
+          <PublicRoute exact path="/login" component={Login} />
 
           {/* Test */}
-          <Route exact path="/test" component={Test} />
+          <PrivateRoute exact path="/test" component={Test} />
+          <PublicRoute exact path="/logout" component={Logout} />
         </Switch>
       </Router>
     </React.Fragment>

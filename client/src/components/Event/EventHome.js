@@ -29,7 +29,7 @@ const EventHome = () => {
   function DisplayBanner() {
     const { loading, error, data } = useQuery(GET_BANNER_BY_EVENTPAGE);
 
-    if (loading) return 'Loading...';
+    if (loading) return '';
     console.log(data);
     if (error) return `Error! ${error.message}`;
     return (
@@ -56,6 +56,7 @@ const EventHome = () => {
       <Navbar />
       <SubNavbar />
       <DisplayBanner />
+
       <div className="container-event">
         <Breadcrumb style={{ margin: '16px 0' }}>
           <Breadcrumb.Item>Home</Breadcrumb.Item>

@@ -56,6 +56,7 @@ const Knowledge = () => {
                     backgroundImage: `url("http://localhost:8080/${ress.banner}")`,
                   }}
                   className="banner-knowledge"
+                  // className="middle-describe-event"
                 >
                   <div className="container-Knowledge">
                     <center>

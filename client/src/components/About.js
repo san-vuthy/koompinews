@@ -3,7 +3,6 @@ import { Row, Col, Card, Avatar, Spin, Layout } from 'antd';
 import Navbar from './Layouts/Navbar';
 import SubNavbar from './Layouts/Subnavbar';
 import parse from 'html-react-parser';
-import { AudioOutlined, UserOutlined } from '@ant-design/icons';
 import InfiniteScroll from 'react-infinite-scroll-component';
 import Footer from './Layouts/Footer';
 import { useQuery } from '@apollo/client';
@@ -27,10 +26,8 @@ const About = () => {
   if (error) return `Error! ${error.message}`;
 
   const DisplayBanner = () => {
-    const { loading, error, data, fetchMore } = useQuery(
-      GET_BANNER_BY_ABOUTPAGE
-    );
-    if (loading || !data) return 'loading......';
+    const { loading, error, data } = useQuery(GET_BANNER_BY_ABOUTPAGE);
+    if (loading || !data) return '';
     console.log(data);
     if (error) return `Error! ${error.message}`;
     return (
@@ -150,7 +147,11 @@ const About = () => {
         hasMore={hasMoreItems}
         loader={
           <center>
-            <img style={{ height: '60px' }} src="/img/Spinner-1s-200px.svg" />
+            <img
+              alt="img"
+              style={{ height: '60px' }}
+              src="/img/Spinner-1s-200px.svg"
+            />
           </center>
         }
         endMessage={null}

@@ -28,7 +28,7 @@ const Newspage = () => {
   //   carousel.prev();
   // };
   const { loading, error, data, fetchMore } = useQuery(GET_NEWS, {
-    variables: { limit: 4, offset: 0 },
+    variables: { limit: 8, offset: 0 },
     // fetchPolicy: 'cache-and-network',
   });
 
