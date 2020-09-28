@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState } from "react";
 import {
   Layout,
   Form,
@@ -10,24 +10,24 @@ import {
   message,
   Popconfirm,
   Divider,
-} from 'antd';
-import buttonLoading from '../../../asset/img/three-dots.svg';
-import LeftNavbar from '../../Layout/LeftNavbar';
-import Navbar from '../../Layout/Navbar';
-import { EditOutlined, DeleteOutlined } from '@ant-design/icons';
-import moment from 'moment';
-import { useMutation, useQuery } from '@apollo/client';
+} from "antd";
+import buttonLoading from "../../../asset/img/three-dots.svg";
+import LeftNavbar from "../../Layout/LeftNavbar";
+import Navbar from "../../Layout/Navbar";
+import { EditOutlined, DeleteOutlined } from "@ant-design/icons";
+import moment from "moment";
+import { useMutation, useQuery } from "@apollo/client";
 import {
   ADD_JOB_CATEGORY,
   DELETE_JOB_CATEGORY,
   UPDATE_JOB_CATEGORY,
-} from '../../../graphql/mutation';
-import { GET_JOB_CATEGORY, GET_A_JOB_CATEGORY } from '../../../graphql/query';
+} from "../../../graphql/mutation";
+import { GET_JOB_CATEGORY, GET_A_JOB_CATEGORY } from "../../../graphql/query";
 
 const { Content } = Layout;
 
 const JobCategories = () => {
-  const [id, setId] = useState('');
+  const [id, setId] = useState("");
   // const [dat, setdata1] = useState('');
   const [loading2, setLoading2] = useState(false);
 
@@ -42,19 +42,19 @@ const JobCategories = () => {
   const { loading: loading1, data: data1 } = useQuery(GET_A_JOB_CATEGORY, {
     variables: { id },
   });
-  console.log('id', id);
-  if (loading) return 'Loading...';
+  console.log("id", id);
+  if (loading) return "Loading...";
   console.log(data);
   if (error) return `Error! ${error.message}`;
   const onFinishFailed = (errorInfo) => {
-    console.log('Failed:', errorInfo);
+    console.log("Failed:", errorInfo);
   };
   // console.log('data', data1.JobCategories.name);
   const onFinish = (value) => {
     addJobCategory({
       variables: {
         ...value,
-        userId: '5f3e65128c70fe65b27d5c7f',
+        userId: "5f3e65128c70fe65b27d5c7f",
       },
     }).then(async (res) => {
       setLoading2(true);
@@ -65,14 +65,14 @@ const JobCategories = () => {
       await refetch();
       form.resetFields();
     });
-    console.log('success', value);
+    console.log("success", value);
   };
   const onFinish1 = (value) => {
     updateJobCategory({
       variables: {
         id: id,
         ...value,
-        userId: '5f3e65128c70fe65b27d5c7f',
+        userId: "5f3e65128c70fe65b27d5c7f",
       },
     }).then(async (res) => {
       setLoading2(true);
@@ -84,39 +84,39 @@ const JobCategories = () => {
       window.location.reload();
       // form.resetFields();
     });
-    console.log('success', value);
+    console.log("success", value);
   };
 
   const columns = [
     {
-      title: 'Name of Categories',
-      dataIndex: 'name',
-      key: 'jobcategories',
+      title: "Name of Categories",
+      dataIndex: "name",
+      key: "jobcategories",
     },
 
     {
-      title: 'CreateBy',
-      dataIndex: 'user',
-      key: 'create_by',
+      title: "CreateBy",
+      dataIndex: "user",
+      key: "create_by",
       render: (user) => {
         return user.name;
       },
     },
     {
-      title: 'Create At',
-      dataIndex: 'createAt',
-      key: 'create_at',
+      title: "Create At",
+      dataIndex: "createAt",
+      key: "create_at",
       render: (data) => {
-        return moment.unix(data / 1000).format('YYYY-MM-DD');
+        return moment.unix(data / 1000).format("YYYY-MM-DD");
       },
     },
     {
-      title: 'Action',
-      dataIndex: 'action',
-      key: 'action',
+      title: "Action",
+      dataIndex: "action",
+      key: "action",
       render: (index, data) => {
         const { id } = data;
-        console.log('id', id);
+        console.log("id", id);
         return (
           <Space>
             {/* <Link to={`/admin/editjob/${id}`}> */}
@@ -126,7 +126,7 @@ const JobCategories = () => {
                 setId(`${id}`);
                 // setdata1(`{data1}`);
               }}
-              style={{ cursor: 'pointer' }}
+              style={{ cursor: "pointer" }}
               color="rgb(1, 100, 145)"
             >
               <EditOutlined /> Edit
@@ -150,7 +150,7 @@ const JobCategories = () => {
                   });
               }}
             >
-              <Tag color="rgb(255, 0, 0)" style={{ cursor: 'pointer' }}>
+              <Tag color="rgb(255, 0, 0)" style={{ cursor: "pointer" }}>
                 <DeleteOutlined /> Delete
               </Tag>
             </Popconfirm>
@@ -160,30 +160,27 @@ const JobCategories = () => {
     },
   ];
   if (loading1) {
-    return 'loading....';
+    return "loading....";
   }
 
   return (
     <React.Fragment>
-      <Layout style={{ minHeight: '100vh' }}>
+      <Layout style={{ minHeight: "100vh" }}>
         <LeftNavbar />
         <Layout className="site-layout">
           <Navbar />
           <Content
             style={{
-              margin: '16px 16px',
-              backgroundColor: '#fff',
-              width: '60%',
-              marginLeft: 'auto',
-              marginRight: 'auto',
-              height: '300px',
-              flex: 'none',
+              margin: "16px 16px",
+              backgroundColor: "#fff",
+              width: "60%",
+              marginLeft: "auto",
+              marginRight: "auto",
+              height: "300px",
+              flex: "none",
             }}
           >
-            <div
-              className="site-layout-background"
-              style={{ minHeight: 360, padding: 70 }}
-            >
+            <div className="site-layout-background">
               {!edit && (
                 <div>
                   <h1 className="title-top">Add JobCategories</h1>
@@ -199,7 +196,7 @@ const JobCategories = () => {
                       rules={[
                         {
                           required: true,
-                          message: 'Please input Categories name!',
+                          message: "Please input Categories name!",
                         },
                       ]}
                     >
@@ -219,7 +216,7 @@ const JobCategories = () => {
                           height="10"
                         />
                       ) : (
-                        'SUBMIT'
+                        "SUBMIT"
                       )}
                     </Button>
                   </Form>
@@ -241,7 +238,7 @@ const JobCategories = () => {
                       rules={[
                         {
                           required: true,
-                          message: 'Please input Categories name!',
+                          message: "Please input Categories name!",
                         },
                       ]}
                     >
@@ -250,7 +247,7 @@ const JobCategories = () => {
                         size="large"
                       />
                     </Form.Item>
-                    <div style={{ display: 'flex' }}>
+                    <div style={{ display: "flex" }}>
                       <Button
                         size="large"
                         className="button-submit"
@@ -266,10 +263,10 @@ const JobCategories = () => {
                             height="10"
                           />
                         ) : (
-                          'UPDATE'
+                          "UPDATE"
                         )}
                       </Button>
-                      <div style={{ paddingLeft: '10px' }}>
+                      <div style={{ paddingLeft: "10px" }}>
                         <Button
                           size="large"
                           type="primary"
@@ -289,17 +286,14 @@ const JobCategories = () => {
           </Content>
           <Content
             style={{
-              margin: '16px 16px',
-              backgroundColor: '#fff',
-              width: '60%',
-              marginLeft: 'auto',
-              marginRight: 'auto',
+              margin: "16px 16px",
+              backgroundColor: "#fff",
+              width: "60%",
+              marginLeft: "auto",
+              marginRight: "auto",
             }}
           >
-            <div
-              className="site-layout-background"
-              style={{ minHeight: 360, padding: 70 }}
-            >
+            <div className="site-layout-background">
               <h1 className="title-top">Display JobCategories</h1>
               <Table columns={columns} dataSource={data.allJobCategories} />
             </div>

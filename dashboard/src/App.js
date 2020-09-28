@@ -1,46 +1,46 @@
-import React from 'react';
-import 'antd/dist/antd.css';
-import './App.css';
+import React from "react";
+import "antd/dist/antd.css";
+import "./App.css";
 // import Dashboard from './Components/Dashboard';
-import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 // import AllPage from './Components/Page/AllPage';
 // import AllNews from './Components/Page/Homepage/AllNews';
 // import AddNews from './Components/Page/Homepage/AddHome';
 // import AllPopularNews from './Components/Page/PopularNews.js/AllPopularNews';
 // import AddPopularNews from './Components/Page/PopularNews.js/AddPopularNews';
-import AddNewspage from './Components/Page/Newspage/AddNewspage';
-import AllNewspage from './Components/Page/Newspage/AllNewspage';
-import Alljobs from './Components/Page/Jobs/Alljobs';
-import AddJob from './Components/Page/Jobs/AddJob';
-import JobCategories from './Components/Page/Jobs/JobCategories';
-import Test from './Components/Test';
-import EditNews from './Components/Page/Newspage/EditNews';
-import EditJob from './Components/Page/Jobs/EditJob';
-import Show from './Components/Page/Jobs/JobCategory/Show';
-import AddCompany from './Components/Page/Company/AddCompany';
-import AllCompany from './Components/Page/Company/AllCompany';
-import EditCompany from './Components/Page/Company/EditCompany';
-import AddEvent from './Components/Page/Event/AddEvent';
-import EditEvent from './Components/Page/Event/EditEvent';
-import AllEvent from './Components/Page/Event/AllEvent';
-import AllAbout from './Components/Page/About/AllAbout';
-import AddAbout from './Components/Page/About/AddAbout';
-import EditAbout from './Components/Page/About/EditAbout';
-import AllKnowledge from './Components/Page/Knowledge/AllKnowledge';
-import AddKnowledge from './Components/Page/Knowledge/AddKnowledge';
-import EditKnowledge from './Components/Page/Knowledge/EditKnowledge';
-import Login from './Components/Layout/Login';
-import AllCv from './Components/Page/CV/AllCv';
-import PreviewCv from './Components/Page/CV/PreviewCv';
-import AllBanner from './Components/Page/Banner/AllBanner';
-import AddBanner from './Components/Page/Banner/AddBanner';
-import EditBanner from './Components/Page/Banner/EditBanner';
-import AllHome from './Components/Page/Homepage/AllHome';
-import AddHome from './Components/Page/Homepage/AddHome';
-import EditHome from './Components/Page/Homepage/EditHome';
-import PrivateRoute from './PrivateRoute';
-import PublicRoute from './PublicRoute';
-import Logout from './Components/Layout/Logout';
+import AddNewspage from "./Components/Page/Newspage/AddNewspage";
+import AllNewspage from "./Components/Page/Newspage/AllNewspage";
+import Alljobs from "./Components/Page/Jobs/Alljobs";
+import AddJob from "./Components/Page/Jobs/AddJob";
+import JobCategories from "./Components/Page/Jobs/JobCategories";
+import Test from "./Components/Test";
+import EditNews from "./Components/Page/Newspage/EditNews";
+import EditJob from "./Components/Page/Jobs/EditJob";
+import Show from "./Components/Page/Jobs/JobCategory/Show";
+import AddCompany from "./Components/Page/Company/AddCompany";
+import AllCompany from "./Components/Page/Company/AllCompany";
+import EditCompany from "./Components/Page/Company/EditCompany";
+import AddEvent from "./Components/Page/Event/AddEvent";
+import EditEvent from "./Components/Page/Event/EditEvent";
+import AllEvent from "./Components/Page/Event/AllEvent";
+import AllAbout from "./Components/Page/About/AllAbout";
+import AddAbout from "./Components/Page/About/AddAbout";
+import EditAbout from "./Components/Page/About/EditAbout";
+import AllKnowledge from "./Components/Page/Knowledge/AllKnowledge";
+import AddKnowledge from "./Components/Page/Knowledge/AddKnowledge";
+import EditKnowledge from "./Components/Page/Knowledge/EditKnowledge";
+import Login from "./Components/Layout/Login";
+import AllCv from "./Components/Page/CV/AllCv";
+import PreviewCv from "./Components/Page/CV/PreviewCv";
+import AllBanner from "./Components/Page/Banner/AllBanner";
+import AddBanner from "./Components/Page/Banner/AddBanner";
+import EditBanner from "./Components/Page/Banner/EditBanner";
+import AllHome from "./Components/Page/Homepage/AllHome";
+import AddHome from "./Components/Page/Homepage/AddHome";
+import EditHome from "./Components/Page/Homepage/EditHome";
+import PrivateRoute from "./PrivateRoute";
+import PublicRoute from "./PublicRoute";
+import Logout from "./Components/Layout/Logout";
 
 function App() {
   return (
@@ -131,11 +131,9 @@ function App() {
           <PrivateRoute exact path="/admin/allhome" component={AllHome} />
           <PrivateRoute exact path="/admin/addhome" component={AddHome} />
           <PrivateRoute exact path="/admin/edithome/:id" component={EditHome} />
-          <PublicRoute exact path="/login" component={Login} />
-
-          {/* Test */}
-          <PrivateRoute exact path="/test" component={Test} />
           <PublicRoute exact path="/logout" component={Logout} />
+          <PublicRoute exact path="/login" component={Login} />
+          <PublicRoute exact path="/" component={Login} />
         </Switch>
       </Router>
     </React.Fragment>

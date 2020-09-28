@@ -1,14 +1,14 @@
-import React, { useState } from 'react';
-import { Col, Row, Layout, Form, Button, Input, Upload, message } from 'antd';
-import buttonLoading from '../../../asset/img/three-dots.svg';
-import loadingPage from '../../../asset/img/Wedges-3s-200px.svg';
-import LeftNavbar from '../../Layout/LeftNavbar';
-import Navbar from '../../Layout/Navbar';
-import TextEditor from '../../Help/TextEditor';
-import { UPDATE_COMPANY } from '../../../graphql/mutation';
-import { useMutation, useQuery } from '@apollo/client';
-import { GET_COMPANIES, GET_A_COMPANY } from '../../../graphql/query';
-import { useParams } from 'react-router-dom';
+import React, { useState } from "react";
+import { Col, Row, Layout, Form, Button, Input, Upload, message } from "antd";
+import buttonLoading from "../../../asset/img/three-dots.svg";
+import loadingPage from "../../../asset/img/Wedges-3s-200px.svg";
+import LeftNavbar from "../../Layout/LeftNavbar";
+import Navbar from "../../Layout/Navbar";
+import TextEditor from "../../Help/TextEditor";
+import { UPDATE_COMPANY } from "../../../graphql/mutation";
+import { useMutation, useQuery } from "@apollo/client";
+import { GET_COMPANIES, GET_A_COMPANY } from "../../../graphql/query";
+import { useParams } from "react-router-dom";
 
 const { Content } = Layout;
 const EditCompany = (props) => {
@@ -20,23 +20,23 @@ const EditCompany = (props) => {
   //   const { name } = data.aCompany;
   const [updateCompany] = useMutation(UPDATE_COMPANY);
   const [loading1, setLoading] = useState(false);
-  const [desc, setDesc] = useState('');
+  const [desc, setDesc] = useState("");
   const [image, setImage] = useState(null);
 
   const handleDescChange = (value) => {
     setDesc(value);
   };
   const onFinishFailed = (errorInfo) => {
-    console.log('Failed:', errorInfo);
+    console.log("Failed:", errorInfo);
   };
   const onFinish = (value) => {
     updateCompany({
       variables: {
         ...value,
         id: id,
-        des: desc === '' ? data.aCompany.des : desc,
+        des: desc === "" ? data.aCompany.des : desc,
         image: image === null ? data.aCompany.image : image,
-        userId: '5f3e65128c70fe65b27d5c7f',
+        userId: "5f3e65128c70fe65b27d5c7f",
       },
     }).then(async (res) => {
       setLoading(true);
@@ -48,27 +48,27 @@ const EditCompany = (props) => {
       // } else {
       await message.success(res.data.updateCompany.message);
       await refetch();
-      await props.history.push('/admin/allcompanies');
+      await props.history.push("/admin/allcompanies");
       // }
       // form.resetFields();
     });
-    console.log('success', value);
+    console.log("success", value);
   };
   const uploadImage = {
-    name: 'file',
+    name: "file",
     multiple: false,
-    action: 'http://localhost:8080/upload',
+    action: "http://localhost:8080/upload",
     // listType: 'picture',
     defaultFileList: image,
     onChange(info) {
       const { status } = info.file;
-      if (status !== 'uploading') {
+      if (status !== "uploading") {
         console.log(info.file, info.fileList);
       }
-      if (status === 'done') {
-        setImage(info.file.name.replace(/\s+/g, '-').toLowerCase());
+      if (status === "done") {
+        setImage(info.file.name.replace(/\s+/g, "-").toLowerCase());
         message.success(`${info.file.name} file uploaded successfully.`);
-      } else if (status === 'error') {
+      } else if (status === "error") {
         message.error(`${info.file.name} file upload failed.`);
       }
     },
@@ -78,7 +78,7 @@ const EditCompany = (props) => {
       <center>
         <img
           alt="img"
-          style={{ height: '80px', marginTop: '200px' }}
+          style={{ height: "80px", marginTop: "200px" }}
           src={loadingPage}
         />
       </center>
@@ -86,15 +86,12 @@ const EditCompany = (props) => {
   }
   return (
     <React.Fragment>
-      <Layout style={{ minHeight: '100vh' }}>
+      <Layout style={{ minHeight: "100vh" }}>
         <LeftNavbar />
         <Layout className="site-layout">
           <Navbar />
-          <Content style={{ margin: '16px 16px', backgroundColor: '#fff' }}>
-            <div
-              className="site-layout-background"
-              style={{ minHeight: 360, padding: 70 }}
-            >
+          <Content style={{ margin: "16px 16px", backgroundColor: "#fff" }}>
+            <div className="site-layout-background">
               <h1 className="title-top">Update Company</h1>
               <Form
                 onFinish={onFinish}
@@ -140,7 +137,7 @@ const EditCompany = (props) => {
                       </Col>
                     </Row>
                     <Form.Item
-                      style={{ marginBottom: '-50px' }}
+                      style={{ marginBottom: "-50px" }}
                       initialValue={data.aCompany.des}
                       label="Description"
                       name="des"
@@ -152,7 +149,7 @@ const EditCompany = (props) => {
                     </Form.Item>
 
                     <Button
-                      style={{ marginTop: '0px', width: '150px' }}
+                      style={{ marginTop: "0px", width: "150px" }}
                       size="large"
                       type="primary"
                       htmlType="submit"
@@ -164,7 +161,7 @@ const EditCompany = (props) => {
                           height="10"
                         />
                       ) : (
-                        'UPDATE'
+                        "UPDATE"
                       )}
                     </Button>
                   </Col>
@@ -197,17 +194,17 @@ const EditCompany = (props) => {
                       <Upload.Dragger {...uploadImage}>
                         {image === null ? (
                           <img
-                            style={{ width: '270px' }}
+                            style={{ width: "270px" }}
                             sr
                             src={`${
-                              'http://localhost:8080/' + data.aCompany.image
+                              "http://localhost:8080/" + data.aCompany.image
                             }`}
                             alt="avatar"
                           />
                         ) : (
                           <img
-                            style={{ width: '270px' }}
-                            src={`${'http://localhost:8080/' + image}`}
+                            style={{ width: "270px" }}
+                            src={`${"http://localhost:8080/" + image}`}
                             // src="http://localhost:8080/Technology-Images-Wallpapers-027.jpg"
                             alt="avatar"
                           />

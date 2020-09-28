@@ -1,14 +1,14 @@
-import React, { useState } from 'react';
-import { Col, Row, Layout, Form, Button, Input, Upload, message } from 'antd';
-import loadingPage from '../../../asset/img/Wedges-3s-200px.svg';
-import LeftNavbar from '../../Layout/LeftNavbar';
-import Navbar from '../../Layout/Navbar';
-import TextEditor from '../../Help/TextEditor';
-import { useQuery, useMutation } from '@apollo/client';
-import { UPDATE_EVENT } from '../../../graphql/mutation';
-import { GET_A_EVENT, GET_EVENT } from '../../../graphql/query';
-import { useParams } from 'react-router-dom';
-import buttonLoading from '../../../asset/img/three-dots.svg';
+import React, { useState } from "react";
+import { Col, Row, Layout, Form, Button, Input, Upload, message } from "antd";
+import loadingPage from "../../../asset/img/Wedges-3s-200px.svg";
+import LeftNavbar from "../../Layout/LeftNavbar";
+import Navbar from "../../Layout/Navbar";
+import TextEditor from "../../Help/TextEditor";
+import { useQuery, useMutation } from "@apollo/client";
+import { UPDATE_EVENT } from "../../../graphql/mutation";
+import { GET_A_EVENT, GET_EVENT } from "../../../graphql/query";
+import { useParams } from "react-router-dom";
+import buttonLoading from "../../../asset/img/three-dots.svg";
 
 const { Content } = Layout;
 const EditEvent = (props) => {
@@ -19,19 +19,19 @@ const EditEvent = (props) => {
     variables: { id },
   });
   const [image, setImage] = useState(null);
-  const [desc, setDesc] = useState('');
+  const [desc, setDesc] = useState("");
   const [loading1, setLoading] = useState(false);
   const onFinishFailed = (errorInfo) => {
-    console.log('Failed:', errorInfo);
+    console.log("Failed:", errorInfo);
   };
   const onFinish = (value) => {
     updateEvent({
       variables: {
         id: id,
         ...value,
-        des: desc === '' ? data.aEvent.des : desc,
+        des: desc === "" ? data.aEvent.des : desc,
         image: image === null ? data.aEvent.image : image,
-        userId: '5f324067aeef78b4df13ca54',
+        userId: "5f324067aeef78b4df13ca54",
       },
     }).then(async (res) => {
       setLoading(true);
@@ -40,9 +40,9 @@ const EditEvent = (props) => {
       }, 3000);
       await message.success(res.data.updateEvent.message);
       await refetch();
-      await props.history.push('/admin/allevent');
+      await props.history.push("/admin/allevent");
     });
-    console.log('success', value, desc);
+    console.log("success", value, desc);
   };
 
   const handleDescChange = (value) => {
@@ -50,20 +50,20 @@ const EditEvent = (props) => {
     setDesc(value);
   };
   const uploadImage = {
-    name: 'file',
+    name: "file",
     multiple: false,
-    action: 'http://localhost:8080/upload',
+    action: "http://localhost:8080/upload",
     // listType: 'picture',
     defaultFileList: image,
     onChange(info) {
       const { status } = info.file;
-      if (status !== 'uploading') {
+      if (status !== "uploading") {
         console.log(info.file, info.fileList);
       }
-      if (status === 'done') {
-        setImage(info.file.name.replace(/\s+/g, '-').toLowerCase());
+      if (status === "done") {
+        setImage(info.file.name.replace(/\s+/g, "-").toLowerCase());
         message.success(`${info.file.name} file uploaded successfully.`);
-      } else if (status === 'error') {
+      } else if (status === "error") {
         message.error(`${info.file.name} file upload failed.`);
       }
     },
@@ -73,7 +73,7 @@ const EditEvent = (props) => {
       <center>
         <img
           alt="img"
-          style={{ height: '80px', marginTop: '200px' }}
+          style={{ height: "80px", marginTop: "200px" }}
           src={loadingPage}
         />
       </center>
@@ -81,15 +81,12 @@ const EditEvent = (props) => {
   }
   return (
     <React.Fragment>
-      <Layout style={{ minHeight: '100vh' }}>
+      <Layout style={{ minHeight: "100vh" }}>
         <LeftNavbar />
         <Layout className="site-layout">
           <Navbar />
-          <Content style={{ margin: '16px 16px', backgroundColor: '#fff' }}>
-            <div
-              className="site-layout-background"
-              style={{ minHeight: 360, padding: 70 }}
-            >
+          <Content style={{ margin: "16px 16px", backgroundColor: "#fff" }}>
+            <div className="site-layout-background">
               <h1 className="title-top">Update Event</h1>
               <Form
                 layout="vertical"
@@ -116,7 +113,7 @@ const EditEvent = (props) => {
                       initialValue={data.aEvent.des}
                       label="Describtion"
                       name="describtion"
-                      style={{ marginBottom: '-90px' }}
+                      style={{ marginBottom: "-90px" }}
                     >
                       <TextEditor
                         handleDescChange={handleDescChange}
@@ -124,7 +121,7 @@ const EditEvent = (props) => {
                       />
                     </Form.Item>
                     <Button
-                      style={{ marginTop: '0px', width: '150px' }}
+                      style={{ marginTop: "0px", width: "150px" }}
                       size="large"
                       // className="button button-submit"
                       type="primary"
@@ -133,7 +130,7 @@ const EditEvent = (props) => {
                       {loading1 ? (
                         <img src={buttonLoading} alt="btnloading" height="10" />
                       ) : (
-                        'UPDATE'
+                        "UPDATE"
                       )}
                     </Button>
                   </Col>
@@ -142,16 +139,16 @@ const EditEvent = (props) => {
                       <Upload.Dragger {...uploadImage}>
                         {image === null ? (
                           <img
-                            style={{ width: '270px' }}
+                            style={{ width: "270px" }}
                             src={`${
-                              'http://localhost:8080/' + data.aEvent.image
+                              "http://localhost:8080/" + data.aEvent.image
                             }`}
                             alt="avatar"
                           />
                         ) : (
                           <img
-                            style={{ width: '270px' }}
-                            src={`${'http://localhost:8080/' + image}`}
+                            style={{ width: "270px" }}
+                            src={`${"http://localhost:8080/" + image}`}
                             // src="http://localhost:8080/Technology-Images-Wallpapers-027.jpg"
                             alt="avatar"
                           />

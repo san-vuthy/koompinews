@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState } from "react";
 import {
   Col,
   Row,
@@ -9,14 +9,14 @@ import {
   Upload,
   Select,
   message,
-} from 'antd';
-import buttonLoading from '../../../asset/img/three-dots.svg';
-import LeftNavbar from '../../Layout/LeftNavbar';
-import Navbar from '../../Layout/Navbar';
-import TextEditor from '../../Help/TextEditor';
-import { useQuery, useMutation } from '@apollo/client';
-import { ADD_JOBS } from '../../../graphql/mutation';
-import { GET_JOB_CATEGORY } from '../../../graphql/query';
+} from "antd";
+import buttonLoading from "../../../asset/img/three-dots.svg";
+import LeftNavbar from "../../Layout/LeftNavbar";
+import Navbar from "../../Layout/Navbar";
+import TextEditor from "../../Help/TextEditor";
+import { useQuery, useMutation } from "@apollo/client";
+import { ADD_JOBS } from "../../../graphql/mutation";
+import { GET_JOB_CATEGORY } from "../../../graphql/query";
 
 const { Content } = Layout;
 const { Option } = Select;
@@ -25,26 +25,26 @@ const AddJob = () => {
   const [form] = Form.useForm();
   const [addJob] = useMutation(ADD_JOBS);
 
-  const [image, setImage] = useState('');
-  const [desc, setDesc] = useState('');
-  const [reqSkill, setSkill] = useState('');
+  const [image, setImage] = useState("");
+  const [desc, setDesc] = useState("");
+  const [reqSkill, setSkill] = useState("");
   const [loading1, setLoading] = useState(false);
 
   const uploadImage = {
-    name: 'file',
+    name: "file",
     multiple: false,
-    action: 'http://localhost:8080/upload',
+    action: "http://localhost:8080/upload",
     // listType: 'picture',
     // defaultFileList: image,
     onChange(info) {
       const { status } = info.file;
-      if (status !== 'uploading') {
+      if (status !== "uploading") {
         console.log(info.file, info.fileList);
       }
-      if (status === 'done') {
-        setImage(info.file.name.replace(/\s+/g, '-').toLowerCase());
+      if (status === "done") {
+        setImage(info.file.name.replace(/\s+/g, "-").toLowerCase());
         message.success(`${info.file.name} file uploaded successfully.`);
-      } else if (status === 'error') {
+      } else if (status === "error") {
         message.error(`${info.file.name} file upload failed.`);
       }
     },
@@ -59,16 +59,16 @@ const AddJob = () => {
   };
 
   const onFinishFailed = (errorInfo) => {
-    console.log('Failed:', errorInfo);
+    console.log("Failed:", errorInfo);
   };
   const onFinish = (value) => {
     addJob({
       variables: {
         ...value,
-        des: desc === '' ? null : desc,
-        requireSkill: reqSkill === '' ? null : reqSkill,
+        des: desc === "" ? null : desc,
+        requireSkill: reqSkill === "" ? null : reqSkill,
         image: image,
-        userId: '5f3e65128c70fe65b27d5c7f',
+        userId: "5f3e65128c70fe65b27d5c7f",
       },
     }).then(async (res) => {
       setLoading(true);
@@ -81,7 +81,7 @@ const AddJob = () => {
       // setImage();
       form.resetFields();
     });
-    console.log('success', value);
+    console.log("success", value);
   };
   const onChange = (e) => {
     console.log(e);
@@ -91,12 +91,12 @@ const AddJob = () => {
   const DisplayCategoryId = () => {
     const { loading, error, data } = useQuery(GET_JOB_CATEGORY);
 
-    if (loading) return 'Loading...';
+    if (loading) return "Loading...";
     console.log(data);
     if (error) return `Error! ${error.message}`;
     return (
       <Form.Item
-        rules={[{ required: true, message: 'Please input Job Categories' }]}
+        rules={[{ required: true, message: "Please input Job Categories" }]}
         label="Job Categories"
         name="jobCategId"
       >
@@ -125,15 +125,12 @@ const AddJob = () => {
   };
   return (
     <React.Fragment>
-      <Layout style={{ minHeight: '100vh' }}>
+      <Layout style={{ minHeight: "100vh" }}>
         <LeftNavbar />
         <Layout className="site-layout">
           <Navbar />
-          <Content style={{ margin: '16px 16px', backgroundColor: '#fff' }}>
-            <div
-              className="site-layout-background"
-              style={{ minHeight: 360, padding: 70 }}
-            >
+          <Content style={{ margin: "16px 16px", backgroundColor: "#fff" }}>
+            <div className="site-layout-background">
               <h1 className="title-top">Add Jobs</h1>
               <Form
                 form={form}
@@ -149,7 +146,7 @@ const AddJob = () => {
                       rules={[
                         {
                           required: true,
-                          message: 'Please input Position!',
+                          message: "Please input Position!",
                         },
                       ]}
                     >
@@ -161,7 +158,7 @@ const AddJob = () => {
                       rules={[
                         {
                           required: true,
-                          message: 'Please input Company!',
+                          message: "Please input Company!",
                         },
                       ]}
                     >
@@ -171,7 +168,7 @@ const AddJob = () => {
                     <Row gutter={16}>
                       <Col span={12}>
                         <Form.Item
-                          style={{ marginBottom: '-50px' }}
+                          style={{ marginBottom: "-50px" }}
                           label="Job description & requirements"
                           name="des"
                           // rules={[
@@ -189,7 +186,7 @@ const AddJob = () => {
                       </Col>
                       <Col span={12}>
                         <Form.Item
-                          style={{ marginBottom: '-50px' }}
+                          style={{ marginBottom: "-50px" }}
                           label="Required Skills"
                           name="requireSkill"
                         >
@@ -201,7 +198,7 @@ const AddJob = () => {
                       </Col>
                     </Row>
                     <Button
-                      style={{ marginTop: '0px', width: '150px' }}
+                      style={{ marginTop: "0px", width: "150px" }}
                       size="large"
                       type="primary"
                       htmlType="submit"
@@ -213,7 +210,7 @@ const AddJob = () => {
                           height="10"
                         />
                       ) : (
-                        'SUBMIT'
+                        "SUBMIT"
                       )}
                     </Button>
                   </Col>
@@ -226,7 +223,7 @@ const AddJob = () => {
                       rules={[
                         {
                           required: true,
-                          message: 'Please input Location!',
+                          message: "Please input Location!",
                         },
                       ]}
                     >
@@ -234,7 +231,7 @@ const AddJob = () => {
                     </Form.Item>
                     <Form.Item
                       rules={[
-                        { required: true, message: 'Please input worktime' },
+                        { required: true, message: "Please input worktime" },
                       ]}
                       label="Time for work"
                       name="worktime"
@@ -247,7 +244,7 @@ const AddJob = () => {
                       rules={[
                         {
                           required: true,
-                          message: 'Please input Salary!',
+                          message: "Please input Salary!",
                         },
                       ]}
                     >
@@ -258,20 +255,20 @@ const AddJob = () => {
                       label="Image"
                       name="image"
                       rules={[
-                        { required: true, message: 'Please input image' },
+                        { required: true, message: "Please input image" },
                       ]}
                     >
                       <Upload.Dragger {...uploadImage}>
-                        {image === '' ? (
+                        {image === "" ? (
                           <img
-                            style={{ width: '270px' }}
+                            style={{ width: "270px" }}
                             src="http://localhost:8080/undraw_upload_87y9.svg"
                             alt="avatar"
                           />
                         ) : (
                           <img
-                            style={{ width: '270px' }}
-                            src={`${'http://localhost:8080/' + image}`}
+                            style={{ width: "270px" }}
+                            src={`${"http://localhost:8080/" + image}`}
                             // src="http://localhost:8080/Technology-Images-Wallpapers-027.jpg"
                             alt="avatar"
                           />

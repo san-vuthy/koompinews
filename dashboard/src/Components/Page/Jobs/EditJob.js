@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState } from "react";
 import {
   Col,
   Row,
@@ -9,16 +9,16 @@ import {
   Upload,
   Select,
   message,
-} from 'antd';
-import buttonLoading from '../../../asset/img/three-dots.svg';
-import loadingPage from '../../../asset/img/Wedges-3s-200px.svg';
-import LeftNavbar from '../../Layout/LeftNavbar';
-import Navbar from '../../Layout/Navbar';
-import TextEditor from '../../Help/TextEditor';
-import { useQuery, useMutation } from '@apollo/client';
-import { GET_JOB_CATEGORY, GET_A_JOB, GET_JOBS } from '../../../graphql/query';
-import { UPDATE_JOB } from '../../../graphql/mutation';
-import { useParams } from 'react-router-dom';
+} from "antd";
+import buttonLoading from "../../../asset/img/three-dots.svg";
+import loadingPage from "../../../asset/img/Wedges-3s-200px.svg";
+import LeftNavbar from "../../Layout/LeftNavbar";
+import Navbar from "../../Layout/Navbar";
+import TextEditor from "../../Help/TextEditor";
+import { useQuery, useMutation } from "@apollo/client";
+import { GET_JOB_CATEGORY, GET_A_JOB, GET_JOBS } from "../../../graphql/query";
+import { UPDATE_JOB } from "../../../graphql/mutation";
+import { useParams } from "react-router-dom";
 
 const { Content } = Layout;
 const { Option } = Select;
@@ -36,25 +36,25 @@ const AddJob = (props) => {
   const [updateJob] = useMutation(UPDATE_JOB);
 
   const [image, setImage] = useState(null);
-  const [desc, setDesc] = useState('');
-  const [reqSkill, setReqSkill] = useState('');
+  const [desc, setDesc] = useState("");
+  const [reqSkill, setReqSkill] = useState("");
   const [loading1, setLoading] = useState(false);
 
   const uploadImage = {
-    name: 'file',
+    name: "file",
     multiple: false,
-    action: 'http://localhost:8080/upload',
+    action: "http://localhost:8080/upload",
     // listType: 'picture',
     defaultFileList: image,
     onChange(info) {
       const { status } = info.file;
-      if (status !== 'uploading') {
+      if (status !== "uploading") {
         console.log(info.file, info.fileList);
       }
-      if (status === 'done') {
-        setImage(info.file.name.replace(/\s+/g, '-').toLowerCase());
+      if (status === "done") {
+        setImage(info.file.name.replace(/\s+/g, "-").toLowerCase());
         message.success(`${info.file.name} file uploaded successfully.`);
-      } else if (status === 'error') {
+      } else if (status === "error") {
         message.error(`${info.file.name} file upload failed.`);
       }
     },
@@ -69,17 +69,17 @@ const AddJob = (props) => {
   };
 
   const onFinishFailed = (errorInfo) => {
-    console.log('Failed:', errorInfo);
+    console.log("Failed:", errorInfo);
   };
   const onFinish = (value) => {
     updateJob({
       variables: {
         id: id,
         ...value,
-        des: desc === '' ? JobsData.aJob.des : desc,
-        requireSkill: reqSkill === '' ? JobsData.aJob.requireSkill : reqSkill,
+        des: desc === "" ? JobsData.aJob.des : desc,
+        requireSkill: reqSkill === "" ? JobsData.aJob.requireSkill : reqSkill,
         image: image === null ? JobsData.aJob.image : image,
-        userId: '5f3e65128c70fe65b27d5c7f',
+        userId: "5f3e65128c70fe65b27d5c7f",
       },
     }).then(async (res) => {
       setLoading(true);
@@ -89,9 +89,9 @@ const AddJob = (props) => {
       await message.success(res.data.updateJob.message);
       await Jobrefetch();
       await refetch();
-      await props.history.push('/admin/alljobs');
+      await props.history.push("/admin/alljobs");
     });
-    console.log('success', value);
+    console.log("success", value);
   };
   const onChange = (e) => {
     console.log(e);
@@ -101,10 +101,10 @@ const AddJob = (props) => {
   function DisplayCategoryId() {
     const { loading, error, data } = useQuery(GET_JOB_CATEGORY);
 
-    if (loading) return 'Loading...';
+    if (loading) return "Loading...";
     console.log(data);
     if (error) return `Error! ${error.message}`;
-    console.log('job', JobsData.aJob.position);
+    console.log("job", JobsData.aJob.position);
     return (
       <Form.Item
         initialValue={JobsData.aJob.jobCateName.id}
@@ -140,7 +140,7 @@ const AddJob = (props) => {
       <center>
         <img
           alt="loaidng"
-          style={{ height: '80px', marginTop: '200px' }}
+          style={{ height: "80px", marginTop: "200px" }}
           src={loadingPage}
         />
       </center>
@@ -148,15 +148,12 @@ const AddJob = (props) => {
   }
   return (
     <React.Fragment>
-      <Layout style={{ minHeight: '100vh' }}>
+      <Layout style={{ minHeight: "100vh" }}>
         <LeftNavbar />
         <Layout className="site-layout">
           <Navbar />
-          <Content style={{ margin: '16px 16px', backgroundColor: '#fff' }}>
-            <div
-              className="site-layout-background"
-              style={{ minHeight: 360, padding: 70 }}
-            >
+          <Content style={{ margin: "16px 16px", backgroundColor: "#fff" }}>
+            <div className="site-layout-background">
               <h1 className="title-top">Update Jobs</h1>
               <Form
                 layout="vertical"
@@ -189,7 +186,7 @@ const AddJob = (props) => {
                     <Row gutter={16}>
                       <Col span={12}>
                         <Form.Item
-                          style={{ marginBottom: '-50px' }}
+                          style={{ marginBottom: "-50px" }}
                           label="Job description & requirements"
                           name="des"
                           initialValue={JobsData.aJob.des}
@@ -202,7 +199,7 @@ const AddJob = (props) => {
                       </Col>
                       <Col span={12}>
                         <Form.Item
-                          style={{ marginBottom: '-50px' }}
+                          style={{ marginBottom: "-50px" }}
                           label="Required Skills"
                           name="requireSkill"
                           initialValue={JobsData.aJob.requireSkill}
@@ -215,7 +212,7 @@ const AddJob = (props) => {
                       </Col>
                     </Row>
                     <Button
-                      style={{ marginTop: '0px', width: '150px' }}
+                      style={{ marginTop: "0px", width: "150px" }}
                       size="large"
                       // className="button button-submit"
                       type="primary"
@@ -228,7 +225,7 @@ const AddJob = (props) => {
                           height="10"
                         />
                       ) : (
-                        'UPDATE'
+                        "UPDATE"
                       )}
                     </Button>
                   </Col>
@@ -274,16 +271,16 @@ const AddJob = (props) => {
                       <Upload.Dragger {...uploadImage}>
                         {image === null ? (
                           <img
-                            style={{ width: '270px' }}
+                            style={{ width: "270px" }}
                             src={`${
-                              'http://localhost:8080/' + JobsData.aJob.image
+                              "http://localhost:8080/" + JobsData.aJob.image
                             }`}
                             alt="avatar"
                           />
                         ) : (
                           <img
-                            style={{ width: '270px' }}
-                            src={`${'http://localhost:8080/' + image}`}
+                            style={{ width: "270px" }}
+                            src={`${"http://localhost:8080/" + image}`}
                             // src="http://localhost:8080/Technology-Images-Wallpapers-027.jpg"
                             alt="avatar"
                           />

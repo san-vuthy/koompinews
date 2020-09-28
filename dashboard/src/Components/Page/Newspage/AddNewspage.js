@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState } from "react";
 import {
   Col,
   Row,
@@ -9,26 +9,26 @@ import {
   Upload,
   Select,
   message,
-} from 'antd';
-import buttonLoading from '../../../asset/img/three-dots.svg';
-import LeftNavbar from '../../Layout/LeftNavbar';
-import Navbar from '../../Layout/Navbar';
-import TextEditor from '../../Help/TextEditor';
-import { GET_CATEGORIES, GET_TYPE_OF_NEWS } from '../../../graphql/query';
-import { ADD_NEWS } from '../../../graphql/mutation';
-import { useQuery, useMutation } from '@apollo/client';
+} from "antd";
+import buttonLoading from "../../../asset/img/three-dots.svg";
+import LeftNavbar from "../../Layout/LeftNavbar";
+import Navbar from "../../Layout/Navbar";
+import TextEditor from "../../Help/TextEditor";
+import { GET_CATEGORIES, GET_TYPE_OF_NEWS } from "../../../graphql/query";
+import { ADD_NEWS } from "../../../graphql/mutation";
+import { useQuery, useMutation } from "@apollo/client";
 
 const { Content } = Layout;
 const { Option } = Select;
 const AddNewspage = () => {
   const [form] = Form.useForm();
   const [loading1, setLoading] = useState(false);
-  const [image, setImage] = useState('');
-  const [desc, setDesc] = useState('');
+  const [image, setImage] = useState("");
+  const [desc, setDesc] = useState("");
   const [addNews] = useMutation(ADD_NEWS);
 
   const onFinishFailed = (errorInfo) => {
-    console.log('Failed:', errorInfo);
+    console.log("Failed:", errorInfo);
   };
   const onFinish = (value) => {
     addNews({
@@ -36,7 +36,7 @@ const AddNewspage = () => {
         ...value,
         describtion: desc,
         image: image,
-        userId: '5f324067aeef78b4df13ca54',
+        userId: "5f324067aeef78b4df13ca54",
       },
     }).then(async (res) => {
       setLoading(true);
@@ -47,7 +47,7 @@ const AddNewspage = () => {
     });
     setDesc(form.resetFields());
     form.resetFields();
-    console.log('success', value, desc);
+    console.log("success", value, desc);
   };
   const onChange = (e) => {
     console.log(e);
@@ -58,20 +58,20 @@ const AddNewspage = () => {
   };
 
   const uploadImage = {
-    name: 'file',
+    name: "file",
     multiple: false,
-    action: 'http://localhost:8080/upload',
+    action: "http://localhost:8080/upload",
     // listType: 'picture',
     // defaultFileList: image,
     onChange(info) {
       const { status } = info.file;
-      if (status !== 'uploading') {
+      if (status !== "uploading") {
         console.log(info.file, info.fileList);
       }
-      if (status === 'done') {
-        setImage(info.file.name.replace(/\s+/g, '-').toLowerCase());
+      if (status === "done") {
+        setImage(info.file.name.replace(/\s+/g, "-").toLowerCase());
         message.success(`${info.file.name} file uploaded successfully.`);
-      } else if (status === 'error') {
+      } else if (status === "error") {
         message.error(`${info.file.name} file upload failed.`);
       }
     },
@@ -79,13 +79,13 @@ const AddNewspage = () => {
   function DisplayNewType() {
     const { loading, error, data } = useQuery(GET_TYPE_OF_NEWS);
 
-    if (loading) return 'Loading...';
+    if (loading) return "Loading...";
     console.log(data);
     if (error) return `Error! ${error.message}`;
 
     return (
       <Form.Item
-        rules={[{ required: true, message: 'Type is required' }]}
+        rules={[{ required: true, message: "Type is required" }]}
         label="Type"
         name="newsTypeId"
       >
@@ -112,12 +112,12 @@ const AddNewspage = () => {
   function DisplayCategories() {
     const { loading, error, data } = useQuery(GET_CATEGORIES);
 
-    if (loading) return 'Loading...';
+    if (loading) return "Loading...";
     console.log(data);
     if (error) return `Error! ${error.message}`;
     return (
       <Form.Item
-        rules={[{ required: true, message: 'Category is required' }]}
+        rules={[{ required: true, message: "Category is required" }]}
         label="Categories"
         name="categoriesId"
       >
@@ -143,15 +143,12 @@ const AddNewspage = () => {
 
   return (
     <React.Fragment>
-      <Layout style={{ minHeight: '100vh' }}>
+      <Layout style={{ minHeight: "100vh" }}>
         <LeftNavbar />
         <Layout className="site-layout">
           <Navbar />
-          <Content style={{ margin: '16px 16px', backgroundColor: '#fff' }}>
-            <div
-              className="site-layout-background"
-              style={{ minHeight: 360, padding: 70 }}
-            >
+          <Content style={{ margin: "16px 16px", backgroundColor: "#fff" }}>
+            <div className="site-layout-background">
               {/* <div className="background-content-dashboard"> */}
               <h1 className="title-top">Add News</h1>
               <Form
@@ -169,7 +166,7 @@ const AddNewspage = () => {
                       rules={[
                         {
                           required: true,
-                          message: 'Please input Title!',
+                          message: "Please input Title!",
                         },
                       ]}
                     >
@@ -179,7 +176,7 @@ const AddNewspage = () => {
                     <Form.Item
                       label="Description"
                       name="describtion"
-                      style={{ marginBottom: '-90px' }}
+                      style={{ marginBottom: "-90px" }}
                     >
                       <TextEditor
                         handleDescChange={handleDescChange}
@@ -187,7 +184,7 @@ const AddNewspage = () => {
                       />
                     </Form.Item>
                     <Button
-                      style={{ marginTop: '0px', width: '150px' }}
+                      style={{ marginTop: "0px", width: "150px" }}
                       size="large"
                       // className="button button-submit"
                       type="primary"
@@ -200,7 +197,7 @@ const AddNewspage = () => {
                           height="10"
                         />
                       ) : (
-                        'SUBMIT'
+                        "SUBMIT"
                       )}
                     </Button>
                   </Col>
@@ -216,21 +213,21 @@ const AddNewspage = () => {
                       rules={[
                         {
                           required: true,
-                          message: 'Please input image!',
+                          message: "Please input image!",
                         },
                       ]}
                     >
                       <Upload.Dragger {...uploadImage}>
-                        {image === '' ? (
+                        {image === "" ? (
                           <img
-                            style={{ width: '270px' }}
+                            style={{ width: "270px" }}
                             src="http://localhost:8080/undraw_upload_87y9.svg"
                             alt="avatar"
                           />
                         ) : (
                           <img
-                            style={{ width: '270px' }}
-                            src={`${'http://localhost:8080/' + image}`}
+                            style={{ width: "270px" }}
+                            src={`${"http://localhost:8080/" + image}`}
                             // src="http://localhost:8080/Technology-Images-Wallpapers-027.jpg"
                             alt="avatar"
                           />

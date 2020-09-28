@@ -1,17 +1,17 @@
-import React, { useState } from 'react';
-import { Layout, Form, Button, Upload, message, Select } from 'antd';
-import buttonLoading from '../../../asset/img/three-dots.svg';
-import loadingPage from '../../../asset/img/Wedges-3s-200px.svg';
-import LeftNavbar from '../../Layout/LeftNavbar';
-import Navbar from '../../Layout/Navbar';
-import { useMutation, useQuery } from '@apollo/client';
-import { UPDATE_BANNER } from '../../../graphql/mutation';
-import { useParams } from 'react-router-dom';
+import React, { useState } from "react";
+import { Layout, Form, Button, Upload, message, Select } from "antd";
+import buttonLoading from "../../../asset/img/three-dots.svg";
+import loadingPage from "../../../asset/img/Wedges-3s-200px.svg";
+import LeftNavbar from "../../Layout/LeftNavbar";
+import Navbar from "../../Layout/Navbar";
+import { useMutation, useQuery } from "@apollo/client";
+import { UPDATE_BANNER } from "../../../graphql/mutation";
+import { useParams } from "react-router-dom";
 import {
   GET_ALL_PAGE_BANNER,
   GET_A_BANNER,
   GET_ALL_BANNER,
-} from '../../../graphql/query';
+} from "../../../graphql/query";
 
 const { Content } = Layout;
 const { Option } = Select;
@@ -26,10 +26,10 @@ const EditBanner = (props) => {
   } = useQuery(GET_A_BANNER, {
     variables: { id },
   });
-  const [image, setImage] = useState('');
+  const [image, setImage] = useState("");
   const [loading1, setLoading] = useState(false);
   const onFinishFailed = (errorInfo) => {
-    console.log('Failed:', errorInfo);
+    console.log("Failed:", errorInfo);
   };
   const onChange = (e) => {
     console.log(e);
@@ -39,8 +39,8 @@ const EditBanner = (props) => {
       variables: {
         ...value,
         id: id,
-        banner: image === '' ? BannerData.aBanner.banner : image,
-        userId: '5f324067aeef78b4df13ca54',
+        banner: image === "" ? BannerData.aBanner.banner : image,
+        userId: "5f324067aeef78b4df13ca54",
       },
     }).then(async (res) => {
       setLoading(true);
@@ -50,26 +50,26 @@ const EditBanner = (props) => {
       await message.success(res.data.updateBanner.message);
       await refetch();
       await Bannerrefetch();
-      await props.history.push('/admin/allbanner');
+      await props.history.push("/admin/allbanner");
 
       //   form.resetFields();
     });
-    console.log('success', value);
+    console.log("success", value);
   };
   const uploadImage = {
-    name: 'file',
+    name: "file",
     multiple: false,
-    action: 'http://localhost:8080/upload',
+    action: "http://localhost:8080/upload",
 
     onChange(info) {
       const { status } = info.file;
-      if (status !== 'uploading') {
+      if (status !== "uploading") {
         console.log(info.file, info.fileList);
       }
-      if (status === 'done') {
-        setImage(info.file.name.replace(/\s+/g, '-').toLowerCase());
+      if (status === "done") {
+        setImage(info.file.name.replace(/\s+/g, "-").toLowerCase());
         message.success(`${info.file.name} file uploaded successfully.`);
-      } else if (status === 'error') {
+      } else if (status === "error") {
         message.error(`${info.file.name} file upload failed.`);
       }
     },
@@ -77,10 +77,10 @@ const EditBanner = (props) => {
   function DisplayPage() {
     const { loading, error, data } = useQuery(GET_ALL_PAGE_BANNER);
 
-    if (loading) return 'Loading...';
+    if (loading) return "Loading...";
     console.log(data);
     if (error) return `Error! ${error.message}`;
-    console.log('page', BannerData.aBanner.page.id);
+    console.log("page", BannerData.aBanner.page.id);
     return (
       <Form.Item
         initialValue={BannerData.aBanner.page.id}
@@ -117,7 +117,7 @@ const EditBanner = (props) => {
       <center>
         <img
           alt="img"
-          style={{ height: '80px', marginTop: '200px' }}
+          style={{ height: "80px", marginTop: "200px" }}
           src={loadingPage}
         />
       </center>
@@ -125,25 +125,22 @@ const EditBanner = (props) => {
   }
   return (
     <React.Fragment>
-      <Layout style={{ minHeight: '100vh' }}>
+      <Layout style={{ minHeight: "100vh" }}>
         <LeftNavbar />
         <Layout className="site-layout">
           <Navbar />
           <Content
             style={{
-              margin: '16px 16px',
-              backgroundColor: '#fff',
-              width: '60%',
-              marginLeft: 'auto',
-              marginRight: 'auto',
+              margin: "16px 16px",
+              backgroundColor: "#fff",
+              width: "60%",
+              marginLeft: "auto",
+              marginRight: "auto",
               //   height: '300px',
-              flex: 'none',
+              flex: "none",
             }}
           >
-            <div
-              className="site-layout-background"
-              style={{ minHeight: 360, padding: 70 }}
-            >
+            <div className="site-layout-background">
               <h1 className="title-top">Update Banner</h1>
               <Form
                 // form={form}
@@ -157,18 +154,18 @@ const EditBanner = (props) => {
                   //   rules={[{ required: true, message: 'Please input image' }]}
                 >
                   <Upload.Dragger {...uploadImage}>
-                    {image === '' ? (
+                    {image === "" ? (
                       <img
-                        style={{ width: '270px' }}
+                        style={{ width: "270px" }}
                         src={`${
-                          'http://localhost:8080/' + BannerData.aBanner.banner
+                          "http://localhost:8080/" + BannerData.aBanner.banner
                         }`}
                         alt="avatar"
                       />
                     ) : (
                       <img
-                        style={{ width: '270px' }}
-                        src={`${'http://localhost:8080/' + image}`}
+                        style={{ width: "270px" }}
+                        src={`${"http://localhost:8080/" + image}`}
                         // src="http://localhost:8080/Technology-Images-Wallpapers-027.jpg"
                         alt="avatar"
                       />
@@ -177,7 +174,7 @@ const EditBanner = (props) => {
                 </Form.Item>
                 <DisplayPage />
                 <Button
-                  style={{ marginTop: '0px', width: '150px' }}
+                  style={{ marginTop: "0px", width: "150px" }}
                   size="large"
                   type="primary"
                   htmlType="submit"
@@ -185,7 +182,7 @@ const EditBanner = (props) => {
                   {loading1 ? (
                     <img src={buttonLoading} alt="btn-loading" height="10" />
                   ) : (
-                    'UPDATE'
+                    "UPDATE"
                   )}
                 </Button>
               </Form>

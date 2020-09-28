@@ -1,13 +1,13 @@
-import React, { useState } from 'react';
-import { Layout, Menu } from 'antd';
-import { TeamOutlined, UserOutlined } from '@ant-design/icons';
-import { NavLink, Link } from 'react-router-dom';
-import feet from '../../asset/img/feed.svg';
-import news from '../../asset/img/news.svg';
-import company from '../../asset/img/home.svg';
-import event from '../../asset/img/calendar-event.svg';
-import about from '../../asset/img/cards.svg';
-import Knowledge from '../../asset/img/book-opened.svg';
+import React, { useState } from "react";
+import { Layout, Menu } from "antd";
+import { TeamOutlined, UserOutlined } from "@ant-design/icons";
+import { NavLink, Link } from "react-router-dom";
+import feet from "../../asset/img/feed.svg";
+import news from "../../asset/img/news.svg";
+import company from "../../asset/img/home.svg";
+import event from "../../asset/img/calendar-event.svg";
+import about from "../../asset/img/cards.svg";
+import Knowledge from "../../asset/img/book-opened.svg";
 
 const pathname = window.location.pathname;
 const { Sider } = Layout;
@@ -21,31 +21,16 @@ const LeftNavbar = () => {
     <React.Fragment>
       <Sider collapsed={collapsed} onCollapse={onCollapse}>
         <div className="logo">
-          <img
-            alt="img"
-            style={{
-              height: '40px',
-              width: '70%',
-              paddingLeft: '40px',
-            }}
-            src="/img/logo.png"
-          />
+          <img alt="img" src="/img/logo.png" />
         </div>
         <Menu
-          theme="dark"
           defaultSelectedKeys={[pathname]}
           defaultOpenKeys={[pathname]}
           mode="inline"
         >
           <SubMenu
             key="/admin/allnews"
-            icon={
-              <img
-                alt="img"
-                style={{ color: '#fff', width: '30px', paddingRight: '7px' }}
-                src={news}
-              />
-            }
+            icon={<img alt="img" className="left-navbar-icons" src={news} />}
             title="News Page"
           >
             <Menu.Item>
@@ -57,13 +42,7 @@ const LeftNavbar = () => {
           </SubMenu>
           <SubMenu
             key="/admin/alljobs"
-            icon={
-              <img
-                alt="img"
-                style={{ color: '#fff', width: '25px', paddingRight: '7px' }}
-                src={feet}
-              />
-            }
+            icon={<img alt="img" className="left-navbar-icons" src={feet} />}
             title="Jobs Page"
           >
             <Menu.Item>
@@ -78,13 +57,7 @@ const LeftNavbar = () => {
           </SubMenu>
           <SubMenu
             key="5"
-            icon={
-              <img
-                alt="img"
-                style={{ color: '#fff', width: '28px', paddingRight: '7px' }}
-                src={company}
-              />
-            }
+            icon={<img alt="img" className="left-navbar-icons" src={company} />}
             title="Company Page"
           >
             <Menu.Item>
@@ -96,13 +69,7 @@ const LeftNavbar = () => {
           </SubMenu>
           <SubMenu
             key="6"
-            icon={
-              <img
-                alt="img"
-                style={{ color: '#fff', width: '30px', paddingRight: '7px' }}
-                src={event}
-              />
-            }
+            icon={<img alt="img" className="left-navbar-icons" src={event} />}
             title="Event Page"
           >
             <Menu.Item>
@@ -114,13 +81,7 @@ const LeftNavbar = () => {
           </SubMenu>
           <SubMenu
             key="7"
-            icon={
-              <img
-                alt="img"
-                style={{ color: '#fff', width: '30px', paddingRight: '7px' }}
-                src={about}
-              />
-            }
+            icon={<img alt="img" className="left-navbar-icons" src={about} />}
             title="About Page"
           >
             <Menu.Item>
@@ -133,11 +94,7 @@ const LeftNavbar = () => {
           <SubMenu
             key="8"
             icon={
-              <img
-                alt="img"
-                style={{ color: '#fff', width: '30px', paddingRight: '7px' }}
-                src={Knowledge}
-              />
+              <img alt="img" className="left-navbar-icons" src={Knowledge} />
             }
             title="Knowledge Page"
           >
@@ -151,11 +108,7 @@ const LeftNavbar = () => {
           <SubMenu
             key="9"
             icon={
-              <img
-                alt="img"
-                style={{ color: '#fff', width: '30px', paddingRight: '7px' }}
-                src={Knowledge}
-              />
+              <img alt="img" className="left-navbar-icons" src={Knowledge} />
             }
             title="Banner Page"
           >
@@ -169,11 +122,7 @@ const LeftNavbar = () => {
           <SubMenu
             key="10"
             icon={
-              <img
-                alt="img"
-                style={{ color: '#fff', width: '30px', paddingRight: '7px' }}
-                src={Knowledge}
-              />
+              <img alt="img" className="left-navbar-icons" src={Knowledge} />
             }
             title="Home Page"
           >
@@ -187,11 +136,7 @@ const LeftNavbar = () => {
           <SubMenu
             key="11"
             icon={
-              <img
-                alt="img"
-                style={{ color: '#fff', width: '30px', paddingRight: '7px' }}
-                src={Knowledge}
-              />
+              <img alt="img" className="left-navbar-icons" src={Knowledge} />
             }
             title="CV "
           >

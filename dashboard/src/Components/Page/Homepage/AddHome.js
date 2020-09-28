@@ -1,21 +1,21 @@
-import React, { useState } from 'react';
-import { Col, Row, Layout, Form, Button, Input, Upload, message } from 'antd';
-import buttonLoading from '../../../asset/img/three-dots.svg';
-import LeftNavbar from '../../Layout/LeftNavbar';
-import Navbar from '../../Layout/Navbar';
-import TextEditor from '../../Help/TextEditor';
-import { ADD_HOME } from '../../../graphql/mutation';
-import { useMutation } from '@apollo/client';
+import React, { useState } from "react";
+import { Col, Row, Layout, Form, Button, Input, Upload, message } from "antd";
+import buttonLoading from "../../../asset/img/three-dots.svg";
+import LeftNavbar from "../../Layout/LeftNavbar";
+import Navbar from "../../Layout/Navbar";
+import TextEditor from "../../Help/TextEditor";
+import { ADD_HOME } from "../../../graphql/mutation";
+import { useMutation } from "@apollo/client";
 
 const { Content } = Layout;
 const AddHome = () => {
   const [form] = Form.useForm();
-  const [image, setImage] = useState('');
+  const [image, setImage] = useState("");
   const [loading1, setLoading] = useState(false);
-  const [desc, setDesc] = useState('');
+  const [desc, setDesc] = useState("");
   const [addHome] = useMutation(ADD_HOME);
   const onFinishFailed = (errorInfo) => {
-    console.log('Failed:', errorInfo);
+    console.log("Failed:", errorInfo);
   };
   const onFinish = (value) => {
     addHome({
@@ -23,7 +23,7 @@ const AddHome = () => {
         ...value,
         des: desc,
         image: image,
-        userId: '5f324067aeef78b4df13ca54',
+        userId: "5f324067aeef78b4df13ca54",
       },
     }).then(async (res) => {
       setLoading(true);
@@ -34,7 +34,7 @@ const AddHome = () => {
     });
     setDesc(form.resetFields());
     form.resetFields();
-    console.log('success', value, desc);
+    console.log("success", value, desc);
   };
 
   const handleDescChange = (value) => {
@@ -42,35 +42,32 @@ const AddHome = () => {
     setDesc(value);
   };
   const uploadImage = {
-    name: 'file',
+    name: "file",
     multiple: false,
-    action: 'http://localhost:8080/upload',
+    action: "http://localhost:8080/upload",
     // listType: 'picture',
     // defaultFileList: image,
     onChange(info) {
       const { status } = info.file;
-      if (status !== 'uploading') {
+      if (status !== "uploading") {
         console.log(info.file, info.fileList);
       }
-      if (status === 'done') {
-        setImage(info.file.name.replace(/\s+/g, '-').toLowerCase());
+      if (status === "done") {
+        setImage(info.file.name.replace(/\s+/g, "-").toLowerCase());
         message.success(`${info.file.name} file uploaded successfully.`);
-      } else if (status === 'error') {
+      } else if (status === "error") {
         message.error(`${info.file.name} file upload failed.`);
       }
     },
   };
   return (
     <React.Fragment>
-      <Layout style={{ minHeight: '100vh' }}>
+      <Layout style={{ minHeight: "100vh" }}>
         <LeftNavbar />
         <Layout className="site-layout">
           <Navbar />
-          <Content style={{ margin: '16px 16px', backgroundColor: '#fff' }}>
-            <div
-              className="site-layout-background"
-              style={{ minHeight: 360, padding: 70 }}
-            >
+          <Content style={{ margin: "16px 16px", backgroundColor: "#fff" }}>
+            <div className="site-layout-background">
               <h1 className="title-top">Add Home</h1>
               <Form
                 form={form}
@@ -87,7 +84,7 @@ const AddHome = () => {
                       rules={[
                         {
                           required: true,
-                          message: 'Please input Title!',
+                          message: "Please input Title!",
                         },
                       ]}
                     >
@@ -96,7 +93,7 @@ const AddHome = () => {
                     <Form.Item
                       label="Description"
                       name="describtion"
-                      style={{ marginBottom: '-90px' }}
+                      style={{ marginBottom: "-90px" }}
                     >
                       <TextEditor
                         handleDescChange={handleDescChange}
@@ -104,7 +101,7 @@ const AddHome = () => {
                       />
                     </Form.Item>
                     <Button
-                      style={{ marginTop: '0px', width: '150px' }}
+                      style={{ marginTop: "0px", width: "150px" }}
                       size="large"
                       // className="button button-submit"
                       type="primary"
@@ -117,7 +114,7 @@ const AddHome = () => {
                           height="10"
                         />
                       ) : (
-                        'SUBMIT'
+                        "SUBMIT"
                       )}
                     </Button>
                   </Col>
@@ -129,7 +126,7 @@ const AddHome = () => {
                       rules={[
                         {
                           required: true,
-                          message: 'Please input Title!',
+                          message: "Please input Title!",
                         },
                       ]}
                     >
@@ -137,16 +134,16 @@ const AddHome = () => {
                     </Form.Item>
                     <Form.Item label="Image" name="image">
                       <Upload.Dragger {...uploadImage}>
-                        {image === '' ? (
+                        {image === "" ? (
                           <img
-                            style={{ width: '270px' }}
+                            style={{ width: "270px" }}
                             src="http://localhost:8080/undraw_upload_87y9.svg"
                             alt="avatar"
                           />
                         ) : (
                           <img
-                            style={{ width: '270px' }}
-                            src={`${'http://localhost:8080/' + image}`}
+                            style={{ width: "270px" }}
+                            src={`${"http://localhost:8080/" + image}`}
                             // src="http://localhost:8080/Technology-Images-Wallpapers-027.jpg"
                             alt="avatar"
                           />

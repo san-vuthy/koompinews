@@ -1,23 +1,23 @@
-import React, { useState } from 'react';
-import { Col, Row, Layout, Form, Button, Input, Upload, message } from 'antd';
+import React, { useState } from "react";
+import { Col, Row, Layout, Form, Button, Input, Upload, message } from "antd";
 
-import LeftNavbar from '../../Layout/LeftNavbar';
-import Navbar from '../../Layout/Navbar';
-import loadingPage from '../../../asset/img/Wedges-3s-200px.svg';
-import buttonLoading from '../../../asset/img/three-dots.svg';
-import TextEditor from '../../Help/TextEditor';
-import { UPDATE_HOME } from '../../../graphql/mutation';
-import { GET_A_HOME } from '../../../graphql/query';
-import { useMutation, useQuery } from '@apollo/client';
-import { useParams } from 'react-router-dom';
+import LeftNavbar from "../../Layout/LeftNavbar";
+import Navbar from "../../Layout/Navbar";
+import loadingPage from "../../../asset/img/Wedges-3s-200px.svg";
+import buttonLoading from "../../../asset/img/three-dots.svg";
+import TextEditor from "../../Help/TextEditor";
+import { UPDATE_HOME } from "../../../graphql/mutation";
+import { GET_A_HOME } from "../../../graphql/query";
+import { useMutation, useQuery } from "@apollo/client";
+import { useParams } from "react-router-dom";
 
 const { Content } = Layout;
 const EditHome = (props) => {
   const { id } = useParams();
   const [form] = Form.useForm();
-  const [image, setImage] = useState('');
+  const [image, setImage] = useState("");
   const [loading1, setLoading] = useState(false);
-  const [desc, setDesc] = useState('');
+  const [desc, setDesc] = useState("");
   const [updateHome] = useMutation(UPDATE_HOME);
   const {
     loading: HomeLoading,
@@ -27,16 +27,16 @@ const EditHome = (props) => {
     variables: { id },
   });
   const onFinishFailed = (errorInfo) => {
-    console.log('Failed:', errorInfo);
+    console.log("Failed:", errorInfo);
   };
   const onFinish = (value) => {
     updateHome({
       variables: {
         id: id,
         ...value,
-        des: desc === '' ? HomeData.aHome.des : desc,
-        image: image === '' ? HomeData.aHome.image : image,
-        userId: '5f324067aeef78b4df13ca54',
+        des: desc === "" ? HomeData.aHome.des : desc,
+        image: image === "" ? HomeData.aHome.image : image,
+        userId: "5f324067aeef78b4df13ca54",
       },
     }).then(async (res) => {
       setLoading(true);
@@ -45,11 +45,11 @@ const EditHome = (props) => {
       }, 3000);
       await message.success(res.data.updateHome.message);
       await Homerefetch();
-      await props.history.push('/admin/allhome');
+      await props.history.push("/admin/allhome");
     });
     setDesc(form.resetFields());
     form.resetFields();
-    console.log('success', value, desc);
+    console.log("success", value, desc);
   };
 
   const handleDescChange = (value) => {
@@ -57,20 +57,20 @@ const EditHome = (props) => {
     setDesc(value);
   };
   const uploadImage = {
-    name: 'file',
+    name: "file",
     multiple: false,
-    action: 'http://localhost:8080/upload',
+    action: "http://localhost:8080/upload",
     // listType: 'picture',
     // defaultFileList: image,
     onChange(info) {
       const { status } = info.file;
-      if (status !== 'uploading') {
+      if (status !== "uploading") {
         console.log(info.file, info.fileList);
       }
-      if (status === 'done') {
-        setImage(info.file.name.replace(/\s+/g, '-').toLowerCase());
+      if (status === "done") {
+        setImage(info.file.name.replace(/\s+/g, "-").toLowerCase());
         message.success(`${info.file.name} file uploaded successfully.`);
-      } else if (status === 'error') {
+      } else if (status === "error") {
         message.error(`${info.file.name} file upload failed.`);
       }
     },
@@ -80,7 +80,7 @@ const EditHome = (props) => {
       <center>
         <img
           alt="img"
-          style={{ height: '80px', marginTop: '200px' }}
+          style={{ height: "80px", marginTop: "200px" }}
           src={loadingPage}
         />
       </center>
@@ -88,15 +88,12 @@ const EditHome = (props) => {
   }
   return (
     <React.Fragment>
-      <Layout style={{ minHeight: '100vh' }}>
+      <Layout style={{ minHeight: "100vh" }}>
         <LeftNavbar />
         <Layout className="site-layout">
           <Navbar />
-          <Content style={{ margin: '16px 16px', backgroundColor: '#fff' }}>
-            <div
-              className="site-layout-background"
-              style={{ minHeight: 360, padding: 70 }}
-            >
+          <Content style={{ margin: "16px 16px", backgroundColor: "#fff" }}>
+            <div className="site-layout-background">
               <h1 className="title-top">Add Home</h1>
               <Form
                 form={form}
@@ -117,7 +114,7 @@ const EditHome = (props) => {
                     <Form.Item
                       label="Description"
                       name="describtion"
-                      style={{ marginBottom: '-90px' }}
+                      style={{ marginBottom: "-90px" }}
                     >
                       <TextEditor
                         handleDescChange={handleDescChange}
@@ -125,7 +122,7 @@ const EditHome = (props) => {
                       />
                     </Form.Item>
                     <Button
-                      style={{ marginTop: '0px', width: '150px' }}
+                      style={{ marginTop: "0px", width: "150px" }}
                       size="large"
                       // className="button button-submit"
                       type="primary"
@@ -138,7 +135,7 @@ const EditHome = (props) => {
                           height="10"
                         />
                       ) : (
-                        'SUBMIT'
+                        "SUBMIT"
                       )}
                     </Button>
                   </Col>
@@ -152,18 +149,18 @@ const EditHome = (props) => {
                     </Form.Item>
                     <Form.Item label="Image" name="image">
                       <Upload.Dragger {...uploadImage}>
-                        {image === '' ? (
+                        {image === "" ? (
                           <img
-                            style={{ width: '270px' }}
+                            style={{ width: "270px" }}
                             src={`${
-                              'http://localhost:8080/' + HomeData.aHome.image
+                              "http://localhost:8080/" + HomeData.aHome.image
                             }`}
                             alt="avatar"
                           />
                         ) : (
                           <img
-                            style={{ width: '270px' }}
-                            src={`${'http://localhost:8080/' + image}`}
+                            style={{ width: "270px" }}
+                            src={`${"http://localhost:8080/" + image}`}
                             // src="http://localhost:8080/Technology-Images-Wallpapers-027.jpg"
                             alt="avatar"
                           />

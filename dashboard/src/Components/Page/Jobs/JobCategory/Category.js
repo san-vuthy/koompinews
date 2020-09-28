@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState } from "react";
 import {
   Col,
   Row,
@@ -14,26 +14,26 @@ import {
   message,
   Popconfirm,
   Divider,
-} from 'antd';
-import LeftNavbar from '../../../Layout/LeftNavbar';
-import Navbar from '../../../Layout/Navbar';
+} from "antd";
+import LeftNavbar from "../../../Layout/LeftNavbar";
+import Navbar from "../../../Layout/Navbar";
 import {
   UploadOutlined,
   EditOutlined,
   DeleteOutlined,
-} from '@ant-design/icons';
-import moment from 'moment';
-import { useMutation, useQuery } from '@apollo/client';
+} from "@ant-design/icons";
+import moment from "moment";
+import { useMutation, useQuery } from "@apollo/client";
 import {
   // ADD_JOB_CATEGORY,
   DELETE_JOB_CATEGORY,
   // UPDATE_JOB_CATEGORY,
-} from '../../../../graphql/mutation';
+} from "../../../../graphql/mutation";
 import {
   GET_JOB_CATEGORY,
   GET_A_JOB_CATEGORY,
-} from '../../../../graphql/query';
-import AddJobCategory from './AddJobCategory';
+} from "../../../../graphql/query";
+import AddJobCategory from "./AddJobCategory";
 
 const { Content } = Layout;
 const { TextArea } = Input;
@@ -42,23 +42,23 @@ const { Option } = Select;
 const Category = () => {
   // const [form] = Form.useForm();
   const [edit, setEdit] = useState(false);
-  const [id, setId] = useState('');
+  const [id, setId] = useState("");
   const { loading, error, data, refetch } = useQuery(GET_JOB_CATEGORY);
   // const [addJobCategory] = useMutation(ADD_JOB_CATEGORY);
   const [deleteJobCategory] = useMutation(DELETE_JOB_CATEGORY);
   // const [updateJobCategory] = useMutation(UPDATE_JOB_CATEGORY);
-  if (loading) return 'Loading...';
+  if (loading) return "Loading...";
   console.log(data);
   if (error) return `Error! ${error.message}`;
   const onFinishFailed = (errorInfo) => {
-    console.log('Failed:', errorInfo);
+    console.log("Failed:", errorInfo);
   };
   const isEdit = () => {
     setEdit(false);
   };
   const cancel = (e) => {
     console.log(e);
-    message.error('The author does not deleted');
+    message.error("The author does not deleted");
   };
   // const onFinish = (value) => {
   //   addJobCategory({
@@ -76,31 +76,31 @@ const Category = () => {
 
   const columns = [
     {
-      title: 'Name of Categories',
-      dataIndex: 'name',
-      key: 'jobcategories',
+      title: "Name of Categories",
+      dataIndex: "name",
+      key: "jobcategories",
     },
 
     {
-      title: 'CreateBy',
-      dataIndex: 'user',
-      key: 'create_by',
+      title: "CreateBy",
+      dataIndex: "user",
+      key: "create_by",
       render: (user) => {
         return user.name;
       },
     },
     {
-      title: 'Create At',
-      dataIndex: 'createAt',
-      key: 'create_at',
+      title: "Create At",
+      dataIndex: "createAt",
+      key: "create_at",
       render: (data) => {
-        return moment.unix(data / 1000).format('YYYY-MM-DD');
+        return moment.unix(data / 1000).format("YYYY-MM-DD");
       },
     },
     {
-      title: 'Action',
-      dataIndex: 'action',
-      key: 'action',
+      title: "Action",
+      dataIndex: "action",
+      key: "action",
       render: (index, data) => {
         // const { id } = data;
         // console.log('id', id);
@@ -112,7 +112,7 @@ const Category = () => {
                 setEdit(true);
                 setId(`${id}`);
               }}
-              style={{ cursor: 'pointer' }}
+              style={{ cursor: "pointer" }}
               color="rgb(1, 100, 145)"
             >
               <EditOutlined /> Edit
@@ -136,7 +136,7 @@ const Category = () => {
                   });
               }}
             >
-              <Tag color="rgb(255, 0, 0)" style={{ cursor: 'pointer' }}>
+              <Tag color="rgb(255, 0, 0)" style={{ cursor: "pointer" }}>
                 <DeleteOutlined /> Delete
               </Tag>
             </Popconfirm>
@@ -148,25 +148,22 @@ const Category = () => {
 
   return (
     <React.Fragment>
-      <Layout style={{ minHeight: '100vh' }}>
+      <Layout style={{ minHeight: "100vh" }}>
         <LeftNavbar />
         <Layout className="site-layout">
           <Navbar />
           <Content
             style={{
-              margin: '16px 16px',
-              backgroundColor: '#fff',
-              width: '60%',
-              marginLeft: 'auto',
-              marginRight: 'auto',
-              height: '300px',
-              flex: 'none',
+              margin: "16px 16px",
+              backgroundColor: "#fff",
+              width: "60%",
+              marginLeft: "auto",
+              marginRight: "auto",
+              height: "300px",
+              flex: "none",
             }}
           >
-            <div
-              className="site-layout-background"
-              style={{ minHeight: 360, padding: 70 }}
-            >
+            <div className="site-layout-background">
               <AddJobCategory
                 isEdit={edit}
                 changeEdit={isEdit}
@@ -205,17 +202,14 @@ const Category = () => {
           </Content>
           <Content
             style={{
-              margin: '16px 16px',
-              backgroundColor: '#fff',
-              width: '60%',
-              marginLeft: 'auto',
-              marginRight: 'auto',
+              margin: "16px 16px",
+              backgroundColor: "#fff",
+              width: "60%",
+              marginLeft: "auto",
+              marginRight: "auto",
             }}
           >
-            <div
-              className="site-layout-background"
-              style={{ minHeight: 360, padding: 70 }}
-            >
+            <div className="site-layout-background">
               <h1 className="title-top">Display JobCategories</h1>
               <Table
                 columns={columns}

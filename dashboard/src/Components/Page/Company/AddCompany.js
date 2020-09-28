@@ -1,25 +1,25 @@
-import React, { useState } from 'react';
-import { Col, Row, Layout, Form, Button, Input, Upload, message } from 'antd';
-import LeftNavbar from '../../Layout/LeftNavbar';
-import Navbar from '../../Layout/Navbar';
-import TextEditor from '../../Help/TextEditor';
-import { ADD_COMPANY } from '../../../graphql/mutation';
-import { GET_COMPANIES } from '../../../graphql/query';
-import { useMutation, useQuery } from '@apollo/client';
-import buttonLoading from '../../../asset/img/three-dots.svg';
+import React, { useState } from "react";
+import { Col, Row, Layout, Form, Button, Input, Upload, message } from "antd";
+import LeftNavbar from "../../Layout/LeftNavbar";
+import Navbar from "../../Layout/Navbar";
+import TextEditor from "../../Help/TextEditor";
+import { ADD_COMPANY } from "../../../graphql/mutation";
+import { GET_COMPANIES } from "../../../graphql/query";
+import { useMutation, useQuery } from "@apollo/client";
+import buttonLoading from "../../../asset/img/three-dots.svg";
 
-const id = localStorage.getItem('id');
+const id = localStorage.getItem("id");
 console.log(id);
 const { Content } = Layout;
 const AddCompany = () => {
   const [form] = Form.useForm();
   const [addCompany] = useMutation(ADD_COMPANY);
   const [loading1, setLoading] = useState(false);
-  const [desc, setDesc] = useState('');
-  const [image, setImage] = useState('');
+  const [desc, setDesc] = useState("");
+  const [image, setImage] = useState("");
 
   const { loading, data, error } = useQuery(GET_COMPANIES);
-  if (loading) return 'Loading...';
+  if (loading) return "Loading...";
   console.log(data);
 
   if (error) return `Error! ${error.message}`;
@@ -28,7 +28,7 @@ const AddCompany = () => {
     setDesc(value);
   };
   const onFinishFailed = (errorInfo) => {
-    console.log('Failed:', errorInfo);
+    console.log("Failed:", errorInfo);
   };
   const onFinish = (value) => {
     addCompany({
@@ -50,23 +50,23 @@ const AddCompany = () => {
       setDesc(form.resetFields());
       form.resetFields();
     });
-    console.log('success', value);
+    console.log("success", value);
   };
   const uploadImage = {
-    name: 'file',
+    name: "file",
     multiple: false,
-    action: 'http://localhost:8080/upload',
+    action: "http://localhost:8080/upload",
     // listType: 'picture',
     // defaultFileList: image,
     onChange(info) {
       const { status } = info.file;
-      if (status !== 'uploading') {
+      if (status !== "uploading") {
         console.log(info.file, info.fileList);
       }
-      if (status === 'done') {
-        setImage(info.file.name.replace(/\s+/g, '-').toLowerCase());
+      if (status === "done") {
+        setImage(info.file.name.replace(/\s+/g, "-").toLowerCase());
         message.success(`${info.file.name} file uploaded successfully.`);
-      } else if (status === 'error') {
+      } else if (status === "error") {
         message.error(`${info.file.name} file upload failed.`);
       }
     },
@@ -74,15 +74,12 @@ const AddCompany = () => {
 
   return (
     <React.Fragment>
-      <Layout style={{ minHeight: '100vh' }}>
+      <Layout style={{ minHeight: "100vh" }}>
         <LeftNavbar />
         <Layout className="site-layout">
           <Navbar />
-          <Content style={{ margin: '16px 16px', backgroundColor: '#fff' }}>
-            <div
-              className="site-layout-background"
-              style={{ minHeight: 360, padding: 70 }}
-            >
+          <Content style={{ margin: "16px 16px", backgroundColor: "#fff" }}>
+            <div className="site-layout-background">
               <h1 className="title-top">Add Company</h1>
               <Form
                 form={form}
@@ -98,7 +95,7 @@ const AddCompany = () => {
                       rules={[
                         {
                           required: true,
-                          message: 'Please input Company Name!',
+                          message: "Please input Company Name!",
                         },
                       ]}
                     >
@@ -112,7 +109,7 @@ const AddCompany = () => {
                           rules={[
                             {
                               required: true,
-                              message: 'Please input Company Website!',
+                              message: "Please input Company Website!",
                             },
                           ]}
                         >
@@ -126,7 +123,7 @@ const AddCompany = () => {
                           rules={[
                             {
                               required: true,
-                              message: 'Please input Industry!',
+                              message: "Please input Industry!",
                             },
                           ]}
                         >
@@ -140,7 +137,7 @@ const AddCompany = () => {
                           rules={[
                             {
                               required: true,
-                              message: 'Please Company Revenue!',
+                              message: "Please Company Revenue!",
                             },
                           ]}
                         >
@@ -149,7 +146,7 @@ const AddCompany = () => {
                       </Col>
                     </Row>
                     <Form.Item
-                      style={{ marginBottom: '-50px' }}
+                      style={{ marginBottom: "-50px" }}
                       label="Description"
                       name="des"
                       // rules={[
@@ -166,7 +163,7 @@ const AddCompany = () => {
                     </Form.Item>
 
                     <Button
-                      style={{ marginTop: '0px', width: '150px' }}
+                      style={{ marginTop: "0px", width: "150px" }}
                       size="large"
                       type="primary"
                       htmlType="submit"
@@ -178,7 +175,7 @@ const AddCompany = () => {
                           height="10"
                         />
                       ) : (
-                        'SUBMIT'
+                        "SUBMIT"
                       )}
                     </Button>
                   </Col>
@@ -189,7 +186,7 @@ const AddCompany = () => {
                       rules={[
                         {
                           required: true,
-                          message: 'Please input Global size company!',
+                          message: "Please input Global size company!",
                         },
                       ]}
                     >
@@ -201,7 +198,7 @@ const AddCompany = () => {
                       rules={[
                         {
                           required: true,
-                          message: 'Please input Location of Company!',
+                          message: "Please input Location of Company!",
                         },
                       ]}
                     >
@@ -213,7 +210,7 @@ const AddCompany = () => {
                       rules={[
                         {
                           required: true,
-                          message: 'Please Type of Company!',
+                          message: "Please Type of Company!",
                         },
                       ]}
                     >
@@ -225,21 +222,21 @@ const AddCompany = () => {
                       rules={[
                         {
                           required: true,
-                          message: 'Please Type of Company!',
+                          message: "Please Type of Company!",
                         },
                       ]}
                     >
                       <Upload.Dragger {...uploadImage}>
-                        {image === '' ? (
+                        {image === "" ? (
                           <img
-                            style={{ width: '270px' }}
+                            style={{ width: "270px" }}
                             src="http://localhost:8080/undraw_upload_87y9.svg"
                             alt="avatar"
                           />
                         ) : (
                           <img
-                            style={{ width: '270px' }}
-                            src={`${'http://localhost:8080/' + image}`}
+                            style={{ width: "270px" }}
+                            src={`${"http://localhost:8080/" + image}`}
                             // src="http://localhost:8080/Technology-Images-Wallpapers-027.jpg"
                             alt="avatar"
                           />

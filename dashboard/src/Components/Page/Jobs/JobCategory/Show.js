@@ -42,7 +42,7 @@
 //           >
 //             <div
 //               className="site-layout-background"
-//               style={{ minHeight: 360, padding: 70 }}
+//
 //             > */}
 //       <Category />
 //       {/* </div>

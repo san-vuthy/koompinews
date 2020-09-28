@@ -1,12 +1,12 @@
-import React, { useState } from 'react';
-import { Col, Row, Layout, Form, Button, Input, Upload, message } from 'antd';
-import buttonLoading from '../../../asset/img/three-dots.svg';
-import LeftNavbar from '../../Layout/LeftNavbar';
-import Navbar from '../../Layout/Navbar';
-import TextEditor from '../../Help/TextEditor';
-import { ADD_KNOWLEDGE } from '../../../graphql/mutation';
-import { useMutation } from '@apollo/client';
-import { UploadOutlined } from '@ant-design/icons';
+import React, { useState } from "react";
+import { Col, Row, Layout, Form, Button, Input, Upload, message } from "antd";
+import buttonLoading from "../../../asset/img/three-dots.svg";
+import LeftNavbar from "../../Layout/LeftNavbar";
+import Navbar from "../../Layout/Navbar";
+import TextEditor from "../../Help/TextEditor";
+import { ADD_KNOWLEDGE } from "../../../graphql/mutation";
+import { useMutation } from "@apollo/client";
+import { UploadOutlined } from "@ant-design/icons";
 
 const { TextArea } = Input;
 const { Content } = Layout;
@@ -15,25 +15,25 @@ const AddKnowledge = () => {
   const [addKnowledge] = useMutation(ADD_KNOWLEDGE);
 
   const [loading1, setLoading] = useState(false);
-  const [imagesf, setImagesf] = useState('');
-  const [imagefaq, setImagefaq] = useState('');
-  const [imageklb, setImageklb] = useState('');
-  const [desc, setDesc] = useState('');
-  const [desc1, setDesc1] = useState('');
+  const [imagesf, setImagesf] = useState("");
+  const [imagefaq, setImagefaq] = useState("");
+  const [imageklb, setImageklb] = useState("");
+  const [desc, setDesc] = useState("");
+  const [desc1, setDesc1] = useState("");
 
   const onFinishFailed = (errorInfo) => {
-    console.log('Failed:', errorInfo);
+    console.log("Failed:", errorInfo);
   };
   const onFinish = (value) => {
     addKnowledge({
       variables: {
         ...value,
-        lastbase: desc === '' ? null : desc,
-        recentbase: desc1 === '' ? null : desc1,
+        lastbase: desc === "" ? null : desc,
+        recentbase: desc1 === "" ? null : desc1,
         klbavatar: imageklb,
         faqavatar: imagefaq,
         sfavatar: imagesf,
-        userId: '5f324067aeef78b4df13ca54',
+        userId: "5f324067aeef78b4df13ca54",
       },
     }).then(async (res) => {
       setLoading(true);
@@ -45,7 +45,7 @@ const AddKnowledge = () => {
       setDesc1(form.resetFields());
       form.resetFields();
     });
-    console.log('success', value, desc);
+    console.log("success", value, desc);
   };
   const onChange = (e) => {
     console.log(e);
@@ -60,74 +60,71 @@ const AddKnowledge = () => {
   };
 
   const uploadFaqs = {
-    name: 'file',
+    name: "file",
     multiple: false,
-    action: 'http://localhost:8080/upload',
+    action: "http://localhost:8080/upload",
     // listType: 'picture',
     // defaultFileList: image,
     onChange(info) {
       const { status } = info.file;
-      if (status !== 'uploading') {
+      if (status !== "uploading") {
         console.log(info.file, info.fileList);
       }
-      if (status === 'done') {
-        setImagefaq(info.file.name.replace(/\s+/g, '-').toLowerCase());
+      if (status === "done") {
+        setImagefaq(info.file.name.replace(/\s+/g, "-").toLowerCase());
         message.success(`${info.file.name} file uploaded successfully.`);
-      } else if (status === 'error') {
+      } else if (status === "error") {
         message.error(`${info.file.name} file upload failed.`);
       }
     },
   };
   const uploadKnowledgeBase = {
-    name: 'file',
+    name: "file",
     multiple: false,
-    action: 'http://localhost:8080/upload',
+    action: "http://localhost:8080/upload",
     // listType: 'picture',
     // defaultFileList: image,
     onChange(info) {
       const { status } = info.file;
-      if (status !== 'uploading') {
+      if (status !== "uploading") {
         console.log(info.file, info.fileList);
       }
-      if (status === 'done') {
-        setImageklb(info.file.name.replace(/\s+/g, '-').toLowerCase());
+      if (status === "done") {
+        setImageklb(info.file.name.replace(/\s+/g, "-").toLowerCase());
         message.success(`${info.file.name} file uploaded successfully.`);
-      } else if (status === 'error') {
+      } else if (status === "error") {
         message.error(`${info.file.name} file upload failed.`);
       }
     },
   };
 
   const uploadSupportForum = {
-    name: 'file',
+    name: "file",
     multiple: false,
-    action: 'http://localhost:8080/upload',
+    action: "http://localhost:8080/upload",
     // listType: 'picture',
     // defaultFileList: image,
     onChange(info) {
       const { status } = info.file;
-      if (status !== 'uploading') {
+      if (status !== "uploading") {
         console.log(info.file, info.fileList);
       }
-      if (status === 'done') {
-        setImagesf(info.file.name.replace(/\s+/g, '-').toLowerCase());
+      if (status === "done") {
+        setImagesf(info.file.name.replace(/\s+/g, "-").toLowerCase());
         message.success(`${info.file.name} file uploaded successfully.`);
-      } else if (status === 'error') {
+      } else if (status === "error") {
         message.error(`${info.file.name} file upload failed.`);
       }
     },
   };
   return (
     <React.Fragment>
-      <Layout style={{ minHeight: '100vh' }}>
+      <Layout style={{ minHeight: "100vh" }}>
         <LeftNavbar />
         <Layout className="site-layout">
           <Navbar />
-          <Content style={{ margin: '16px 16px', backgroundColor: '#fff' }}>
-            <div
-              className="site-layout-background"
-              style={{ minHeight: 360, padding: 70 }}
-            >
+          <Content style={{ margin: "16px 16px", backgroundColor: "#fff" }}>
+            <div className="site-layout-background">
               <h1 className="title-top">Add Knowledge</h1>
               <Form
                 form={form}
@@ -155,7 +152,7 @@ const AddKnowledge = () => {
                         <Form.Item
                           label="Lastbase"
                           name="lastbase"
-                          style={{ marginBottom: '-50px' }}
+                          style={{ marginBottom: "-50px" }}
                         >
                           <TextEditor
                             handleDescChange={handleDescChange}
@@ -167,7 +164,7 @@ const AddKnowledge = () => {
                         <Form.Item
                           label="Recentbase"
                           name="recentbase"
-                          style={{ marginBottom: '-50px' }}
+                          style={{ marginBottom: "-50px" }}
                         >
                           <TextEditor
                             handleDescChange={handleDesc1Change}
@@ -176,7 +173,7 @@ const AddKnowledge = () => {
                         </Form.Item>
                       </Col>
                       <Button
-                        style={{ marginTop: '0px', width: '150px' }}
+                        style={{ marginTop: "0px", width: "150px" }}
                         size="large"
                         // className="button button-submit"
                         type="primary"
@@ -189,7 +186,7 @@ const AddKnowledge = () => {
                             height="10"
                           />
                         ) : (
-                          'SUBMIT'
+                          "SUBMIT"
                         )}
                       </Button>
                     </Row>
@@ -214,7 +211,7 @@ const AddKnowledge = () => {
                       rules={[
                         {
                           required: true,
-                          message: 'Please input Describtion!',
+                          message: "Please input Describtion!",
                         },
                       ]}
                     >
@@ -230,7 +227,7 @@ const AddKnowledge = () => {
                       rules={[
                         {
                           required: true,
-                          message: 'Please input Knowledge Base!',
+                          message: "Please input Knowledge Base!",
                         },
                       ]}
                     >
@@ -246,7 +243,7 @@ const AddKnowledge = () => {
                       rules={[
                         {
                           required: true,
-                          message: 'Please input Support Forum!',
+                          message: "Please input Support Forum!",
                         },
                       ]}
                     >
@@ -264,7 +261,7 @@ const AddKnowledge = () => {
                           rules={[
                             {
                               required: true,
-                              message: 'Please input FAQs Avarta!',
+                              message: "Please input FAQs Avarta!",
                             },
                           ]}
                         >
@@ -280,7 +277,7 @@ const AddKnowledge = () => {
                           rules={[
                             {
                               required: true,
-                              message: 'Please input Knowledge Avarta!',
+                              message: "Please input Knowledge Avarta!",
                             },
                           ]}
                         >
@@ -296,7 +293,7 @@ const AddKnowledge = () => {
                           rules={[
                             {
                               required: true,
-                              message: 'Please input Support Forum Avarta!',
+                              message: "Please input Support Forum Avarta!",
                             },
                           ]}
                         >

@@ -1,15 +1,15 @@
-import React, { useState } from 'react';
-import { Col, Row, Layout, Form, Button, Input, Upload, message } from 'antd';
-import LeftNavbar from '../../Layout/LeftNavbar';
-import loadingPage from '../../../asset/img/Wedges-3s-200px.svg';
-import Navbar from '../../Layout/Navbar';
-import TextEditor from '../../Help/TextEditor';
-import { useParams } from 'react-router-dom';
-import { UPDATE_KNOWLEDGE } from '../../../graphql/mutation';
-import { GET_KNOWLEDGE, GET_A_KNOWLEDGE } from '../../../graphql/query';
-import { useQuery, useMutation } from '@apollo/client';
-import buttonLoading from '../../../asset/img/three-dots.svg';
-import { UploadOutlined } from '@ant-design/icons';
+import React, { useState } from "react";
+import { Col, Row, Layout, Form, Button, Input, Upload, message } from "antd";
+import LeftNavbar from "../../Layout/LeftNavbar";
+import loadingPage from "../../../asset/img/Wedges-3s-200px.svg";
+import Navbar from "../../Layout/Navbar";
+import TextEditor from "../../Help/TextEditor";
+import { useParams } from "react-router-dom";
+import { UPDATE_KNOWLEDGE } from "../../../graphql/mutation";
+import { GET_KNOWLEDGE, GET_A_KNOWLEDGE } from "../../../graphql/query";
+import { useQuery, useMutation } from "@apollo/client";
+import buttonLoading from "../../../asset/img/three-dots.svg";
+import { UploadOutlined } from "@ant-design/icons";
 
 const { TextArea } = Input;
 const { Content } = Layout;
@@ -21,27 +21,27 @@ const EditKnowledge = (props) => {
     variables: { id },
   });
   const [loading1, setLoading] = useState(false);
-  const [imagesf, setImagesf] = useState('');
-  const [imagefaq, setImagefaq] = useState('');
-  const [imageklb, setImageklb] = useState('');
-  const [desc, setDesc] = useState('');
-  const [desc1, setDesc1] = useState('');
+  const [imagesf, setImagesf] = useState("");
+  const [imagefaq, setImagefaq] = useState("");
+  const [imageklb, setImageklb] = useState("");
+  const [desc, setDesc] = useState("");
+  const [desc1, setDesc1] = useState("");
 
   const onFinishFailed = (errorInfo) => {
-    console.log('Failed:', errorInfo);
+    console.log("Failed:", errorInfo);
   };
   const onFinish = (value) => {
     updateKnowledge({
       variables: {
         id: id,
         ...value,
-        lastbase: desc === '' ? null : desc,
-        recentbase: desc1 === '' ? null : desc1,
-        klbavatar: imageklb === '' ? data.aKnowledge.klbavatar : imageklb,
-        faqavatar: imagefaq === '' ? data.aKnowledge.faqavatar : imagefaq,
-        sfavatar: imagesf === '' ? data.aKnowledge.sfavatar : imagesf,
+        lastbase: desc === "" ? null : desc,
+        recentbase: desc1 === "" ? null : desc1,
+        klbavatar: imageklb === "" ? data.aKnowledge.klbavatar : imageklb,
+        faqavatar: imagefaq === "" ? data.aKnowledge.faqavatar : imagefaq,
+        sfavatar: imagesf === "" ? data.aKnowledge.sfavatar : imagesf,
         // avarta: image === null ? data.aKnowledge.avarta : image,
-        userId: '5f324067aeef78b4df13ca54',
+        userId: "5f324067aeef78b4df13ca54",
       },
     }).then(async (res) => {
       setLoading(true);
@@ -50,9 +50,9 @@ const EditKnowledge = (props) => {
       }, 3000);
       await message.success(res.data.updateKnowledge.message);
       await refetch();
-      await props.history.push('/admin/allknowledge');
+      await props.history.push("/admin/allknowledge");
     });
-    console.log('success', value, desc);
+    console.log("success", value, desc);
   };
   const onChange = (e) => {
     console.log(e);
@@ -66,59 +66,59 @@ const EditKnowledge = (props) => {
     setDesc1(value);
   };
   const uploadFaqs = {
-    name: 'file',
+    name: "file",
     multiple: false,
-    action: 'http://localhost:8080/upload',
+    action: "http://localhost:8080/upload",
     // listType: 'picture',
     // defaultFileList: image,
     onChange(info) {
       const { status } = info.file;
-      if (status !== 'uploading') {
+      if (status !== "uploading") {
         console.log(info.file, info.fileList);
       }
-      if (status === 'done') {
-        setImagefaq(info.file.name.replace(/\s+/g, '-').toLowerCase());
+      if (status === "done") {
+        setImagefaq(info.file.name.replace(/\s+/g, "-").toLowerCase());
         message.success(`${info.file.name} file uploaded successfully.`);
-      } else if (status === 'error') {
+      } else if (status === "error") {
         message.error(`${info.file.name} file upload failed.`);
       }
     },
   };
   const uploadKnowledgeBase = {
-    name: 'file',
+    name: "file",
     multiple: false,
-    action: 'http://localhost:8080/upload',
+    action: "http://localhost:8080/upload",
     // listType: 'picture',
     // defaultFileList: image,
     onChange(info) {
       const { status } = info.file;
-      if (status !== 'uploading') {
+      if (status !== "uploading") {
         console.log(info.file, info.fileList);
       }
-      if (status === 'done') {
-        setImageklb(info.file.name.replace(/\s+/g, '-').toLowerCase());
+      if (status === "done") {
+        setImageklb(info.file.name.replace(/\s+/g, "-").toLowerCase());
         message.success(`${info.file.name} file uploaded successfully.`);
-      } else if (status === 'error') {
+      } else if (status === "error") {
         message.error(`${info.file.name} file upload failed.`);
       }
     },
   };
 
   const uploadSupportForum = {
-    name: 'file',
+    name: "file",
     multiple: false,
-    action: 'http://localhost:8080/upload',
+    action: "http://localhost:8080/upload",
     // listType: 'picture',
     // defaultFileList: image,
     onChange(info) {
       const { status } = info.file;
-      if (status !== 'uploading') {
+      if (status !== "uploading") {
         console.log(info.file, info.fileList);
       }
-      if (status === 'done') {
-        setImagesf(info.file.name.replace(/\s+/g, '-').toLowerCase());
+      if (status === "done") {
+        setImagesf(info.file.name.replace(/\s+/g, "-").toLowerCase());
         message.success(`${info.file.name} file uploaded successfully.`);
-      } else if (status === 'error') {
+      } else if (status === "error") {
         message.error(`${info.file.name} file upload failed.`);
       }
     },
@@ -128,7 +128,7 @@ const EditKnowledge = (props) => {
       <center>
         <img
           alt="laoding"
-          style={{ height: '80px', marginTop: '200px' }}
+          style={{ height: "80px", marginTop: "200px" }}
           src={loadingPage}
         />
       </center>
@@ -136,15 +136,12 @@ const EditKnowledge = (props) => {
   }
   return (
     <React.Fragment>
-      <Layout style={{ minHeight: '100vh' }}>
+      <Layout style={{ minHeight: "100vh" }}>
         <LeftNavbar />
         <Layout className="site-layout">
           <Navbar />
-          <Content style={{ margin: '16px 16px', backgroundColor: '#fff' }}>
-            <div
-              className="site-layout-background"
-              style={{ minHeight: 360, padding: 70 }}
-            >
+          <Content style={{ margin: "16px 16px", backgroundColor: "#fff" }}>
+            <div className="site-layout-background">
               <h1 className="title-top">Update Knowledge</h1>
               <Form
                 layout="vertical"
@@ -165,7 +162,7 @@ const EditKnowledge = (props) => {
                         <Form.Item
                           label="Lastbase"
                           name="lastbase"
-                          style={{ marginBottom: '-90px' }}
+                          style={{ marginBottom: "-90px" }}
                           initialValue={data.aKnowledge.lastbase}
                         >
                           <TextEditor
@@ -178,7 +175,7 @@ const EditKnowledge = (props) => {
                         <Form.Item
                           label="Recentbase"
                           name="recentbase"
-                          style={{ marginBottom: '-90px' }}
+                          style={{ marginBottom: "-90px" }}
                           initialValue={data.aKnowledge.recentbase}
                         >
                           <TextEditor
@@ -188,7 +185,7 @@ const EditKnowledge = (props) => {
                         </Form.Item>
                       </Col>
                       <Button
-                        style={{ marginTop: '0px', width: '150px' }}
+                        style={{ marginTop: "0px", width: "150px" }}
                         size="large"
                         type="primary"
                         htmlType="submit"
@@ -200,7 +197,7 @@ const EditKnowledge = (props) => {
                             height="10"
                           />
                         ) : (
-                          'Update'
+                          "Update"
                         )}
                       </Button>
                     </Row>
@@ -231,7 +228,7 @@ const EditKnowledge = (props) => {
                       rules={[
                         {
                           required: true,
-                          message: 'Please input Describtion!',
+                          message: "Please input Describtion!",
                         },
                       ]}
                     >
@@ -248,7 +245,7 @@ const EditKnowledge = (props) => {
                       rules={[
                         {
                           required: true,
-                          message: 'Please input Knowledge Base!',
+                          message: "Please input Knowledge Base!",
                         },
                       ]}
                     >
@@ -265,7 +262,7 @@ const EditKnowledge = (props) => {
                       rules={[
                         {
                           required: true,
-                          message: 'Please input Support Forum!',
+                          message: "Please input Support Forum!",
                         },
                       ]}
                     >
@@ -284,7 +281,7 @@ const EditKnowledge = (props) => {
                           rules={[
                             {
                               required: true,
-                              message: 'Please input FAQs Avarta!',
+                              message: "Please input FAQs Avarta!",
                             },
                           ]}
                         >
@@ -301,7 +298,7 @@ const EditKnowledge = (props) => {
                           rules={[
                             {
                               required: true,
-                              message: 'Please input Knowledge Avarta!',
+                              message: "Please input Knowledge Avarta!",
                             },
                           ]}
                         >
@@ -318,7 +315,7 @@ const EditKnowledge = (props) => {
                           rules={[
                             {
                               required: true,
-                              message: 'Please input Support Forum Avarta!',
+                              message: "Please input Support Forum Avarta!",
                             },
                           ]}
                         >
